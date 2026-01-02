@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+class Blog extends Model
+{   
+    protected $fillable = ['user_id','title','description','category','content','status','slug'];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($blog) {
+            // Only generate slug if it doesn't exist
+            if (empty($blog->slug)) {
+                $baseSlug = Str::slug($blog->title);
+
+                // Make slug unique
+                $count = static::where('slug', 'LIKE', "{$baseSlug}%")->count();
+                $blog->slug = $count ? "{$baseSlug}-{$count}" : $baseSlug;
+            }
+        });
+    }
+}
