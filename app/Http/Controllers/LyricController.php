@@ -113,28 +113,12 @@ class LyricController extends Controller
 
     public function index(Request $request)
     {
-        $lyrics = Lyric::where('status', 'published')->where('user_id', auth()->id())
-            ->get()
-            ->map(function ($lyric) {
-                return [
-                    'id' => $lyric->id,
-                    'title' => $lyric->title,
-                    'genre' => $lyric->genre,
-                    'price' => $lyric->price,
-                    'mood' => $lyric->mood,
-                    'theme' => $lyric->theme,
-                    'pov' => $lyric->pov,
-                    'language' => $lyric->language,
-                    'slug' => $lyric->slug,
-                    'content' => $lyric->content,
-                    'status' => $lyric->status,
-                    'snippet' => Str::limit($lyric->content, 150),
-                ];
-            });
+        $lyrics = Lyric::where('status', 'published')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->paginate(10);
 
-        return view('lyrics/Index', [
-            'lyrics' => $lyrics
-        ]);
+        return view('lyrics.index', compact('lyrics'));
     }
     public function store(Request $request)
     {
@@ -156,7 +140,7 @@ class LyricController extends Controller
 
     public function create()
     {
-        return view('lyrics/Create');
+        return view('lyrics/create');
     }
 
     public function show(Lyric $lyric)
@@ -216,7 +200,7 @@ class LyricController extends Controller
     public function destroy(Lyric $lyric)
     {
         $lyric->delete();
-        return redirect()->route('lyricsIndex');
+        return redirect()->route('lyrics.index');
     }
 
     public function success()

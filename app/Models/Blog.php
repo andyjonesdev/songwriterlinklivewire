@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 class Blog extends Model
 {   
     protected $fillable = ['user_id','title','description','category','content','status','slug'];
+    protected $appends = ['snippet'];
     protected static function boot()
     {
         parent::boot();
@@ -21,5 +22,9 @@ class Blog extends Model
                 $blog->slug = $count ? "{$baseSlug}-{$count}" : $baseSlug;
             }
         });
+    }
+    public function getSnippetAttribute()
+    {
+        return \Str::limit($this->content, 150);
     }
 }

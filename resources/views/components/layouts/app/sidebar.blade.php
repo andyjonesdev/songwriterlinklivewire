@@ -10,22 +10,77 @@
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>
-
+            
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__(auth()->user()->name)" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    @if (auth()->user()->role=='seller')
+                        <flux:navlist.item icon="pencil-square" :href="route('lyrics.index')" :current="request()->routeIs('lyrics.index')" wire:navigate>{{ __('Your Lyrics') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user-circle" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>{{ __('Your Profile') }}</flux:navlist.item>
+                        <flux:navlist.item icon="currency-dollar" :href="route('dashboard.payments')" :current="request()->routeIs('dashboard.payments')" wire:navigate>{{ __('Your Payment Details') }}</flux:navlist.item>
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('sales')" :current="request()->routeIs('sales')" wire:navigate>{{ __('Your Sales') }}</flux:navlist.item>
+                    @endif
+                    @if (auth()->user()->id === 1)
+                        <flux:navlist.item icon="pencil-square" :href="route('blog.admin')" :current="request()->routeIs('blog.admin')" wire:navigate>{{ __('Blog Admin') }}</flux:navlist.item>
+                    @endif
+                    
+
+                    <!-- if (user.role === 'seller') {
+    mainNavItems.push(
+        {
+            title: 'Dashboard',
+            href: sellerdashboard(),
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Your Profile',
+            href: sellerProfileEdit(),
+            icon: User,
+        },
+        {
+            title: 'Your Lyrics',
+            href: lyricsIndex(),
+            icon: PencilLine,
+        },
+        {
+            title: 'Your Payment Details',
+            href: payments(),
+            icon: HandCoins,
+        },
+        {
+            title: 'Your Sales',
+            href: sales(),
+            icon: BadgeDollarSign,
+        }
+    );
+}
+
+if (user.role === 'buyer') {
+    mainNavItems.push(
+        {
+            title: 'Dashboard',
+            href: buyerdashboard(),
+            icon: LayoutGrid,
+        }
+    );
+}  
+if (user?.id === 1) {
+    mainNavItems.push({
+        title: 'Blog Admin',
+        href: blogAdmin(),
+        icon: PencilIcon,
+    });
+}    
+
+-->
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
-
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
+                {{ __('FAQs') }}
                 </flux:navlist.item>
             </flux:navlist>
 

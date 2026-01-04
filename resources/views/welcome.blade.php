@@ -121,38 +121,39 @@
             <div class="dark:text-white gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
                 <!-- Loop through lyrics -->
                 @foreach ($lyrics as $lyric)
-                   
-                    <div x-text="lyric.title"></div>
-                    <a
-                        :href="`/lyrics/buy/${lyric.slug}`"
-                        class="text-2xl font-semibold hover:underline"
-                    >
-                        {{ $lyric['title'] }}
-                    </a>
-                    <br />Written By:{{ $lyric['user'] }}
-                
-                    <a
-                        :href="lyric.user_profile"
-                        class="font-semibold hover:underline"
-                    >
-                        {{ $lyric['user'] }}
-                    </a>
+                   <div class="p-4 border rounded mb-4">
+                        <div x-text="lyric.title"></div>
+                        <a
+                            :href="`/lyrics/buy/${lyric.slug}`"
+                            class="text-2xl font-semibold hover:underline"
+                        >
+                            {{ $lyric['title'] }}
+                        </a>
+                        <br />Written By:{{ $lyric['user'] }}
+                    
+                        <a
+                            :href="lyric.user_profile"
+                            class="font-semibold hover:underline"
+                        >
+                            {{ $lyric['user'] }}
+                        </a>
 
-                    <p class="text-gray-600 mt-2 dark:text-white">
-                        {{ $lyric['snippet'] }}
-                    </p>
+                        <p class="text-gray-600 mt-2 dark:text-white">
+                            {{ $lyric['snippet'] }}
+                        </p>
 
-                    <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
-                    <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
-                    <a
-                        :href="`/lyrics/buy/${lyric.slug}`"
-                        class="
-                        rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
-                    hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-                    dark:hover:border-white dark:hover:bg-white"
-                    >
-                        View Full Lyric
-                    </a>
+                        <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
+                        <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
+                        <a
+                            :href="`/lyrics/buy/${lyric.slug}`"
+                            class="
+                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
+                        hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
+                        dark:hover:border-white dark:hover:bg-white"
+                        >
+                            View Full Lyric
+                        </a>
+                    </div>
                     @endforeach
                 </div>
 
@@ -228,31 +229,31 @@
 
         <div class="dark:text-white gap-4 p-6 lg:px-12 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
     
-            <div class="p-4 border rounded mb-4">
-               @foreach ($blogs as $blog)
-                <Link
-                    :href="`/blog/${blog.slug}`"
-                    class="text-2xl font-semibold hover:underline"
-                >
-                    {{ $blog['title'] }}
-                </Link>
-                
-                <p class="text-gray-600 mt-2 dark:text-white">
-                    {{ $blog['snippet'] }}
-                </p>
+            @foreach ($blogs as $blog)
+                <div class="p-4 border rounded mb-4">
+                    <a
+                        href="`/blog/${blog.slug}`"
+                        class="text-2xl font-semibold hover:underline"
+                    >
+                        {{ $blog['title'] }}
+                    </a>
+                    
+                    <p class="text-gray-600 mt-2 dark:text-white">
+                        {{ $blog['snippet'] }}
+                    </p>
 
-                <p class="my-4 text-gray-600">Category: {{ $blog['category'] }}</p>
-                <Link
-                    :href="`/blog/${blog.slug}`"
-                    class="
-                    rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
-                hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-                dark:hover:border-white dark:hover:bg-white"
-                >
-                    View Article
-                </Link>
-                @endforeach
+                    <p class="my-4 text-gray-600">Category: {{ $blog['category'] }}</p>
+                    <a
+                        href="`/blog/${blog.slug}`"
+                        class="
+                        rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
+                    hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
+                    dark:hover:border-white dark:hover:bg-white"
+                    >
+                        View Article
+                    </a>
             </div>
+            @endforeach
 
         </div>
 

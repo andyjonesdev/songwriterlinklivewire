@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use App\Models\Blog;
+
+class BlogEdit extends Component
+{
+    public Blog $blog;
+
+    public $title;
+    public $description;
+    public $category;
+    public $content;
+
+    public $updated = false;
+
+    protected $rules = [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string|max:255',
+        'category' => 'required|string',
+        'content' => 'required|string',
+    ];
+
+    public function mount(Blog $blog)
+    {
+        $this->blog = $blog;
+
+        $this->title = $blog->title;
+        $this->description = $blog->description;
+        $this->category = $blog->category;
+        $this->content = $blog->content;
+    }
+
+    public function submit()
+    {
+        $this->validate();
+
+        $this->blog->update([
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category,
+            'content' => $this->content,
+        ]);
+
+        $this->updated = true;
+    }
+
+    public function render()
+    {
+        return view('livewire.blog-edit');
+    }
+}

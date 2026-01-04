@@ -10,6 +10,7 @@ class Lyric extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id','title','genre','content','price','status','slug', 'mood', 'theme', 'pov', 'language'];
+    protected $appends = ['snippet'];
     protected static function boot()
     {
         parent::boot();
@@ -43,5 +44,9 @@ class Lyric extends Model
     public function licenseTemplates()
     {
         return $this->belongsToMany(LicenseTemplate::class, 'license_lyric');
+    }
+    public function getSnippetAttribute()
+    {
+        return \Str::limit($this->content, 150);
     }
 }
