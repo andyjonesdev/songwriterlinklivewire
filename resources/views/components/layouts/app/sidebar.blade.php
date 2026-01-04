@@ -16,70 +16,25 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     @if (auth()->user()->role=='seller')
                         <flux:navlist.item icon="pencil-square" :href="route('lyrics.index')" :current="request()->routeIs('lyrics.index')" wire:navigate>{{ __('Your Lyrics') }}</flux:navlist.item>
-                        <flux:navlist.item icon="user-circle" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>{{ __('Your Profile') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user-circle" :href="route('users.edit')" :current="request()->routeIs('users.edit')" wire:navigate>{{ __('Your Bio') }}</flux:navlist.item>
                         <flux:navlist.item icon="currency-dollar" :href="route('dashboard.payments')" :current="request()->routeIs('dashboard.payments')" wire:navigate>{{ __('Your Payment Details') }}</flux:navlist.item>
-                        <flux:navlist.item icon="presentation-chart-line" :href="route('sales')" :current="request()->routeIs('sales')" wire:navigate>{{ __('Your Sales') }}</flux:navlist.item>
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('users.sales')" :current="request()->routeIs('users.sales')" wire:navigate>{{ __('Your Sales') }}</flux:navlist.item>
+                    @endif
+                    @if (auth()->user()->role=='buyer')
+                        <flux:navlist.item icon="pencil-square" :href="route('buyLyrics')" :current="request()->routeIs('buyLyrics')" wire:navigate>{{ __('Browse Lyrics') }}</flux:navlist.item>
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('users.sales')" :current="request()->routeIs('users.sales')" wire:navigate>{{ __('Your Purchased Lyrics') }}</flux:navlist.item>
                     @endif
                     @if (auth()->user()->id === 1)
                         <flux:navlist.item icon="pencil-square" :href="route('blog.admin')" :current="request()->routeIs('blog.admin')" wire:navigate>{{ __('Blog Admin') }}</flux:navlist.item>
                     @endif
-                    
 
-                    <!-- if (user.role === 'seller') {
-    mainNavItems.push(
-        {
-            title: 'Dashboard',
-            href: sellerdashboard(),
-            icon: LayoutGrid,
-        },
-        {
-            title: 'Your Profile',
-            href: sellerProfileEdit(),
-            icon: User,
-        },
-        {
-            title: 'Your Lyrics',
-            href: lyricsIndex(),
-            icon: PencilLine,
-        },
-        {
-            title: 'Your Payment Details',
-            href: payments(),
-            icon: HandCoins,
-        },
-        {
-            title: 'Your Sales',
-            href: sales(),
-            icon: BadgeDollarSign,
-        }
-    );
-}
-
-if (user.role === 'buyer') {
-    mainNavItems.push(
-        {
-            title: 'Dashboard',
-            href: buyerdashboard(),
-            icon: LayoutGrid,
-        }
-    );
-}  
-if (user?.id === 1) {
-    mainNavItems.push({
-        title: 'Blog Admin',
-        href: blogAdmin(),
-        icon: PencilIcon,
-    });
-}    
-
--->
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+                <flux:navlist.item icon="book-open-text" href="/faqs">
                 {{ __('FAQs') }}
                 </flux:navlist.item>
             </flux:navlist>

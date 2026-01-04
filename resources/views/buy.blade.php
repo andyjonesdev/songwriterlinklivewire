@@ -1,4 +1,4 @@
-<x-layouts.page :title="__('Welcome')">
+<x-layouts.page :title="__('Buy Original Song Lyrics: Songwriter Link')" :description="__('Buy original song lyrics from professional writers. Browse unique, high-quality lyrics for all genres—perfect for your next music project.')">
     
         <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
     
@@ -51,18 +51,18 @@
                         <div class="p-4 border rounded mb-4">
                             <div x-text="lyric.title"></div>
                             <a
-                                :href="`/lyrics/buy/${lyric.slug}`"
+                                href="{{ route('lyrics.show', $lyric->slug) }}"
                                 class="text-2xl font-semibold hover:underline"
                             >
                                 {{ $lyric['title'] }}
                             </a>
-                            <br />Written By:{{ $lyric['user'] }}
+                            <br />Written By:
                         
                             <a
-                                :href="lyric.user_profile"
+                                href="{{ route('users.show', $lyric->user) }}"
                                 class="font-semibold hover:underline"
                             >
-                                {{ $lyric['user'] }}
+                                {{ $lyric['user']['name'] }}
                             </a>
 
                             <p class="text-gray-600 mt-2 dark:text-white">
@@ -72,7 +72,7 @@
                             <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
                             <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
                             <a
-                                :href="`/lyrics/buy/${lyric.slug}`"
+                                href="{{ route('lyrics.show', $lyric->slug) }}"
                                 class="
                                 rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
                             hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 

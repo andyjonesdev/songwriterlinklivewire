@@ -1,5 +1,5 @@
-<x-layouts.page :title="__('Welcome')">
-    
+<x-layouts.page :title="__('Songwriter Link: Buy and Sell Original Song Lyrics')" :description="__('Discover Fresh, Original Song Lyrics for Your Next Music Project. Browse the world’s leading catalogue of high-quality lyrics, crafted by professional songwriters.')">
+  
         <div
             class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
         >
@@ -13,68 +13,33 @@
                     <h1 class="mb-1 font-medium text-6xl">Buy lyrics online</h1>
                     <h2 class="text-3xl my-4">Sell lyrics and poems online</h2>
                     <div class="text-lg">
-                    <p class="my-2">A place where you can sell your lyrics to songwriters who need your help to finish their songs.</p>
-                    <p class="my-2">Buy and Sell Original Lyrics, Songs, and Poems at SongwriterLink – The Global Marketplace for Creative Writers and Musicians.</p>
-                    <p class="my-2">SongwriterLink is the world’s leading online marketplace for buying and selling original lyrics and poetry. Whether you’re a songwriter, music producer, performing artist, or simply in search of professionally written lyrics, SongwriterLink connects you with a global community of talented creators.</p>
-                    <p class="my-2">Our curated library features high-quality, original content in every genre—written, composed, and performed by professional lyricists and poets from around the world. From heartfelt ballads and powerful rap verses to catchy pop hooks and cinematic poetry, you’ll find creative works to suit every project and audience.</p>
-                    <p class="my-2">At SongwriterLink, we make it easy to:</p>
+                        <p class="my-2">A place where you can sell your lyrics to songwriters who need your help to finish their songs.</p>
+                        <p class="my-2">Buy and Sell Original Lyrics, Songs, and Poems at SongwriterLink – The Global Marketplace for Creative Writers and Musicians.</p>
+                        <p class="my-2">SongwriterLink is the world’s leading online marketplace for buying and selling original lyrics and poetry. Whether you’re a songwriter, music producer, performing artist, or simply in search of professionally written lyrics, SongwriterLink connects you with a global community of talented creators.</p>
+                        <p class="my-2">Our curated library features high-quality, original content in every genre—written, composed, and performed by professional lyricists and poets from around the world. From heartfelt ballads and powerful rap verses to catchy pop hooks and cinematic poetry, you’ll find creative works to suit every project and audience.</p>
+                        <p class="my-2">At SongwriterLink, we make it easy to:</p>
 
-                    <ul class="mb-4 flex flex-col lg:mb-6">
-                        <li class="relative flex items-center gap-4 py-2 before:absolute before:top-1/2 before:bottom-1/2 before:left-[0.4rem] before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]">
-                            <span class="relative py-1 dark:bg-[#161615]">
-                                <span class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#888]  shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] dark:border-[#3E3E3A] dark:bg-[#161615]">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-[#888] dark:bg-[#3E3E3A]" />
-                                </span>
-                            </span>
-                            <span>
-                                Purchase lyrics and songs for personal or commercial use
-                            </span>
-                        </li>
-                        <li
-                            class="relative flex items-center gap-4 py-2 before:absolute before:top-1/2 before:bottom-1/2 before:left-[0.4rem] before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]"
-                        >
-                            <span
-                                class="relative py-1 dark:bg-[#161615]"
-                            >
-                                <span
-                                    class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#888]  shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] dark:border-[#3E3E3A] dark:bg-[#161615]"
-                                >
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-[#888] dark:bg-[#3E3E3A]"
-                                    />
-                                </span>
-                            </span>
-                            <span>
-                                License or buy exclusive rights to creative content
-                            </span>
-                        </li>
-                        <li
-                            class="relative flex items-center gap-4 py-2 before:absolute before:top-1/2 before:bottom-1/2 before:left-[0.4rem] before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]"
-                        >
-                            <span
-                                class="relative py-1 dark:bg-[#161615]"
-                            >
-                                <span
-                                    class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#888]  shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] dark:border-[#3E3E3A] dark:bg-[#161615]"
-                                >
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-[#888] dark:bg-[#3E3E3A]"
-                                    />
-                                </span>
-                            </span>
-                            <span>
-                                Sell your own lyrics or poems and gain global exposure
-                            </span>
-                        </li>
-                    </ul>
+                        <div class="flex gap-4">
+                            <div><i class="fa-regular fa-badge-check"></i></div>
+                            <div>Purchase lyrics and songs for personal or commercial use</div>
+                        </div>
 
+                        <div class="flex gap-4">
+                            <div><i class="fa-regular fa-badge-check"></i></div>
+                            <div>License or buy exclusive rights to creative content</div>
+                        </div>
 
-                    <p class="mb-6">Explore. Discover. Create. Only at SongwriterLink.</p>
+                        <div class="flex gap-4">
+                            <div><i class="fa-regular fa-badge-check"></i></div>
+                            <div>Sell your own lyrics or poems and gain global exposure</div>
+                        </div>
+
+                        <p class="my-6">Explore. Discover. Create. Only at SongwriterLink.</p>
                     </div>
 
 
                     <ul class="flex gap-3 text-sm leading-normal">
-                        <Link
+                        <a
                             href="/buy-lyrics"
                             class="
                             rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
@@ -82,7 +47,7 @@
                         dark:hover:border-white dark:hover:bg-white"
                         >
                             Explore Lyrics & Poems
-                        </Link>
+                        </a>
                     </ul>
                 </div>
                 <div
@@ -124,18 +89,18 @@
                    <div class="p-4 border rounded mb-4">
                         <div x-text="lyric.title"></div>
                         <a
-                            :href="`/lyrics/buy/${lyric.slug}`"
+                            href="{{ route('lyrics.show', $lyric->slug) }}"
                             class="text-2xl font-semibold hover:underline"
                         >
                             {{ $lyric['title'] }}
                         </a>
-                        <br />Written By:{{ $lyric['user'] }}
+                        <br />Written By:
                     
                         <a
                             :href="lyric.user_profile"
                             class="font-semibold hover:underline"
                         >
-                            {{ $lyric['user'] }}
+                            {{ $lyric['user']['name'] }}
                         </a>
 
                         <p class="text-gray-600 mt-2 dark:text-white">
@@ -145,7 +110,7 @@
                         <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
                         <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
                         <a
-                            :href="`/lyrics/buy/${lyric.slug}`"
+                            href="{{ route('lyrics.show', $lyric->slug) }}"
                             class="
                             rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
                         hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
@@ -232,7 +197,7 @@
             @foreach ($blogs as $blog)
                 <div class="p-4 border rounded mb-4">
                     <a
-                        href="`/blog/${blog.slug}`"
+                        href="{{ route('blog.show', $blog->slug) }}"
                         class="text-2xl font-semibold hover:underline"
                     >
                         {{ $blog['title'] }}
@@ -244,7 +209,7 @@
 
                     <p class="my-4 text-gray-600">Category: {{ $blog['category'] }}</p>
                     <a
-                        href="`/blog/${blog.slug}`"
+                        href="{{ route('blog.show', $blog->slug) }}"
                         class="
                         rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
                     hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 

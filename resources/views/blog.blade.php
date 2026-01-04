@@ -1,5 +1,5 @@
-<x-layouts.page :title="__('Welcome')">
-    
+<x-layouts.page :title="__('Blog - SongwriterLink')" :description="__('Articles about music and songwriting by SongwriterLink')">
+
         <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
     
             <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">

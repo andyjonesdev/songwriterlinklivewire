@@ -12,49 +12,34 @@ class LyricController extends Controller
 {
     public function welcome()
     {
-        $lyrics = Lyric::where('status', 'published')
-            ->latest()
-            ->take(12)
-            ->get()
-            ->map(function ($lyric) {
-                return [
-                    'id' => $lyric->id,
-                    'title' => $lyric->title,
-                    'genre' => $lyric->genre,
-                    'price' => $lyric->price,
-                    'mood' => $lyric->mood,
-                    'theme' => $lyric->theme,
-                    'pov' => $lyric->pov,
-                    'language' => $lyric->language,
-                    'slug' => $lyric->slug,
-                    'content' => $lyric->content,
-                    'status' => $lyric->status,
-                    'snippet' => Str::limit($lyric->content, 250),
-                    'created_at' => $lyric->created_at,
-                    'user' => $lyric->user ? $lyric->user->name : null, // user's name
-                    'user_profile' => $lyric->user 
-                        ? route('profile.show', $lyric->user->id)
-                        : null,
-                ];
-            });
+        // $lyrics = Lyric::where('status', 'published')
+        //     ->latest()
+        //     ->take(12)
+        //     ->get()
+        //     ->map(function ($lyric) {
+        //         return [
+        //             'id' => $lyric->id,
+        //             'title' => $lyric->title,
+        //             'genre' => $lyric->genre,
+        //             'price' => $lyric->price,
+        //             'mood' => $lyric->mood,
+        //             'theme' => $lyric->theme,
+        //             'pov' => $lyric->pov,
+        //             'language' => $lyric->language,
+        //             'slug' => $lyric->slug,
+        //             'content' => $lyric->content,
+        //             'status' => $lyric->status,
+        //             'snippet' => Str::limit($lyric->content, 250),
+        //             'created_at' => $lyric->created_at,
+        //             'user' => $lyric->user ? $lyric->user->name : null, // user's name
+        //             'user_profile' => $lyric->user 
+        //                 ? route('profile.show', $lyric->user->id)
+        //                 : null,
+        //         ];
+        //     });
 
-        $blogs = Blog::where('status', 'published')
-            ->latest()
-            ->take(3)
-            ->get()
-            ->map(function ($blog) {
-                return [
-                    'id' => $blog->id,
-                    'title' => $blog->title,
-                    'category' => $blog->category,
-                    'slug' => $blog->slug,
-                    'content' => $blog->content,
-                    'status' => $blog->status,
-                    'snippet' => Str::limit($blog->content, 250),
-                    'created_at' => $blog->created_at,
-                ];
-            });
-
+        $lyrics = Lyric::where('status','published')->latest()->take(12)->get();
+        $blogs = Blog::where('status','published')->latest()->take(3)->get();
 
         return view('welcome', [
             'canRegister' => Features::enabled(Features::registration()),
@@ -70,35 +55,37 @@ class LyricController extends Controller
     {
         $genre = $request->get('genre'); // example: ?genre=rap
 
-        $lyrics = Lyric::query()
-            ->where('status', 'published')                   // only approved
-            ->when($genre, function ($query) use ($genre) { // filter by genre if provided
-                $query->where('genre', $genre);
-            })
-            ->latest()
-            ->paginate(24)
-            ->withQueryString() // keeps ?genre=... during pagination
-            ->through(function ($lyric) {
-                return [
-                    'id' => $lyric->id,
-                    'title' => $lyric->title,
-                    'genre' => $lyric->genre,
-                    'price' => $lyric->price,
-                    'mood' => $lyric->mood,
-                    'theme' => $lyric->theme,
-                    'pov' => $lyric->pov,
-                    'language' => $lyric->language,
-                    'slug' => $lyric->slug,
-                    'content' => $lyric->content,
-                    'status' => $lyric->status,
-                    'snippet' => Str::limit($lyric->content, 250),
-                    'created_at' => $lyric->created_at,
-                    'user' => $lyric->user ? $lyric->user->name : null, // user's name
-                    'user_profile' => $lyric->user 
-                        ? route('profile.show', $lyric->user->id)
-                        : null,
-                ];
-            });
+        // $lyrics = Lyric::query()
+        //     ->where('status', 'published')                   // only approved
+        //     ->when($genre, function ($query) use ($genre) { // filter by genre if provided
+        //         $query->where('genre', $genre);
+        //     })
+        //     ->latest()
+        //     ->paginate(24)
+        //     ->withQueryString() // keeps ?genre=... during pagination
+        //     ->through(function ($lyric) {
+        //         return [
+        //             'id' => $lyric->id,
+        //             'title' => $lyric->title,
+        //             'genre' => $lyric->genre,
+        //             'price' => $lyric->price,
+        //             'mood' => $lyric->mood,
+        //             'theme' => $lyric->theme,
+        //             'pov' => $lyric->pov,
+        //             'language' => $lyric->language,
+        //             'slug' => $lyric->slug,
+        //             'content' => $lyric->content,
+        //             'status' => $lyric->status,
+        //             'snippet' => Str::limit($lyric->content, 250),
+        //             'created_at' => $lyric->created_at,
+        //             'user' => $lyric->user ? $lyric->user->name : null, // user's name
+        //             'user_profile' => $lyric->user 
+        //                 ? route('profile.show', $lyric->user->id)
+        //                 : null,
+        //         ];
+        //     });
+            
+        $lyrics = Lyric::where('status','published')->latest()->paginate(12);
 
         return view('buy', [
             'canRegister' => Features::enabled(Features::registration()),
@@ -149,28 +136,38 @@ class LyricController extends Controller
         $lyric->load('user:id,name');
         $user = auth()->user();
 
-        return view('lyrics/Show', [
-            'lyric' => [
-                'id' => $lyric->id,
-                'title' => $lyric->title,
-                'content' => $lyric->content,
-                'slug' => $lyric->slug,
-                'status' => $lyric->status,
-                'genre' => $lyric->genre,
-                'price' => $lyric->price,
-                'mood' => $lyric->mood,
-                'theme' => $lyric->theme,
-                'pov' => $lyric->pov,
-                'language' => $lyric->language,
-                'created_at' => $lyric->created_at,
-                'user' => $lyric->user ? $lyric->user->name : null, // user's name
-            ],
-            'user' => $user,
+        // return view('lyrics/Show', [
+        //     'lyric' => [
+        //         'id' => $lyric->id,
+        //         'title' => $lyric->title,
+        //         'content' => $lyric->content,
+        //         'slug' => $lyric->slug,
+        //         'status' => $lyric->status,
+        //         'genre' => $lyric->genre,
+        //         'price' => $lyric->price,
+        //         'mood' => $lyric->mood,
+        //         'theme' => $lyric->theme,
+        //         'pov' => $lyric->pov,
+        //         'language' => $lyric->language,
+        //         'created_at' => $lyric->created_at,
+        //         'user' => $lyric->user ? $lyric->user->name : null, // user's name
+        //     ],
+        //     'user' => $user,
+        //     'meta' => [
+        //         'title' => $lyric->title . ' - Songwriter Link Original Song Lyrics',
+        //         'description' => 'Song Lyrics by ' . $lyric->user->name,
+        //     ],
+        // ]);
+
+        return view('lyrics.show', [
+            'lyric' => $lyric,
+            'user' => auth()->user(),
             'meta' => [
-                'title' => $lyric->title . ' - Songwriter Link Original Song Lyrics',
-                'description' => 'Song Lyrics by ' . $lyric->user->name,
+                'title' => $lyric->title,
+                'description' => Str::limit(strip_tags($lyric->content), 160),
             ],
         ]);
+
     }
     public function edit(Lyric $lyric)
     {

@@ -1,4 +1,7 @@
-@props(['title'])
+@props([
+    'title',
+    'description' => ''
+])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $title }}</title>
+    <meta name="description" content="{{ $description }}">
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">

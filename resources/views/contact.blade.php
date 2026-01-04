@@ -1,0 +1,20 @@
+<x-layouts.page :title="__('Contact us - SongwriterLink')" :description="__('Get in touch with the support team at SongwriterLink')">
+    
+    <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
+    
+        <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
+            <main
+                class="flex w-full flex-col-reverse overflow-hidden rounded-lg lg:flex-row">
+                <div class="p-6 lg:p-0 flex-1 rounded-lg pb-12 text-[13px] leading-[20px] bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:p-20 dark:bg-[#161615ba] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]">
+                    <h1 class="mb-1 font-medium text-4xl lg:text-6xl">Contact Us</h1>
+                </div>  
+            </main>
+        </div>
+
+        <div class="lg:w-2/3 lg:mx-20 dark:text-white">         
+            <h3 class="text-xl mt-8 mb-4">Email us: support@songwriterlink.com</h3>
+        </div> 
+
+    </div>
+
+</x-layouts.page>

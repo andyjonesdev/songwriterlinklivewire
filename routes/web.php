@@ -102,9 +102,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('blog.create');
 
 
-Route::middleware(['auth'])->get('/admin/blog/{blog:slug}/edit', BlogEdit::class)
-    ->name('blog.edit');
+    Route::middleware(['auth'])->get('/admin/blog/{blog:slug}/edit', BlogEdit::class)
+        ->name('blog.edit');
 
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/seller/profile/edit', function () {
+            return view('users.edit'); // blade with livewire
+        })->name('users.edit');
+    });
+
+    Route::get('/seller/sales', function () {
+        return view('users.sales'); // blade with livewire
+    })->name('users.sales');
 
     // Route::middleware(['auth', 'admin.user'])->group(function () {
     //     Route::prefix('blog/admin')->group(function () {
@@ -133,7 +142,7 @@ Route::get('/success', [LyricController::class, 'success'])->name('success');
 
 Route::get('/lyrics/buy/{lyric:slug}', [LyricController::class, 'show'])->name('lyrics.show');
 
-Route::get('/profile/{user}', [UserController::class, 'show'])->name('profile.show');
+Route::get('/lyricist/{user}', [UserController::class, 'show'])->name('users.show');
 Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 // Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
@@ -141,3 +150,5 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);

@@ -1,4 +1,4 @@
-<x-layouts.page :title="__('Welcome')">
+<x-layouts.page :title="__($blog->title)" :description="__($blog->description)">
     
     <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
     

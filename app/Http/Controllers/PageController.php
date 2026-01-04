@@ -8,7 +8,7 @@ class PageController extends Controller
 {    
     public function faqs()
     {
-        return view('FAQs', [
+        return view('faqs', [
             'meta' => [
                 'title' => 'FAQs - SongwriterLink',
                 'description' => 'Find out all you need to know to find success with SongwriterLink',
@@ -17,7 +17,7 @@ class PageController extends Controller
     }
     public function contact()
     {
-        return view('Contact', [
+        return view('contact', [
             'meta' => [
                 'title' => 'Contact us - SongwriterLink',
                 'description' => 'Get in touch with the support team at SongwriterLink',

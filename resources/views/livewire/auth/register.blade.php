@@ -1,12 +1,16 @@
 <x-layouts.auth>
     <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+        <x-auth-header 
+            :title="__('Create an account')" 
+            :description="__('Enter your details below to create your account')" 
+        />
 
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
+
             <!-- Name -->
             <flux:input
                 name="name"
@@ -51,6 +55,37 @@
                 :placeholder="__('Confirm password')"
                 viewable
             />
+
+            <!-- Role Selection -->
+            <div class="flex flex-col gap-2">
+                <label class="block font-semibold">{{ __('Register as') }}</label>
+                <div class="flex gap-4">
+                    <label class="flex items-center gap-2">
+                        <input 
+                            type="radio" 
+                            name="role" 
+                            value="buyer" 
+                            {{ old('role', 'buyer') === 'buyer' ? 'checked' : '' }}
+                            required
+                        />
+                        {{ __('Buyer') }}
+                    </label>
+
+                    <label class="flex items-center gap-2">
+                        <input 
+                            type="radio" 
+                            name="role" 
+                            value="seller" 
+                            {{ old('role') === 'seller' ? 'checked' : '' }}
+                            required
+                        />
+                        {{ __('Seller') }}
+                    </label>
+                </div>
+                @error('role')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">

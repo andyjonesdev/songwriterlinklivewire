@@ -19,16 +19,21 @@
                     <div class="flex flex-wrap gap-3 my-8">
                         <a
                             href="/"
-                            class="uppercase g:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
+                            @class([
+                                'uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100',
+                                'border-b-2 border-[#e8363c]' => request()->routeIs('home'),
+                            ])
                         >
                             Home
                         </a>
-                        <a
-                            href="/buy-lyrics"
-                            class="uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
-                        >
+                        <a href="{{ route('buyLyrics') }}"
+                            @class([
+                                'uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100',
+                                'border-b-2 border-[#e8363c]' => request()->routeIs('buyLyrics'),
+                            ])>
                             Buy Lyrics
                         </a>
+
                         <a
                             href="/register"
                             class="uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
@@ -37,19 +42,28 @@
                         </a>
                         <a
                             href="/blog"
-                            class="uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
+                            @class([
+                                'uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100',
+                                'border-b-2 border-[#e8363c]' => request()->routeIs('blog.index'),
+                            ])
                         >
                             Blog
                         </a>
                         <a
                             href="/faqs"
-                            class="uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
+                            @class([
+                                'uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100',
+                                'border-b-2 border-[#e8363c]' => request()->routeIs('faqs'),
+                            ])
                         >
                             FAQs
                         </a>
                         <a
                             href="/contact"
-                            class="uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
+                            @class([
+                                'uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100',
+                                'border-b-2 border-[#e8363c]' => request()->routeIs('contact'),
+                            ])
                         >
                             Contact
                         </a>
@@ -59,9 +73,9 @@
                                 @auth
                                     <a
                                         href="{{ url('/dashboard') }}"
-                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                        class='uppercase lg:mt-0 bg-gray-200 lg:bg-white lg:dark:bg-[#0a0a0a] inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100'
                                     >
-                                        Dashboard
+                                        <i class="fa-sharp-duotone fa-light fa-user text-xl"></i>
                                     </a>
                                 @else
                                     <a
@@ -82,22 +96,6 @@
                                 @endauth
                         @endif
                         
-                        <!-- <div v-if="user">
-                            <a
-                                v-if="user.role=='seller'"
-                                :href="sellerdashboard()"
-                                class="uppercase lg:mt-0 bg-gray-200 lg:bg-white inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
-                            >
-                                Your Dashboard
-</a>
-                            <a
-                                v-if="user.role=='buyer'"
-                                :href="buyerdashboard()"
-                                class="uppercase lg:mt-0 bg-gray-200 lg:bg-white inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-red-100"
-                            >
-                                Your Dashboard
-</a>
-                        </div> -->
                     </div>
             </nav>
         </header>
