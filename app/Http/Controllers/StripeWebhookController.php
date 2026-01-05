@@ -39,7 +39,7 @@ class StripeWebhookController extends Controller
             // $payment_intent = $event->data->object->payment_intent;
             $status = $event->data->object->status;
             echo 'client_reference_id: '.$client_reference_id;
-            echo ', '.$status;
+            // echo ', '.$status;
             // Fallback: find user by customer email
             // if (!$userId && !empty($session->customer_details->email)) {
             //     $user = User::where('email', $session->customer_details->email)->first();
