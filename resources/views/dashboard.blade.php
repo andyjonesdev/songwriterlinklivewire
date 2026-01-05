@@ -15,7 +15,7 @@
                 hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
                 dark:hover:border-white dark:hover:bg-white">Upload New Lyric</a></p>
                 
-                <div class="text-lg grid grid-cols-3 lg:grid-cols-5 py-4 border-b-2 border-gray-100">
+                <div class="text-lg grid grid-cols-2 lg:grid-cols-5 py-4 border-b-2 border-gray-100">
                     <div class="font-bold col-span-2">Title</div>
                     <div class="font-bold hidden lg:block">Genre</div>
                     <div class="font-bold hidden lg:block">Price</div>
@@ -23,7 +23,7 @@
                     <!-- <div class="font-bold"></div> -->
                 </div>
                 
-                <div class="text-lg grid grid-cols-3 lg:grid-cols-5 my-4">
+                <div class="text-lg grid grid-cols-2 lg:grid-cols-5 my-4">
                     @foreach ($lyrics as $lyric)
                         <div class="col-span-2 mb-2 bg-gray-50 dark:bg-gray-900 px-2">{{ $lyric['title'] }}</div>
                         <div class="hidden lg:block mb-2 bg-gray-50 dark:bg-gray-900">{{ $lyric['genre'] }}</div>

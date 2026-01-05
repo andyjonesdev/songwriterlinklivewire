@@ -31,11 +31,15 @@ class CreateNewUser implements CreatesNewUsers
             'role' => 'required|in:buyer,seller',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => $input['password'],
             'role' => $input['role'], // save buyer/seller
         ]);
+
+        // $user->sendEmailVerificationNotification();
+
+        return $user;
     }
 }

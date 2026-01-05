@@ -8,7 +8,7 @@
                 style="background-image: url('/storage/hero_bg.jpg'); background-size: cover;"
             >
                 <div
-                    class="flex-1 pb-12 text-[13px] leading-[20px] bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] p-8 lg:p-20 dark:bg-[#161615ba] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
+                    class="flex-1 pb-12 text-[13px] leading-[20px] bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] p-8 lg:p-20"
                 >
                     <h1 class="mb-1 font-medium text-6xl">Buy lyrics online</h1>
                     <h2 class="text-3xl my-4">Sell lyrics and poems online</h2>
@@ -42,21 +42,19 @@
                         <a
                             href="/buy-lyrics"
                             class="
-                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
-                        hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-                        dark:hover:border-white dark:hover:bg-white"
+                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                         >
                             Explore Lyrics & Poems
                         </a>
                     </ul>
                 </div>
                 <div
-                    class="hidden lg:block relative -mb-px aspect-335/376 w-full shrink-0 overflow-hidden rounded-t-lg bg-[#fff2f270] lg:mb-0 lg:-ml-px lg:aspect-auto lg:w-[438px] lg:rounded-t-none lg:rounded-r-lg dark:bg-[#1d0002cc]"
+                    class="hidden lg:block relative -mb-px aspect-335/376 w-full shrink-0 overflow-hidden rounded-t-lg bg-[#fff2f270] lg:mb-0 lg:-ml-px lg:aspect-auto lg:w-[438px] lg:rounded-t-none lg:rounded-r-lg"
                 >
                     
                     
                     <div
-                        class="hidden lg:block absolute inset-0 rounded-t-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:overflow-hidden lg:rounded-t-none lg:rounded-r-lg dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
+                        class="hidden lg:block absolute inset-0 rounded-t-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:overflow-hidden lg:rounded-t-none lg:rounded-r-lg"
                     />
                 </div>
             </main>
@@ -79,11 +77,11 @@
             </div>
         </div>
 
-        <div class="dark:text-white gap-4 p-6 lg:p-12 text-center justify-around">
+        <div class="gap-4 p-6 lg:p-12 text-center justify-around">
 
             <h3 class="text-4xl my-4 font-bold">New work by our writers​</h3>
 
-            <div class="dark:text-white gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
+            <div class="gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
                 <!-- Loop through lyrics -->
                 @foreach ($lyrics as $lyric)
                    <div class="p-4 border rounded mb-4">
@@ -103,7 +101,7 @@
                             {{ $lyric['user']['name'] }}
                         </a>
 
-                        <p class="text-gray-600 mt-2 dark:text-white">
+                        <p class="text-gray-600 mt-2>
                             {{ $lyric['snippet'] }}
                         </p>
 
@@ -112,9 +110,7 @@
                         <a
                             href="{{ route('lyrics.show', $lyric->slug) }}"
                             class="
-                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
-                        hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-                        dark:hover:border-white dark:hover:bg-white"
+                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                         >
                             View Full Lyric
                         </a>
@@ -177,9 +173,7 @@
                     <Link
                         href="https://www.verse-chorus.com/" tartget="_blank"
                         class="
-                        rounded-sm border bg-[#e8363c] mt-4 px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
-                    hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-                    dark:hover:border-white dark:hover:bg-white"
+                        rounded-sm border bg-[#e8363c] mt-4 px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                     >
                         Visit Verse-Chorus
                     </Link>
@@ -192,7 +186,7 @@
 
         <h3 class="text-4xl mt-12 font-bold text-center">Latest Songwriting Articles​</h3>
 
-        <div class="dark:text-white gap-4 p-6 lg:px-12 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
+        <div class="gap-4 p-6 lg:px-12 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
     
             @foreach ($blogs as $blog)
                 <div class="p-4 border rounded mb-4">
@@ -203,7 +197,7 @@
                         {{ $blog['title'] }}
                     </a>
                     
-                    <p class="text-gray-600 mt-2 dark:text-white">
+                    <p class="text-gray-600 mt-2">
                         {{ $blog['snippet'] }}
                     </p>
 
@@ -211,9 +205,7 @@
                     <a
                         href="{{ route('blog.show', $blog->slug) }}"
                         class="
-                        rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black 
-                    hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-                    dark:hover:border-white dark:hover:bg-white"
+                        rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                     >
                         View Article
                     </a>

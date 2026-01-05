@@ -24,9 +24,7 @@
                     <b>{{ $lyric->genre }}</b>
                 </h3>
 
-                <pre class="whitespace-pre-wrap my-6 bg-gray-50 p-4 dark:bg-gray-900">
-                    {{ $lyric->content }}
-                </pre>
+                <pre class="whitespace-pre-wrap my-6 bg-gray-50 p-4 dark:bg-gray-900">{{ $lyric->content }}</pre>
 
                 <h4 class="text-lg font-semibold mt-6">
                     Standard License Terms
@@ -58,7 +56,7 @@
                 @guest
                     <p class="text-lg my-4">To buy a licence for this lyric, please register or login first.</p>
                     <a
-                        href="/register"
+                        href="/register?role=buyer"
                         class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg
                                leading-normal text-white hover:border-black hover:bg-black
                                dark:border-[#e8363c] dark:bg-[#e8363c]

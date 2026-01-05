@@ -56,36 +56,42 @@
                 viewable
             />
 
+            @php
+                $roleFromUrl = request('role');
+            @endphp
+
             <!-- Role Selection -->
             <div class="flex flex-col gap-2">
                 <label class="block font-semibold">{{ __('Register as') }}</label>
                 <div class="flex gap-4">
                     <label class="flex items-center gap-2">
-                        <input 
-                            type="radio" 
-                            name="role" 
-                            value="buyer" 
-                            {{ old('role', 'buyer') === 'buyer' ? 'checked' : '' }}
+                        <input
+                            type="radio"
+                            name="role"
+                            value="buyer"
+                            {{ old('role', $roleFromUrl ?? 'buyer') === 'buyer' ? 'checked' : '' }}
                             required
                         />
                         {{ __('Buyer') }}
                     </label>
 
                     <label class="flex items-center gap-2">
-                        <input 
-                            type="radio" 
-                            name="role" 
-                            value="seller" 
-                            {{ old('role') === 'seller' ? 'checked' : '' }}
+                        <input
+                            type="radio"
+                            name="role"
+                            value="seller"
+                            {{ old('role', $roleFromUrl) === 'seller' ? 'checked' : '' }}
                             required
                         />
                         {{ __('Seller') }}
                     </label>
                 </div>
+
                 @error('role')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">

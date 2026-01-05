@@ -105,15 +105,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['auth'])->get('/admin/blog/{blog:slug}/edit', BlogEdit::class)
         ->name('blog.edit');
 
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/seller/profile/edit', function () {
-            return view('users.edit'); // blade with livewire
-        })->name('users.edit');
-    });
+    Route::get('/seller/profile/edit', function () {
+        return view('users.edit'); // blade with livewire
+    })->name('users.edit');
 
     Route::get('/seller/sales', function () {
         return view('users.sales'); // blade with livewire
     })->name('users.sales');
+
+    Route::get('/music/upload', function () {
+        return view('music.upload');
+    })->name('music.upload');
+
 
     // Route::middleware(['auth', 'admin.user'])->group(function () {
     //     Route::prefix('blog/admin')->group(function () {

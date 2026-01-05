@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable // implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
@@ -72,4 +72,10 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->hasOne(UserAccount::class);
     }
+
+    public function music()
+    {
+        return $this->hasMany(Music::class);
+    }
+
 }
