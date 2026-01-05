@@ -170,13 +170,13 @@
                     <h4 class="text-xl my-2">Are you looking for music collaborators? Verse-Chorus is the place to find lyricists, musicians, singers, producers and composers.</h4>
                     <p class="my-4"><img src="/storage/verse-chorus-logo-2024-small.png" alt="Verse-Chorus logo" /></p>
   
-                    <Link
+                    <a
                         href="https://www.verse-chorus.com/" tartget="_blank"
                         class="
                         rounded-sm border bg-[#e8363c] mt-4 px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                     >
                         Visit Verse-Chorus
-                    </Link>
+                    </a>
                 </div>
             </div>
             <div>
