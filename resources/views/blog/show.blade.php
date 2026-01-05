@@ -1,6 +1,6 @@
 <x-layouts.page :title="__($blog->title)" :description="__($blog->description)">
     
-    <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
+    <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
     
         <div class="flex w-full opacity-100 transition-opacity duration-750 lg:grow">
             <main
@@ -9,8 +9,7 @@
                 <div
                     class="p-6 flex-1 rounded-lg pb-12 text-[13px] leading-[20px]
                     bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)]
-                    lg:p-20 dark:bg-[#161615ba] dark:text-[#EDEDEC]
-                    dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
+                    lg:p-20"
                 >
                     <h1 class="mb-4 font-medium text-4xl lg:text-6xl">
                         {{ $blog->title }}
@@ -21,9 +20,7 @@
                         <b>{{ $blog->category }}</b>
                     </h3>
 
-                    <div class="whitespace-pre-wrap my-6 text-lg">
-                        {!! $blog->content !!}
-                    </div>
+                    <div class="whitespace-pre-wrap my-6 text-lg">{!! $blog->content !!}</div>
                 </div>
             </main>
         </div>

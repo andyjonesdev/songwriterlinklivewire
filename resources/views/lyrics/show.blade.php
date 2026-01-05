@@ -1,14 +1,13 @@
 <x-layouts.page :title="__($lyric->title. ' - Songwriter Link Original Song Lyrics')" :description="__('Song Lyrics by ' . $lyric->user->name)">
     
-    <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
+    <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
     
         <div class="flex w-full opacity-100 transition-opacity duration-750 lg:grow">
         <main class="flex lg:w-2/3 flex-col overflow-hidden rounded-lg">
 
             <div class="flex-1 rounded-lg p-4 pb-12 text-[13px] leading-[20px]
                 bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)]
-                lg:p-20 dark:bg-[#161615ba] dark:text-[#EDEDEC]
-                dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]">
+                lg:p-20">
 
                 <h1 class="mb-4 font-medium text-6xl">
                     {{ $lyric->title }}
