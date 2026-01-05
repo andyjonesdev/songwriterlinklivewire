@@ -82,6 +82,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return view('lyrics.edit', compact('lyric'));
         })->name('lyrics.edit');
 
+        Route::get('/{lyric}/promote', function (\App\Models\Lyric $lyric) {
+            return view('lyrics.promote', compact('lyric'));
+        })->name('lyrics.promote');
+
         // Route::post('/', [LyricController::class, 'store'])
         //     ->name('lyricsSave');
         // Route::get('/{lyric:slug}/edit', [LyricController::class, 'edit'])

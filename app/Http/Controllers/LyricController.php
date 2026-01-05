@@ -55,41 +55,25 @@ class LyricController extends Controller
     {
         $genre = $request->get('genre'); // example: ?genre=rap
 
-        // $lyrics = Lyric::query()
-        //     ->where('status', 'published')                   // only approved
-        //     ->when($genre, function ($query) use ($genre) { // filter by genre if provided
-        //         $query->where('genre', $genre);
-        //     })
-        //     ->latest()
-        //     ->paginate(24)
-        //     ->withQueryString() // keeps ?genre=... during pagination
-        //     ->through(function ($lyric) {
-        //         return [
-        //             'id' => $lyric->id,
-        //             'title' => $lyric->title,
-        //             'genre' => $lyric->genre,
-        //             'price' => $lyric->price,
-        //             'mood' => $lyric->mood,
-        //             'theme' => $lyric->theme,
-        //             'pov' => $lyric->pov,
-        //             'language' => $lyric->language,
-        //             'slug' => $lyric->slug,
-        //             'content' => $lyric->content,
-        //             'status' => $lyric->status,
-        //             'snippet' => Str::limit($lyric->content, 250),
-        //             'created_at' => $lyric->created_at,
-        //             'user' => $lyric->user ? $lyric->user->name : null, // user's name
-        //             'user_profile' => $lyric->user 
-        //                 ? route('profile.show', $lyric->user->id)
-        //                 : null,
-        //         ];
-        //     });
+        $genres = Lyric::where('status', 'published')
+        ->select('genre')
+        ->distinct()
+        ->orderBy('genre')
+        ->pluck('genre');
             
-        $lyrics = Lyric::where('status','published')->latest()->paginate(12);
+        // $lyrics = Lyric::where('status','published')->latest()->paginate(12);
+        $lyrics = Lyric::where('status', 'published')
+        ->when($request->genre, function ($query, $genre) {
+            $query->where('genre', $genre);
+        })
+        ->latest()
+        ->paginate(12)
+        ->withQueryString();
 
         return view('buy', [
             'canRegister' => Features::enabled(Features::registration()),
             'lyrics' => $lyrics,
+            'genres' => $genres,
             'selectedGenre' => $genre,
             'meta' => [
                 'title' => 'Buy Original Song Lyrics: Songwriter Link',

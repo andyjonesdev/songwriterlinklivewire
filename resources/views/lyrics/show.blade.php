@@ -77,6 +77,8 @@
                     >
                         Buy Now
                     </a>
+                <a href="https://buy.stripe.com/9B6cMYfrU2ro5YDeaObo402?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
+                class="hidden">Buy Test</a>
                 @endguest
 
             </div>

@@ -11,39 +11,30 @@
                 </main>
             </div>
 
-            <div class="hidden p-2 my-4 flex gap-2">
-                <div>Select a genre:</div>
-                <select @change="filterGenre" class="border rounded">
-                    <option value="">All Genres</option>
-                    <option value="Rap" :selected="props.selectedGenre === 'Rap'">Rap</option>
-                    <option value="Pop" :selected="props.selectedGenre === 'Pop'">Pop</option>
-                    <option value="R&B" :selected="props.selectedGenre === 'R&B'">R&B</option>
-                    <option value="Rock" :selected="props.selectedGenre === 'Rock'">Rock</option>
-                    <option value="Country" :selected="props.selectedGenre === 'Country'">Country</option>
-                    <option value="Hip-hop" :selected="props.selectedGenre === 'Hip-hop'">Hip-hop</option>
-                    <option value="Indie" :selected="props.selectedGenre === 'Indie'">Indie</option>
-                    <option value="Electronic" :selected="props.selectedGenre === 'Electronic'">Electronic</option>
-                    <option value="Ethnic" :selected="props.selectedGenre === 'Ethnic'">Ethnic</option>
-                    <option value="Classical" :selected="props.selectedGenre === 'Classical'">Classical</option>
-                    <option value="Jazz" :selected="props.selectedGenre === 'Jazz'">Jazz</option>
-                    <option value="K-pop" :selected="props.selectedGenre === 'K-pop'">K-pop</option>
-                    <option value="Metal" :selected="props.selectedGenre === 'Metal'">Metal</option>
-                    <option value="Oldies" :selected="props.selectedGenre === 'Oldies'">Oldies</option>
-                    <option value="Techno" :selected="props.selectedGenre === 'Techno'">Techno</option>
-                    <option value="Folk" :selected="props.selectedGenre === 'Folk'">Folk</option>
-                    <option value="Blues" :selected="props.selectedGenre === 'Blues'">Blues</option>
-                    <option value="Christian" :selected="props.selectedGenre === 'Christian'">Christian</option>
-                    <option value="Gospel" :selected="props.selectedGenre === 'Gospel'">Gospel</option>
-                    <option value="Progressive" :selected="props.selectedGenre === 'Progressive'">Progressive</option>
-                    <option value="Singer-Songwriter" :selected="props.selectedGenre === 'Singer-Songwriter'">Singer-Songwriter</option>
-                    <option value="Dance" :selected="props.selectedGenre === 'Dance'">Dance</option>
-                    <option value="Funk" :selected="props.selectedGenre === 'Funk'">Funk</option>
-                    <option value="Soul" :selected="props.selectedGenre === 'Soul'">Soul</option>
-                    <option value="Reggae" :selected="props.selectedGenre === 'Reggae'">Reggae</option>
-                    <option value="World" :selected="props.selectedGenre === 'World'">World</option>
-                    <option value="Other" :selected="props.selectedGenre === 'Other'">Other</option>
-                </select>
-            </div>
+            <form method="GET" action="{{ route('buyLyrics') }}">
+                <div class="p-2 my-4 flex gap-2 items-center">
+                    <div>Select a genre:</div>
+
+                    <select
+                        name="genre"
+                        class="border rounded"
+                        onchange="this.form.submit()"
+                    >
+                        <option value="">All Genres</option>
+
+                        @foreach ($genres as $genre)
+                            <option
+                                value="{{ $genre }}"
+                                @selected(request('genre') === $genre)
+                            >
+                                {{ $genre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+
+
 
                 <div class="gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
                     <!-- Loop through lyrics -->
