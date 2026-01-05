@@ -63,6 +63,7 @@ class StripeWebhookController extends Controller
                         'currency' => $session->currency,
                     ]
                 );
+            }
 
             //     Log::info("Lyric purchase recorded: User {$userId}, Lyric {$lyricId}, Session {$session->id}");
             // } else {
