@@ -14,7 +14,7 @@ class PriceSelect extends Component
         $this->model = $model;
 
         // Prices: 10, 20, ..., 100
-        $this->prices = range(10, 100, 10);
+        $this->prices = range(20, 60, 20);
     }
 
     public function render()

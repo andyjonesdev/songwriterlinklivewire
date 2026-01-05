@@ -72,7 +72,7 @@
                     </a>
                 @else
                     <a
-                        href="https://buy.stripe.com/4gMaEQ7Zs7LI4UzfeSbo400?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
+                        href="https://buy.stripe.com/cNicMY5Rk5DA4Uz9Uybo403?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
                         class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
                     >
                         Buy Now
