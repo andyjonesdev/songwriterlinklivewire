@@ -13,7 +13,7 @@
                         href="/"
                         class="lg:mt-0 inline-block pr-5 py-2 text-sm leading-normal text-[#1b1b18]"
                     >
-                        <h3 class="text-2xl">Songwriter Link</h3>
+                        <h3 class="text-2xl">SongwriterLink</h3>
                     </a>
                 </div>
                     <div class="flex flex-wrap gap-3 my-8 mx-8 lg:mx-0">

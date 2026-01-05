@@ -101,7 +101,7 @@
                             {{ $lyric['user']['name'] }}
                         </a>
 
-                        <p class="text-gray-600 mt-2>
+                        <p class="text-gray-600 mt-2">
                             {{ $lyric['snippet'] }}
                         </p>
 
