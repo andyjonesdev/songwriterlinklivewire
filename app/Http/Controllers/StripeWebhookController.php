@@ -15,7 +15,7 @@ class StripeWebhookController extends Controller
         $payload = $request->getContent();
         $sigHeader = $request->header('Stripe-Signature');
         $endpointSecret = env('STRIPE_WEBHOOK_SECRET');
-        
+
         // Verify the webhook signature
         try {
             $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
@@ -39,24 +39,30 @@ class StripeWebhookController extends Controller
             // $payment_intent = $event->data->object->payment_intent;
             $status = $event->data->object->status;
             echo 'client_reference_id: '.$client_reference_id;
-            // echo ', '.$status;
+            $client_reference_id_explode = explode('-', $client_reference_id);
+            $type = $client_reference_id_explode[0];
+            $user_id = $client_reference_id_explode[1];
+            $lyric_id = $client_reference_id_explode[2];
+            echo ', user_id: '.$user_id;
+            echo ', status: '.$status;
+
             // Fallback: find user by customer email
             // if (!$userId && !empty($session->customer_details->email)) {
             //     $user = User::where('email', $session->customer_details->email)->first();
             //     $userId = $user ? $user->id : null;
             // }
 
-            // // Log the purchase if we have a user and lyric
-            // if ($userId && $lyricId) {
-            //     LyricPurchase::firstOrCreate(
-            //         ['stripe_session_id' => $session->id],
-            //         [
-            //             'user_id' => $userId,
-            //             'lyric_id' => $lyricId,
-            //             'amount' => $session->amount_total / 100,
-            //             'currency' => $session->currency,
-            //         ]
-            //     );
+            // Log the purchase if we have a user and lyric
+            if ($user_id && $lyric_id) {
+                LyricPurchase::firstOrCreate(
+                    ['stripe_session_id' => $session->id],
+                    [
+                        'user_id' => $user_id,
+                        'lyric_id' => $lyric_id,
+                        'amount' => $session->amount_total / 100,
+                        'currency' => $session->currency,
+                    ]
+                );
 
             //     Log::info("Lyric purchase recorded: User {$userId}, Lyric {$lyricId}, Session {$session->id}");
             // } else {
