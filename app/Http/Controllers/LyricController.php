@@ -186,6 +186,6 @@ class LyricController extends Controller
 
     public function success()
     {
-        return view('Success');
+        return view('success');
     }
 }
