@@ -44,10 +44,7 @@
                         </h2>
 
                         <h3>
-                            Written By:
-                            <a href="{{ route('users.show', $user) }}">
-                                <b>{{ $user->name }}</b>
-                            </a>
+                            Written By: <b>{{ $user->name }}</b>
                         </h3>
 
                         <p class="text-gray-600 mt-2">

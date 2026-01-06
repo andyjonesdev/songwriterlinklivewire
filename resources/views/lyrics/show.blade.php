@@ -15,7 +15,12 @@
 
                 <h2 class="text-lg">
                     Written By:
-                    <b>{{ $lyric->user->name ?? 'Unknown' }}</b>
+                    <b>
+                        <a
+                            href="{{ route('users.show', $lyric->user) }}"
+                            class="font-semibold hover:underline"
+                        >
+                            {{ $lyric['user']['name'] }}</a>
                 </h2>
 
                 <h3 class="text-lg">

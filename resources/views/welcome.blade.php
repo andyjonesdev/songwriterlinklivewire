@@ -95,7 +95,7 @@
                         <br />Written By:
                     
                         <a
-                            :href="lyric.user_profile"
+                            href="{{ route('users.show', $lyric->user) }}"
                             class="font-semibold hover:underline"
                         >
                             {{ $lyric['user']['name'] }}
