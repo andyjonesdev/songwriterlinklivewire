@@ -5,7 +5,7 @@
         <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
             <main
                 class="flex w-full flex-col-reverse overflow-hidden rounded-lg lg:flex-row">
-                <div class="p-6 lg:p-0 flex-1 rounded-lg pb-12 text-[13px] leading-[20px] bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:p-20">
+                <div class="p-6 lg:p-0 flex-1 rounded-lg pb-12 text-[13px] leading-[20px] bg-[#ffffff78] bg-gray-50 lg:p-20">
                     <h1 class="mb-1 font-medium text-4xl lg:text-6xl">Contact Us</h1>
                 </div>  
             </main>
