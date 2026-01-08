@@ -53,34 +53,58 @@ class LyricController extends Controller
     }
     public function buyLyrics(Request $request)
     {
-        $genre = $request->get('genre'); // example: ?genre=rap
-
-        $genres = Lyric::where('status', 'published')
-        ->select('genre')
-        ->distinct()
-        ->orderBy('genre')
-        ->pluck('genre');
-            
-        // $lyrics = Lyric::where('status','published')->latest()->paginate(12);
         $lyrics = Lyric::where('status', 'published')
-        ->when($request->genre, function ($query, $genre) {
-            $query->where('genre', $genre);
-        })
+        ->when($request->genre, fn ($q) => $q->where('genre', $request->genre))
+        ->when($request->mood, fn ($q) => $q->where('mood', $request->mood))
+        ->when($request->theme, fn ($q) => $q->where('theme', $request->theme))
+        ->when($request->pov, fn ($q) => $q->where('pov', $request->pov))
+        ->when($request->language, fn ($q) => $q->where('language', $request->language))
         ->latest()
         ->paginate(12)
         ->withQueryString();
 
+        $base = Lyric::where('status', 'published');
+
         return view('buy', [
-            'canRegister' => Features::enabled(Features::registration()),
             'lyrics' => $lyrics,
-            'genres' => $genres,
-            'selectedGenre' => $genre,
-            'meta' => [
-                'title' => 'Buy Original Song Lyrics: Songwriter Link',
-                'description' => 'Buy original song lyrics from professional writers. Browse unique, high-quality lyrics for all genres—perfect for your next music project.',
-            ],
+
+            'genres' => (clone $base)
+                ->whereNotNull('genre')
+                ->where('genre', '!=', '')
+                ->distinct()
+                ->orderBy('genre')
+                ->pluck('genre'),
+
+            'moods' => (clone $base)
+                ->whereNotNull('mood')
+                ->where('mood', '!=', '')
+                ->distinct()
+                ->orderBy('mood')
+                ->pluck('mood'),
+
+            'themes' => (clone $base)
+                ->whereNotNull('theme')
+                ->where('theme', '!=', '')
+                ->distinct()
+                ->orderBy('theme')
+                ->pluck('theme'),
+
+            'povs' => (clone $base)
+                ->whereNotNull('pov')
+                ->where('pov', '!=', '')
+                ->distinct()
+                ->orderBy('pov')
+                ->pluck('pov'),
+
+            'languages' => (clone $base)
+                ->whereNotNull('language')
+                ->where('language', '!=', '')
+                ->distinct()
+                ->orderBy('language')
+                ->pluck('language'),
         ]);
     }
+
 
     public function index(Request $request)
     {

@@ -11,29 +11,72 @@
                 </main>
             </div>
 
-            <form method="GET" action="{{ route('buyLyrics') }}">
-                <div class="p-2 my-4 flex gap-2 items-center">
-                    <div>Select a genre:</div>
-
-                    <select
-                        name="genre"
-                        class="border rounded"
-                        onchange="this.form.submit()"
-                    >
-                        <option value="">All Genres</option>
-
+            <form method="GET" action="{{ route('buyLyrics') }}" class="p-4 flex flex-wrap gap-4 items-center">
+                {{-- Genre --}}
+                <div class="flex gap-2 items-center">
+                    <label>Genre:</label>
+                    <select name="genre" class="border rounded" onchange="this.form.submit()">
+                        <option value="">All</option>
                         @foreach ($genres as $genre)
-                            <option
-                                value="{{ $genre }}"
-                                @selected(request('genre') === $genre)
-                            >
+                            <option value="{{ $genre }}" @selected(request('genre') === $genre)>
                                 {{ $genre }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-            </form>
 
+                {{-- Mood --}}
+                <div class="flex gap-2 items-center">
+                    <label>Mood:</label>
+                    <select name="mood" class="border rounded" onchange="this.form.submit()">
+                        <option value="">All</option>
+                        @foreach ($moods as $mood)
+                            <option value="{{ $mood }}" @selected(request('mood') === $mood)>
+                                {{ $mood }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Theme --}}
+                <div class="flex gap-2 items-center">
+                    <label>Theme:</label>
+                    <select name="theme" class="border rounded" onchange="this.form.submit()">
+                        <option value="">All</option>
+                        @foreach ($themes as $theme)
+                            <option value="{{ $theme }}" @selected(request('theme') === $theme)>
+                                {{ $theme }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- POV --}}
+                <div class="flex gap-2 items-center">
+                    <label>POV:</label>
+                    <select name="pov" class="border rounded" onchange="this.form.submit()">
+                        <option value="">All</option>
+                        @foreach ($povs as $pov)
+                            <option value="{{ $pov }}" @selected(request('pov') === $pov)>
+                                {{ $pov }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Language --}}
+                <div class="flex gap-2 items-center">
+                    <label>Language:</label>
+                    <select name="language" class="border rounded" onchange="this.form.submit()">
+                        <option value="">All</option>
+                        @foreach ($languages as $language)
+                            <option value="{{ $language }}" @selected(request('language') === $language)>
+                                {{ $language }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
 
 
                 <div class="gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">

@@ -37,12 +37,12 @@
                         Edit
                     </a>
 
-                    <!-- <a
+                    <a
                         href="{{ route('lyrics.promote', $lyric) }}"
                         class="bg-red-500 text-white px-2 py-1 rounded-md"
                     >
                         Promote
-                    </a> -->
+                    </a>
                     
                     <form
                         method="POST"

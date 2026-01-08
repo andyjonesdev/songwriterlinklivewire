@@ -49,4 +49,8 @@ class Lyric extends Model
     {
         return \Str::limit($this->content, 150);
     }
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'published');
+    }
 }
