@@ -19,11 +19,13 @@
                         <flux:navlist.item icon="user-circle" :href="route('users.edit')" :current="request()->routeIs('users.edit')" wire:navigate>{{ __('Your Bio') }}</flux:navlist.item>
                         <flux:navlist.item icon="currency-dollar" :href="route('dashboard.payments')" :current="request()->routeIs('dashboard.payments')" wire:navigate>{{ __('Your Payment Details') }}</flux:navlist.item>
                         <flux:navlist.item icon="presentation-chart-line" :href="route('users.sales')" :current="request()->routeIs('users.sales')" wire:navigate>{{ __('Your Sales') }}</flux:navlist.item>
+                        <flux:navlist.item icon="document-text" :href="route('buyLyrics')" :current="request()->routeIs('buyLyrics')" wire:navigate>{{ __('Browse Lyrics') }}</flux:navlist.item>
                         <!-- <flux:navlist.item icon="musical-note" :href="route('music.upload')" :current="request()->routeIs('music.upload')" wire:navigate>{{ __('Your Music') }}</flux:navlist.item> -->
                     @endif
+                    <flux:navlist.item icon="heart" :href="route('users.favorites')" :current="request()->routeIs('users.favorites')" wire:navigate>{{ __('Your Saved Lyrics') }}</flux:navlist.item>
+                        
                     @if (auth()->user()->role=='buyer')
                         <flux:navlist.item icon="pencil-square" :href="route('buyLyrics')" :current="request()->routeIs('buyLyrics')" wire:navigate>{{ __('Browse Lyrics') }}</flux:navlist.item>
-                        <flux:navlist.item icon="heart" :href="route('users.favorites')" :current="request()->routeIs('users.favorites')" wire:navigate>{{ __('Your Saved Lyrics') }}</flux:navlist.item>
                         <flux:navlist.item icon="presentation-chart-line" :href="route('users.purchases')" :current="request()->routeIs('users.purchases')" wire:navigate>{{ __('Your Purchased Lyrics') }}</flux:navlist.item>
                     @endif
                     @if (auth()->user()->id === 2)
