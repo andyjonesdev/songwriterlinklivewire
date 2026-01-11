@@ -31,7 +31,7 @@
         {{-- Submit --}}
         <button
             type="submit"
-            class="mt-4 rounded-sm border bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black"
+            class="mt-4 rounded-sm bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black"
             wire:loading.attr="disabled"
         >
             Save Changes

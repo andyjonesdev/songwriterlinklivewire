@@ -81,7 +81,7 @@
             </form>
 
 
-                <div class="gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
+                <div class="gap-4 py-12 justify-around lg:grid grid-cols-3 gap-4">
                     <!-- Loop through lyrics -->
                     @if (count($lyrics)==0)
                         Sorry, no lyrics were found. Please broaden your search.
@@ -104,16 +104,14 @@
                                     {{ $lyric['user']['name'] }}
                                 </a>
 
-                                <p class="text-gray-600 mt-2">
-                                    {{ $lyric['snippet'] }}
-                                </p>
+                                <pre class="whitespace-pre-wrap my-6 text-sm">{{ $lyric->snippet }}</pre>
 
                                 <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
                                 <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
                                 <a
                                     href="{{ route('lyrics.show', $lyric->slug) }}"
                                     class="
-                                    rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                                    rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                                 >
                                     View Full Lyric
                                 </a>

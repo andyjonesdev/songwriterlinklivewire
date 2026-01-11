@@ -31,7 +31,7 @@
                 Lyrics by {{ $user->name }}
             </h3>
 
-            <div class="dark:text-white py-12 lg:grid grid-cols-3 gap-4">
+            <div class="dark:text-white py-12 lg:grid grid-cols-3 gap-4 text-left">
                 @forelse ($lyrics as $lyric)
                     <div class="p-4 border rounded mb-4">
                         <h2 class="text-2xl font-semibold">
@@ -47,9 +47,7 @@
                             Written By: <b>{{ $user->name }}</b>
                         </h3>
 
-                        <p class="text-gray-600 mt-2">
-                            {{ $lyric->snippet }}
-                        </p>
+                        <pre class="whitespace-pre-wrap my-6 text-sm">{{ $lyric->snippet }}</pre>
 
                         <p class="my-2 text-gray-600">
                             Genre: {{ $lyric->genre }}
@@ -62,7 +60,7 @@
                         <a
                             href="{{ url('/lyrics/buy/' . $lyric->slug) }}"
                             class="
-                                rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg
+                                rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg
                                 leading-normal text-white hover:border-black hover:bg-black
                                 dark:border-[#e8363c] dark:bg-[#e8363c]
                                 dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white

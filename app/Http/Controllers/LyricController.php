@@ -38,7 +38,7 @@ class LyricController extends Controller
         //         ];
         //     });
 
-        $lyrics = Lyric::where('status','published')->latest()->take(12)->get();
+        $lyrics = Lyric::where('status','published')->latest()->take(9)->get();
         $blogs = Blog::where('status','published')->latest()->take(3)->get();
 
         return view('welcome', [

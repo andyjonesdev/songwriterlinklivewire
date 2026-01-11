@@ -33,7 +33,7 @@
                         <a
                             href="{{ route('blog.show', $blog->slug) }}"
                             class="
-                                inline-block rounded-sm border bg-[#e8363c]
+                                inline-block rounded-sm bg-[#e8363c]
                                 px-5 py-2 my-4 text-lg leading-normal text-white
                                 hover:border-black hover:bg-black
                             "

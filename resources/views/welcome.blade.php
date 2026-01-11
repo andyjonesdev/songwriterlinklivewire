@@ -42,7 +42,7 @@
                         <a
                             href="/buy-lyrics"
                             class="
-                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                            rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                         >
                             Explore Lyrics & Poems
                         </a>
@@ -81,7 +81,7 @@
 
             <h3 class="text-4xl my-4 font-bold">New work by our writers​</h3>
 
-            <div class="gap-4 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
+            <div class="gap-4 py-12 justify-around lg:grid grid-cols-3 gap-4 text-left">
                 <!-- Loop through lyrics -->
                 @foreach ($lyrics as $lyric)
                    <div class="p-4 border rounded mb-4">
@@ -100,17 +100,15 @@
                         >
                             {{ $lyric['user']['name'] }}
                         </a>
-
-                        <p class="text-gray-600 mt-2">
-                            {{ $lyric['snippet'] }}
-                        </p>
+                        
+                        <pre class="whitespace-pre-wrap my-6 text-sm">{{ $lyric->snippet }}</pre>
 
                         <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
                         <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
                         <a
                             href="{{ route('lyrics.show', $lyric->slug) }}"
                             class="
-                            rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                            rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                         >
                             View Full Lyric
                         </a>
@@ -118,6 +116,13 @@
                     @endforeach
                 </div>
 
+                <a
+                    href="/buy-lyrics"
+                    class="
+                    rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                >
+                    View More Lyrics
+                </a>
             </div>
         </div>
 
@@ -173,7 +178,7 @@
                     <a
                         href="https://www.verse-chorus.com/" tartget="_blank"
                         class="
-                        rounded-sm border bg-[#e8363c] mt-4 px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                        rounded-sm bg-[#e8363c] mt-4 px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                     >
                         Visit Verse-Chorus
                     </a>
@@ -186,7 +191,7 @@
 
         <h3 class="text-4xl mt-12 font-bold text-center">Latest Songwriting Articles​</h3>
 
-        <div class="gap-4 p-6 lg:px-12 py-12 text-center justify-around lg:grid grid-cols-3 gap-4">
+        <div class="gap-4 p-6 lg:px-12 py-12 text-left justify-around lg:grid grid-cols-3 gap-4">
     
             @foreach ($blogs as $blog)
                 <div class="p-4 border rounded mb-4">
@@ -205,7 +210,7 @@
                     <a
                         href="{{ route('blog.show', $blog->slug) }}"
                         class="
-                        rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                        rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                     >
                         View Article
                     </a>

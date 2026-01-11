@@ -47,7 +47,7 @@ class Lyric extends Model
     }
     public function getSnippetAttribute()
     {
-        return \Str::limit($this->content, 150);
+        return \Str::limit($this->content, 500);
     }
     public function scopePublished($query)
     {

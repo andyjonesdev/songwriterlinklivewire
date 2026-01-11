@@ -16,7 +16,7 @@
         {{-- Submit --}}
         <p class="my-4"><a
             href="https://buy.stripe.com/8x200c6Vofea9aP4Aebo401?prefilled_email={{ auth()->user()->email }}&client_reference_id=promote-{{ auth()->id() }}-{{ $lyric->id }}"
-            class="mt-4 rounded-sm border bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black"
+            class="mt-4 rounded-sm bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black"
         >
             Buy Now
         </a></p>

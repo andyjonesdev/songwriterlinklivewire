@@ -5,7 +5,7 @@
         <div class="relative aspect-video overflow-hidden py-6">
             <a
                 href="{{ route('blog.create') }}"
-                class="rounded-sm border bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
+                class="rounded-sm bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
                        hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
                        dark:hover:border-white dark:hover:bg-white"
             >

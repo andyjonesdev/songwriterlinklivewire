@@ -52,17 +52,31 @@ class StripeWebhookController extends Controller
             //     $userId = $user ? $user->id : null;
             // }
 
-            // Log the purchase if we have a user and lyric
-            if ($user_id && $lyric_id) {
-                LyricPurchase::firstOrCreate(
-                    ['stripe_session_id' => $session->id],
-                    [
-                        'user_id' => $user_id,
-                        'lyric_id' => $lyric_id,
-                        'amount' => $session->amount_total / 100,
-                        'currency' => $session->currency,
-                    ]
-                );
+            if ($type=='lyric') {
+                if ($user_id && $lyric_id) {
+                    LyricPurchase::firstOrCreate(
+                        ['stripe_session_id' => $session->id],
+                        [
+                            'user_id' => $user_id,
+                            'lyric_id' => $lyric_id,
+                            'amount' => $session->amount_total / 100,
+                            'currency' => $session->currency,
+                        ]
+                    );
+                }
+            }
+            if ($type=='promote') {
+                if ($user_id && $lyric_id) {
+                    LyricPurchase::firstOrCreate(
+                        ['stripe_session_id' => $session->id],
+                        [
+                            'user_id' => $user_id,
+                            'lyric_id' => $lyric_id,
+                            'amount' => $session->amount_total / 100,
+                            'currency' => $session->currency,
+                        ]
+                    );
+                }
             }
 
             //     Log::info("Lyric purchase recorded: User {$userId}, Lyric {$lyricId}, Session {$session->id}");

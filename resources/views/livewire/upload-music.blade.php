@@ -27,7 +27,7 @@
 
         <button
             type="submit"
-            class="rounded-sm border bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black"
+            class="rounded-sm bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black"
         >
             Upload Music
         </button>

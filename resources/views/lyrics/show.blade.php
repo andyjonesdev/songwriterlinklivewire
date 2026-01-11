@@ -20,7 +20,7 @@
                             href="{{ route('users.show', $lyric->user) }}"
                             class="font-semibold hover:underline"
                         >
-                            {{ $lyric['user']['name'] }}</a>
+                            {{ $lyric['user']['name'] }}</a></b>
                 </h2>
 
                 <h3 class="text-lg">
@@ -28,7 +28,7 @@
                     <b>{{ $lyric->genre }}</b>
                 </h3>
 
-                <pre class="whitespace-pre-wrap my-6 bg-gray-50 p-4 dark:bg-gray-900">{{ $lyric->content }}</pre>
+                <pre class="whitespace-pre-wrap my-6 bg-gray-50 p-4">{{ $lyric->content }}</pre>
 
                 <h4 class="text-lg font-semibold mt-6">
                     Standard License Terms
@@ -59,27 +59,25 @@
                 {{-- Buy button --}}
                 @guest
                     <p class="text-lg my-4">To buy a licence for this lyric, please register or login first.</p>
-                    <a
-                        href="/register?role=buyer"
-                        class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg
-                               leading-normal text-white hover:border-black hover:bg-black
-                               dark:border-[#e8363c] dark:bg-[#e8363c]
-                               dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white">
-                        Register
-                    </a>
-                    <a
-                        href="/login"
-                        class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg
-                               leading-normal text-white hover:border-black hover:bg-black
-                               dark:border-[#e8363c] dark:bg-[#e8363c]
-                               dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white">
-                        Log in
-                    </a>
+                    <div class="flex gap-2">
+                        <a
+                            href="/register?role=buyer"
+                            class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg
+                                leading-normal text-white">
+                            Register
+                        </a>
+                        <a
+                            href="/login"
+                            class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg
+                                leading-normal text-white">
+                            Log in
+                        </a>
+                    </div>
                 @else
                     @if ($lyric->price==20)
                     <a
                         href="https://buy.stripe.com/cNicMY5Rk5DA4Uz9Uybo403?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
-                        class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
+                        class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white"
                     >
                         Buy Now
                     </a>
@@ -87,7 +85,7 @@
                     @if ($lyric->price==40)
                     <a
                         href="https://buy.stripe.com/7sYcMYbbE2rodr5giWbo404?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
-                        class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
+                        class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white"
                     >
                         Buy Now
                     </a>
@@ -95,7 +93,7 @@
                     @if ($lyric->price==60)
                     <a
                         href="https://buy.stripe.com/fZudR20x00jg72Hc2Gbo405?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
-                        class="rounded-sm border bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
+                        class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white"
                     >
                         Buy Now
                     </a>

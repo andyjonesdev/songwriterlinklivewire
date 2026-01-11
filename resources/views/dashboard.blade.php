@@ -11,7 +11,7 @@
 
             @if (auth()->user()->role=='seller')
                 <h2 class="text-2xl mb-8">Your Lyrics</h2>
-                <p class="my-8"><a href="/lyrics/create" class="rounded-sm border bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
+                <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
                 hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
                 dark:hover:border-white dark:hover:bg-white">Upload New Lyric</a></p>
                 
