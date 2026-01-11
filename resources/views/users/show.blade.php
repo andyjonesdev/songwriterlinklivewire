@@ -57,17 +57,27 @@
                             Price: ${{ $lyric->price }}
                         </p>
 
-                        <a
-                            href="{{ url('/lyrics/buy/' . $lyric->slug) }}"
-                            class="
-                                rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg
-                                leading-normal text-white hover:border-black hover:bg-black
-                                dark:border-[#e8363c] dark:bg-[#e8363c]
-                                dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white
-                            "
-                        >
-                            View Full Lyric
-                        </a>
+                        <div class="lg:flex gap-2">
+                            <a
+                                href="{{ url('/lyrics/buy/' . $lyric->slug) }}"
+                                class="
+                                    rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg
+                                    leading-normal text-white hover:border-black hover:bg-black
+                                    dark:border-[#e8363c] dark:bg-[#e8363c]
+                                    dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white
+                                "
+                            >
+                                View Full Lyric
+                            </a>
+
+                            @if (auth()->id() && $lyric->user_id !== auth()->id())
+                                <livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" />
+                            @else
+                                <a href="/login" class="pt-6"><span class="px-3 text-green-700">
+                                    <i class="fa-sharp-duotone fa-regular fa-plus text-xl"></i> Log in to Save
+                                </span></a>
+                            @endif
+                        </div>
                     </div>
                 @empty
                     <p class="col-span-3 text-gray-500">

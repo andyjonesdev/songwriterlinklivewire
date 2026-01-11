@@ -53,12 +53,29 @@ class LyricController extends Controller
     }
     public function buyLyrics(Request $request)
     {
+        // $lyrics = Lyric::where('status', 'published')
+        // ->when($request->genre, fn ($q) => $q->where('genre', $request->genre))
+        // ->when($request->mood, fn ($q) => $q->where('mood', $request->mood))
+        // ->when($request->theme, fn ($q) => $q->where('theme', $request->theme))
+        // ->when($request->pov, fn ($q) => $q->where('pov', $request->pov))
+        // ->when($request->language, fn ($q) => $q->where('language', $request->language))
+        // ->latest()
+        // ->paginate(12)
+        // ->withQueryString();
+
         $lyrics = Lyric::where('status', 'published')
         ->when($request->genre, fn ($q) => $q->where('genre', $request->genre))
         ->when($request->mood, fn ($q) => $q->where('mood', $request->mood))
         ->when($request->theme, fn ($q) => $q->where('theme', $request->theme))
         ->when($request->pov, fn ($q) => $q->where('pov', $request->pov))
         ->when($request->language, fn ($q) => $q->where('language', $request->language))
+        ->with('user') // writer
+        ->when(auth()->check(), function ($q) {
+            $q->withExists([
+                'savedByUsers as is_saved' => fn ($sq) =>
+                    $sq->where('user_id', auth()->id())
+            ]);
+        })
         ->latest()
         ->paginate(12)
         ->withQueryString();
@@ -104,7 +121,6 @@ class LyricController extends Controller
                 ->pluck('language'),
         ]);
     }
-
 
     public function index(Request $request)
     {
@@ -212,4 +228,21 @@ class LyricController extends Controller
     {
         return view('success');
     }
+
+    public function favorite(Lyric $lyric)
+    {
+        $user = auth()->user();
+
+        $user->savedLyrics()->syncWithoutDetaching($lyric->id);
+
+        return back()->with('success', 'Lyric saved');
+    }
+
+    public function destroyFavorite(Lyric $lyric)
+    {
+        auth()->user()->savedLyrics()->detach($lyric->id);
+
+        return back()->with('success', 'Lyric removed from saved list');
+    }
+
 }

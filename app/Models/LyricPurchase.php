@@ -16,5 +16,14 @@ class LyricPurchase extends Model
         'amount',
         'currency',
     ];
+    public function lyric()
+    {
+        return $this->belongsTo(Lyric::class)->withDefault();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 

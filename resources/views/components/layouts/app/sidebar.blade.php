@@ -23,9 +23,10 @@
                     @endif
                     @if (auth()->user()->role=='buyer')
                         <flux:navlist.item icon="pencil-square" :href="route('buyLyrics')" :current="request()->routeIs('buyLyrics')" wire:navigate>{{ __('Browse Lyrics') }}</flux:navlist.item>
-                        <flux:navlist.item icon="presentation-chart-line" :href="route('users.sales')" :current="request()->routeIs('users.sales')" wire:navigate>{{ __('Your Purchased Lyrics') }}</flux:navlist.item>
+                        <flux:navlist.item icon="heart" :href="route('users.favorites')" :current="request()->routeIs('users.favorites')" wire:navigate>{{ __('Your Saved Lyrics') }}</flux:navlist.item>
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('users.purchases')" :current="request()->routeIs('users.purchases')" wire:navigate>{{ __('Your Purchased Lyrics') }}</flux:navlist.item>
                     @endif
-                    @if (auth()->user()->id === 1)
+                    @if (auth()->user()->id === 2)
                         <flux:navlist.item icon="pencil-square" :href="route('blog.admin')" :current="request()->routeIs('blog.admin')" wire:navigate>{{ __('Blog Admin') }}</flux:navlist.item>
                     @endif
 

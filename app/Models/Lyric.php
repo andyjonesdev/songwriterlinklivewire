@@ -53,4 +53,14 @@ class Lyric extends Model
     {
         return $query->where('status', 'published');
     }
+    public function writer() // lyric author
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function savedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'saved_lyrics')
+            ->withTimestamps();
+    }
+
 }

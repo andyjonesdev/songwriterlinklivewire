@@ -59,7 +59,7 @@
                 {{-- Buy button --}}
                 @guest
                     <p class="text-lg my-4">To buy a licence for this lyric, please register or login first.</p>
-                    <div class="flex gap-2">
+                    <div class="lg:flex gap-2">
                         <a
                             href="/register?role=buyer"
                             class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg

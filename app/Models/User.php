@@ -77,5 +77,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Music::class);
     }
+    public function savedLyrics()
+    {
+        return $this->belongsToMany(Lyric::class, 'saved_lyrics')
+            ->withTimestamps();
+    }
 
 }

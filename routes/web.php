@@ -117,10 +117,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('users.sales'); // blade with livewire
     })->name('users.sales');
 
+    Route::get('/buyer/purchases', function () {
+        return view('users.purchases'); // blade with livewire
+    })->name('users.purchases');
+
+    Route::get('/buyer/favorites', function () {
+        return view('users.favorites'); // blade with livewire
+    })->name('users.favorites');
+
     Route::get('/music/upload', function () {
         return view('music.upload');
     })->name('music.upload');
 
+    Route::post('/lyrics/{lyric:slug}/save', [LyricController::class, 'favorite'])
+    ->name('lyrics.save');
+
+    Route::delete('/lyrics/{lyric:slug}/unsave', [LyricController::class, 'destroyFavorite'])
+    ->name('lyrics.unsave');
 
     // Route::middleware(['auth', 'admin.user'])->group(function () {
     //     Route::prefix('blog/admin')->group(function () {
