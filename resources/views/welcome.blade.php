@@ -106,21 +106,20 @@
                         <p class="my-2 text-gray-600">Genre: {{ $lyric['genre'] }}</p>
                         <p class="my-2 mb-6 font-bold">Price: ${{ $lyric['price'] }}</p>
 
-                        <div class="lg:flex gap-2">
-                            <a
+                        <div class="xl:flex gap-2">
+                            <div class="mt-4 xl:mt-2"><a
                                 href="{{ route('lyrics.show', $lyric->slug) }}"
                                 class="
                                 rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
                             >
-                                View Full Lyric
-                            </a>
-
+                                <i class="fa-sharp-duotone fa-solid fa-eye"></i> View Full Lyric
+                            </a></div>
                             @if (auth()->id() && $lyric->user_id !== auth()->id())
-                                <livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" />
+                                <div class="mt-4 xl:mt-0"><livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" /></div>
                             @else
-                                <a href="/login" class="pt-6"><span class="px-3 text-green-700">
+                                <div class="mt-4 xl:mt-0 pt-2"><a href="/login" class="mt-4"><span class="px-3 text-green-700">
                                     <i class="fa-sharp-duotone fa-regular fa-plus text-xl"></i> Log in to Save
-                                </span></a>
+                                </span></a></div>
                             @endif
                         </div>
                     </div>
