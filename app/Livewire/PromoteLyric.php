@@ -4,69 +4,58 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Lyric;
-
 class PromoteLyric extends Component
 {
     public Lyric $lyric;
-    public $title;
-    public $genre;
-    public $mood;
-    public $theme;
-    public $pov;
-    public $language;
-    public $price;
-    public $content;
+    public $bid = 5;
+    public $duration = 1;
+    public $placement = '';
 
-    protected function rules()
+    protected $rules = [
+        'placement' => 'required|string',
+        'bid' => 'required|numeric',
+        'duration' => 'required|numeric',
+    ];
+
+    // Computed property
+    public function getEstimatedCostProperty()
     {
-        return [
-            'title' => 'required|string|max:255',
-            'genre' => 'required|string',
-            'mood' => 'nullable|string',
-            'theme' => 'nullable|string',
-            'pov' => 'nullable|string',
-            'language' => 'nullable|string',
-            'price' => 'required|numeric',
-            'content' => 'required|string',
-        ];
+        $placement_cost = 1;
+        if ($this->placement=='all') {
+            $placement_cost = 2;
+        }
+        return $this->bid * ($this->duration) * $placement_cost;
     }
 
-    public function mount(Lyric $lyric)
-    {
-        // Ownership check (critical)
-        abort_unless($lyric->user_id === auth()->id(), 403);
-
-        $this->lyric = $lyric;
-
-        // Prefill form
-        $this->fill($lyric->only([
-            'title',
-            'genre',
-            'mood',
-            'theme',
-            'pov',
-            'language',
-            'price',
-            'content',
-        ]));
-    }
-
-    public function update()
+    // Redirect to Stripe on submit
+    public function pay()
     {
         $this->validate();
 
-        $this->lyric->update([
-            'title' => $this->title,
-            'genre' => $this->genre,
-            'mood' => $this->mood,
-            'theme' => $this->theme,
-            'pov' => $this->pov,
-            'language' => $this->language,
-            'price' => $this->price,
-            'content' => $this->content,
-        ]);
+        if ($this->getEstimatedCostProperty()=='5') {
+            $stripeUrl = "https://buy.stripe.com/3cI6oA3Jc7LI4UzgiWbo406";
+        }
+        if ($this->getEstimatedCostProperty()=='10') {
+            $stripeUrl = "https://buy.stripe.com/cNiaEQgvYgiedr56Imbo407";
+        }
+        if ($this->getEstimatedCostProperty()=='20') {
+            $stripeUrl = "https://buy.stripe.com/8x200c6Vofea9aP4Aebo401";
+        }
+        if ($this->getEstimatedCostProperty()=='40') {
+            $stripeUrl = "https://buy.stripe.com/dRm6oA5Rkd62cn11o2bo408";
+        }
+        if ($this->getEstimatedCostProperty()=='80') {
+            $stripeUrl = "https://buy.stripe.com/dRm9AM5Rkc1YgDh9Uybo409";
+        }
+        
+        $stripeUrlWithParams = $stripeUrl . "?prefilled_email="
+                     . auth()->user()->email
+                     . "&client_reference_id=pro-" . auth()->id() . "-" . $this->lyric->id
+                     . "-" . $this->bid
+                     . "-" . $this->placement
+                     . "-" . $this->duration;
 
-        session()->flash('success', 'Lyric updated successfully!');
+        return redirect()->to($stripeUrlWithParams);
     }
 
     public function render()

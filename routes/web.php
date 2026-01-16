@@ -82,10 +82,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return view('lyrics.edit', compact('lyric'));
         })->name('lyrics.edit');
 
-        Route::get('/{lyric}/promote', function (\App\Models\Lyric $lyric) {
-            return view('lyrics.promote', compact('lyric'));
-        })->name('lyrics.promote');
+        // Route::get('/{lyric}/promote', function (\App\Models\Lyric $lyric) {
+        //     return view('lyrics.promote', compact('lyric'));
+        // })->name('lyrics.promote');
 
+        // Route::get('/{lyric}/promote', \App\Livewire\PromoteLyric::class)->name('lyrics.promote');
+
+        // Route::view("/{lyric}/promote",'lyrics.promote')->name('lyrics.promote');
+        Route::get('/{lyric}/promote', [LyricController::class, 'promote'])->name('lyrics.promote');
+        
         // Route::post('/', [LyricController::class, 'store'])
         //     ->name('lyricsSave');
         // Route::get('/{lyric:slug}/edit', [LyricController::class, 'edit'])

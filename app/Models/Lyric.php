@@ -62,5 +62,9 @@ class Lyric extends Model
         return $this->belongsToMany(User::class, 'saved_lyrics')
             ->withTimestamps();
     }
+    public function promotions()
+    {
+        return $this->hasMany(LyricPromote::class);
+    }
 
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LyricPurchase;
+use App\Models\LyricPromote;
 use App\Models\User;
 use App\Models\Lyric;
 use Stripe\Webhook;
+use Carbon\Carbon;
 
 class StripeWebhookController extends Controller
 {
@@ -43,6 +45,9 @@ class StripeWebhookController extends Controller
             $type = $client_reference_id_explode[0];
             $user_id = $client_reference_id_explode[1];
             $lyric_id = $client_reference_id_explode[2];
+            $bid = $client_reference_id_explode[3];
+            $placement = $client_reference_id_explode[4];
+            $duration = $client_reference_id_explode[5];
             echo ', user_id: '.$user_id;
             echo ', status: '.$status;
 
@@ -63,17 +68,21 @@ class StripeWebhookController extends Controller
                             'currency' => $session->currency,
                         ]
                     );
-                }
-            }
-            if ($type=='promote') {
-                if ($user_id && $lyric_id) {
-                    LyricPurchase::firstOrCreate(
+            //     }
+            // }
+            // if ($type=='promote') {
+            //     if ($user_id && $lyric_id) {
+                    LyricPromote::firstOrCreate(
                         ['stripe_session_id' => $session->id],
                         [
                             'user_id' => $user_id,
                             'lyric_id' => $lyric_id,
+                            'placement' => $placement,
+                            'duration' => $duration,
+                            'bid' => $bid,
                             'amount' => $session->amount_total / 100,
-                            'currency' => $session->currency,
+                            'starts_at' => Carbon::now(),
+                            'ends_at' => Carbon::now()->addMonth(),
                         ]
                     );
                 }

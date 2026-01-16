@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lyric;
+use App\Models\LyricPromote;
 use App\Models\Blog;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Features;
+use Carbon\Carbon;
 
 class LyricController extends Controller
 {
@@ -76,14 +78,66 @@ class LyricController extends Controller
                     $sq->where('user_id', auth()->id())
             ]);
         })
-        ->latest()
+        // ->latest()
+        ->orderBy('created_at', 'desc')
         ->paginate(12)
         ->withQueryString();
+
+        // $lyrics_promoted = LyricPromote::where('expiry_date', '>', Carbon::now())
+        // ->with('user', 'lyric') // writer
+        // ->orderBy('expiry_date', 'desc')
+        // ->get();
+
+        $genre = $request->genre;
+
+        if ($genre=='All' || $genre=='') {
+            $lyrics_promoted = Lyric::whereHas('promotions', function ($q) {
+                $q->where('ends_at', '>=', now())
+                ->where('placement', 'all');
+            })->withMax(['promotions as max_bid' => function ($q) {
+                $q->where('ends_at', '>=', now())
+                ->where('placement', 'all');
+            }],'bid')
+            ->orderByDesc('max_bid')
+            ->get();
+        }
+        else {
+            $lyrics_promoted = Lyric::whereHas('promotions', function ($q) use ($genre) {
+                $q->where('ends_at', '>=', now())
+                ->where(function ($q) use ($genre) {
+                    $q->where('placement', 'all')      // global promotion
+                        ->orWhere('placement', $genre); // genre-specific
+                });
+            })
+            ->withMax(['promotions as max_bid' => function ($q) use ($genre) {
+                $q->where('ends_at', '>=', now())
+                ->where(function ($q) use ($genre) {
+                    $q->where('placement', 'all')
+                        ->orWhere('placement', $genre);
+                });
+            }], 'bid')
+            ->orderByDesc('max_bid')
+            ->get();
+        }
+
+        // } else {
+        //     $lyrics_promoted = Lyric::whereHas('promotions', function ($q) {
+        //         $q->where('ends_at', '>=', now())
+        //         ->where('placement', 'all');
+        //     })->withMax(['promotions as max_bid' => function ($q) {
+        //         $q->where('ends_at', '>=', now())
+        //         ->where('placement', 'all');
+        //     }],'bid')
+        //     ->orderByDesc('max_bid')
+        //     ->get();
+        // }
 
         $base = Lyric::where('status', 'published');
 
         return view('buy', [
             'lyrics' => $lyrics,
+            'lyrics_promoted' => $lyrics_promoted,
+            'genre' => $genre,
 
             'genres' => (clone $base)
                 ->whereNotNull('genre')
@@ -244,5 +298,11 @@ class LyricController extends Controller
 
         return back()->with('success', 'Lyric removed from saved list');
     }
+
+    public function promote(Lyric $lyric)
+    {
+        return view('lyrics.promote', compact('lyric'));
+    }
+
 
 }
