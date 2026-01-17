@@ -123,13 +123,16 @@
                                 >
                                     <i class="fa-sharp-duotone fa-solid fa-eye"></i> View Full Lyric
                                 </button>
-                                @if (auth()->id() && $lyric->user_id !== auth()->id())
-                                                                <div class=""><livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" /></div>
-                                                            @else
-                                                                <div class="mt-4 xl:mt-0 pt-3"><a href="/login" class="pt-6"><span class="px-3 text-green-700">
-                                                                    <i class="fa-sharp-duotone fa-regular fa-plus text-xl"></i> Log in to Save
-                                                                </span></a></div>
-                                                            @endif
+                                
+                                @if (auth()->id())
+                                    @if ($lyric->user_id !== auth()->id())
+                                        <div class=""><livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" /></div>
+                                    @endif
+                                @else
+                                    <div class="mt-4 xl:mt-0 pt-3"><a href="/login" class="pt-6"><span class="px-3 text-green-700">
+                                        <i class="fa-sharp-duotone fa-regular fa-plus text-xl"></i> Log in to Save
+                                    </span></a></div>
+                                @endif
                             </div>
                         </div>
 
@@ -175,8 +178,10 @@
                                             <i class="fa-sharp-duotone fa-solid fa-eye"></i> View Full Lyric
                                         </button>
                                     </div>
-                                    @if (auth()->id() && $lyric->user_id !== auth()->id())
-                                        <div class=""><livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" /></div>
+                                    @if (auth()->id())
+                                        @if ($lyric->user_id !== auth()->id())
+                                            <div class=""><livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" /></div>
+                                        @endif
                                     @else
                                         <div class="mt-4 xl:mt-0 pt-3"><a href="/login" class="pt-6"><span class="px-3 text-green-700">
                                             <i class="fa-sharp-duotone fa-regular fa-plus text-xl"></i> Log in to Save

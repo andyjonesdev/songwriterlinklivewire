@@ -9,6 +9,10 @@ use App\Models\User;
 use App\Models\Lyric;
 use Stripe\Webhook;
 use Carbon\Carbon;
+use App\Mail\LyricPurchasedMail;
+use App\Mail\LyricPromotedMail;
+use App\Mail\LyricPurchaseConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 class StripeWebhookController extends Controller
 {
@@ -48,8 +52,8 @@ class StripeWebhookController extends Controller
             $bid = $client_reference_id_explode[3];
             $placement = $client_reference_id_explode[4];
             $duration = $client_reference_id_explode[5];
-            echo ', user_id: '.$user_id;
-            echo ', status: '.$status;
+            // echo ', user_id: '.$user_id;
+            // echo ', status: '.$status;
 
             // Fallback: find user by customer email
             // if (!$userId && !empty($session->customer_details->email)) {
@@ -59,7 +63,7 @@ class StripeWebhookController extends Controller
 
             if ($type=='lyric') {
                 if ($user_id && $lyric_id) {
-                    LyricPurchase::firstOrCreate(
+                    $purchase = LyricPurchase::firstOrCreate(
                         ['stripe_session_id' => $session->id],
                         [
                             'user_id' => $user_id,
@@ -68,11 +72,16 @@ class StripeWebhookController extends Controller
                             'currency' => $session->currency,
                         ]
                     );
-            //     }
-            // }
-            // if ($type=='promote') {
-            //     if ($user_id && $lyric_id) {
-                    LyricPromote::firstOrCreate(
+                }
+                Mail::to(config('mail.admin_email', env('ADMIN_EMAIL')))
+                ->send(new LyricPurchasedMail($purchase));
+
+                Mail::to($$purchase->user->email)
+                    ->send(new LyricPurchaseConfirmationMail($purchase));        
+            }
+            if ($type=='promote') {
+                if ($user_id && $lyric_id) {
+                    $purchase = LyricPromote::firstOrCreate(
                         ['stripe_session_id' => $session->id],
                         [
                             'user_id' => $user_id,
@@ -85,6 +94,8 @@ class StripeWebhookController extends Controller
                             'ends_at' => Carbon::now()->addMonth(),
                         ]
                     );
+                    Mail::to(config('mail.admin_email', env('ADMIN_EMAIL')))
+                    ->send(new LyricPromotedMail($purchase));
                 }
             }
 

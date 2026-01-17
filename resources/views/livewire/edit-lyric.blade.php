@@ -12,7 +12,7 @@
         </div>
 
         {{-- Meta --}}
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             <x-genre-select model="genre" />
             <x-mood-select model="mood" />
             <x-theme-select model="theme" />
