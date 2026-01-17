@@ -73,7 +73,7 @@ class StripeWebhookController extends Controller
                 Mail::to(config('mail.admin_email', env('ADMIN_EMAIL')))
                 ->send(new LyricPurchasedMail($purchase));
 
-                Mail::to($$purchase->user->email)
+                Mail::to($purchase->user->email)
                     ->send(new LyricPurchaseConfirmationMail($purchase));        
             }
             if ($type=='promote') {
