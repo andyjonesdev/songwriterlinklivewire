@@ -49,9 +49,6 @@ class StripeWebhookController extends Controller
             $type = $client_reference_id_explode[0];
             $user_id = $client_reference_id_explode[1];
             $lyric_id = $client_reference_id_explode[2];
-            $bid = $client_reference_id_explode[3];
-            $placement = $client_reference_id_explode[4];
-            $duration = $client_reference_id_explode[5];
             // echo ', user_id: '.$user_id;
             // echo ', status: '.$status;
 
@@ -80,6 +77,9 @@ class StripeWebhookController extends Controller
                     ->send(new LyricPurchaseConfirmationMail($purchase));        
             }
             if ($type=='promote') {
+                $bid = $client_reference_id_explode[3];
+                $placement = $client_reference_id_explode[4];
+                $duration = $client_reference_id_explode[5];
                 if ($user_id && $lyric_id) {
                     $purchase = LyricPromote::firstOrCreate(
                         ['stripe_session_id' => $session->id],
