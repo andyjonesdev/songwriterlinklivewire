@@ -5,7 +5,7 @@
 <p>Thanks for purchasing a lyric on <strong>SongwriterLink</strong>.</p>
 
 <p><strong>Lyric:</strong> {{ $purchase->lyric->title }}</p>
-<p><strong>Amount Paid:</strong> ${{ number_format($purchase->amount / 100, 2) }}</p>
+<p><strong>Amount Paid:</strong> ${{ $purchase->amount }}</p>
 <!-- <p><strong>Order ID:</strong> {{ $purchase->id }}</p> -->
 
 @if($purchase->download_url)
