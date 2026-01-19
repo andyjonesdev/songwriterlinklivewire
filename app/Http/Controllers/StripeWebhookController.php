@@ -80,6 +80,12 @@ class StripeWebhookController extends Controller
                 $bid = $client_reference_id_explode[3];
                 $placement = $client_reference_id_explode[4];
                 $duration = $client_reference_id_explode[5];
+                if ($duration==2) {
+                    $ends_at = Carbon::now()->addWeeks(2);
+                }
+                if ($duration==4) {
+                    $ends_at = Carbon::now()->addMonth();
+                }
                 if ($user_id && $lyric_id) {
                     $purchase = LyricPromote::firstOrCreate(
                         ['stripe_session_id' => $session->id],
@@ -91,7 +97,7 @@ class StripeWebhookController extends Controller
                             'bid' => $bid,
                             'amount' => $session->amount_total / 100,
                             'starts_at' => Carbon::now(),
-                            'ends_at' => Carbon::now()->addMonth(),
+                            'ends_at' => $ends_at,
                         ]
                     );
                     Mail::to(config('mail.admin_email', env('ADMIN_EMAIL')))
