@@ -76,7 +76,7 @@ class StripeWebhookController extends Controller
                 Mail::to($purchase->user->email)
                     ->send(new LyricPurchaseConfirmationMail($purchase));        
             }
-            if ($type=='promote') {
+            if ($type=='pro') {
                 $bid = $client_reference_id_explode[3];
                 $placement = $client_reference_id_explode[4];
                 $duration = $client_reference_id_explode[5];
