@@ -30,7 +30,7 @@
     @if ($title=='Buy Pop Song Lyrics | Original Pop Lyrics for Sale - SongwriterLink')
         <script type="application/ld+json">
             {
-            "@@context": "https://schema.org"
+            "@@context": "https://schema.org",
             "@type": "CollectionPage",
             "name": "Buy Pop Song Lyrics",
             "description": "Browse and license original pop song lyrics written by independent lyricists. Purchase professional pop lyrics for your next music release.",
