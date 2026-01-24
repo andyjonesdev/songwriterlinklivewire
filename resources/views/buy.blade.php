@@ -6,7 +6,14 @@
                 <main
                     class="flex w-full flex-col-reverse overflow-hidden rounded-t-lg lg:flex-row">
                     <div class="flex-1 rounded-t-lg p-4 lg:p-0 pb-12 text-[13px] leading-[20px] bg-[#ffffff78] bg-gray-50 lg:pt-20 lg:px-20 lg:pb-12">
-                        <h1 class="mb-1 font-medium text-6xl">Buy lyrics & poems</h1>
+                        <h1 class="mb-1 font-medium text-6xl">Buy Original Song Lyrics</h1>
+
+                        <p class="mt-4 text-lg">
+                        Browse by genre:
+                        <a href="/buy-pop-lyrics" class="text-red-600 underline">Pop Lyrics</a> ·
+                        <!-- <a href="/buy-rap-lyrics" class="text-red-600 underline">Rap Lyrics</a> ·
+                        <a href="/buy-country-lyrics" class="text-red-600 underline">Country Lyrics</a> -->
+                        </p>
                     </div>  
                 </main>
             </div>

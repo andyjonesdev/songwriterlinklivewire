@@ -177,3 +177,5 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
+
+Route::get('/buy-pop-lyrics', [PageController::class, 'buyPop'])->name('page.buy.pop');
