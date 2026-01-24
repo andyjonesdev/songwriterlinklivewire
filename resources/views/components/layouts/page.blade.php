@@ -55,7 +55,7 @@
                 "@type": "Organization",
                 "name": "SongwriterLink",
                 "url": "https://songwriterlink.com"
-            }
+            },
             }
         </script>
     @endif

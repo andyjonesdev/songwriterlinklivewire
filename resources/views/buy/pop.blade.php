@@ -99,7 +99,7 @@
 
         <div class="lg:w-2/3 lg:mx-20">
             <button
-                onclick="window.location.href='{{ route('buyLyrics', $lyric->slug) }}'"
+                onclick="window.location.href='{{ route('buyLyrics', 'genre=Pop') }}'"
                 class="rounded-sm bg-[#e8363c] px-5 py-1 my-1 text-lg text-white hover:bg-black cursor-pointer mx-auto w-fit"
             >
                 <i class="fa-sharp-duotone fa-solid fa-eye"></i> View More Pop Lyrics
