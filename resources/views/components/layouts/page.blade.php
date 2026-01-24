@@ -29,37 +29,65 @@
 
     @if ($title=='Buy Pop Song Lyrics | Original Pop Lyrics for Sale - SongwriterLink')
         <script type="application/ld+json">
-            {
-            "@@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Buy Pop Song Lyrics",
-            "description": "Browse and license original pop song lyrics written by independent lyricists. Purchase professional pop lyrics for your next music release.",
-            "url": "https://songwriterlink.com/buy-pop-lyrics",
-            "isPartOf": {
-                "@type": "WebSite",
-                "name": "SongwriterLink",
-                "url": "https://songwriterlink.com",
-            },
-            "about": {
-                "@type": "CreativeWork",
-                "genre": "Pop",
-                "name": "Pop Song Lyrics",
-            },
-            "offers": {
-                "@type": "Offer",
-                "category": "Digital content",
-                "availability": "https://schema.org/InStock",
-                "priceCurrency": "USD",
-            },
-            "provider": {
-                "@type": "Organization",
-                "name": "SongwriterLink",
-                "url": "https://songwriterlink.com",
-            },
-            }
-        </script>
-    @endif
+<?php
+echo json_encode([
+    "@context" => "https://schema.org",
+    "@type" => "CollectionPage",
+    "name" => "Buy Pop Song Lyrics",
+    "description" => "Browse and license original pop song lyrics written by independent lyricists. Purchase professional pop lyrics for your next music release.",
+    "url" => url('/buy-pop-lyrics'),
+    "isPartOf" => [
+        "@type" => "WebSite",
+        "name" => "SongwriterLink",
+        "url" => url('/')
+    ],
+    "about" => [
+        "@type" => "CreativeWork",
+        "genre" => "Pop",
+        "name" => "Pop Song Lyrics"
+    ],
+    "offers" => [
+        "@type" => "Offer",
+        "category" => "Digital content",
+        "availability" => "https://schema.org/InStock",
+        "priceCurrency" => "USD"
+    ],
+    "provider" => [
+        "@type" => "Organization",
+        "name" => "SongwriterLink",
+        "url" => url('/')
+    ]
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+?>
+</script>
 
+
+    @endif
+       <script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context" => "https://schema.org",
+    "@type" => "BreadcrumbList",
+    "itemListElement" => [
+        [
+            "@type" => "ListItem",
+            "position" => 1,
+            "name" => "Buy Lyrics",
+            "item" => url('/buy-lyrics')
+        ],
+        [
+            "@type" => "ListItem",
+            "position" => 2,
+            "name" => "Buy Pop Lyrics",
+            "item" => url('/buy-pop-lyrics')
+        ]
+    ]
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+?>
+</script>
+
+
+ 
 </head>
 <body>
     <x-layouts.page.header />

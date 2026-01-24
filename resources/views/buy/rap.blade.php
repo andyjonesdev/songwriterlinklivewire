@@ -115,5 +115,4 @@
         </div> 
 
 </div>
-</div>
 </x-layouts.page>
