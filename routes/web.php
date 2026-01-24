@@ -179,3 +179,5 @@ Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.sho
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
 Route::get('/buy-pop-lyrics', [PageController::class, 'buyPop'])->name('page.buy.pop');
+Route::get('/buy-rap-lyrics', [PageController::class, 'buyRap'])->name('page.buy.rap');
+Route::get('/buy-country-lyrics', [PageController::class, 'buyCountry'])->name('page.buy.country');

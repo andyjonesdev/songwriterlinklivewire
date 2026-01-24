@@ -27,8 +27,31 @@ class PageController extends Controller
     }
     public function buyPop()
     {
+        $lyrics = $this->getLyrics('Pop');
+        return view('buy.pop', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyRap()
+    {
+        $lyrics = $this->getLyrics('Rap');
+        return view('buy.rap', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyCountry()
+    {
+        $lyrics = $this->getLyrics('Country');
+        return view('buy.country', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function getLyrics($genre) {
         $lyrics = Lyric::where('status', 'published')
-        ->when('Pop', fn ($q) => $q->where('genre', 'Pop'))
+        ->when($genre, fn ($q) => $q->where('genre', $genre))
         ->with('user') // writer
         ->when(auth()->check(), function ($q) {
             $q->withExists([
@@ -36,17 +59,9 @@ class PageController extends Controller
                     $sq->where('user_id', auth()->id())
             ]);
         })
-        // ->latest()
         ->orderBy('created_at', 'desc')
         ->paginate(6)
         ->withQueryString();
-
-        return view('buy.pop', [
-            'lyrics' => $lyrics,
-            'meta' => [
-                'title' => 'Contact us - SongwriterLink',
-                'description' => 'Get in touch with the support team at SongwriterLink',
-            ],
-        ]);
+        return $lyrics;
     }
 }

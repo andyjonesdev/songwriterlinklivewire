@@ -38,23 +38,23 @@
             "isPartOf": {
                 "@type": "WebSite",
                 "name": "SongwriterLink",
-                "url": "https://songwriterlink.com"
+                "url": "https://songwriterlink.com",
             },
             "about": {
                 "@type": "CreativeWork",
                 "genre": "Pop",
-                "name": "Pop Song Lyrics"
+                "name": "Pop Song Lyrics",
             },
             "offers": {
                 "@type": "Offer",
                 "category": "Digital content",
                 "availability": "https://schema.org/InStock",
-                "priceCurrency": "USD"
+                "priceCurrency": "USD",
             },
             "provider": {
                 "@type": "Organization",
                 "name": "SongwriterLink",
-                "url": "https://songwriterlink.com"
+                "url": "https://songwriterlink.com",
             },
             }
         </script>

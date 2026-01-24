@@ -11,8 +11,8 @@
                         <p class="mt-4 text-lg">
                         Browse by genre:
                         <a href="/buy-pop-lyrics" class="text-red-600 underline">Pop Lyrics</a> ·
-                        <!-- <a href="/buy-rap-lyrics" class="text-red-600 underline">Rap Lyrics</a> ·
-                        <a href="/buy-country-lyrics" class="text-red-600 underline">Country Lyrics</a> -->
+                        <a href="/buy-rap-lyrics" class="text-red-600 underline">Rap Lyrics</a> ·
+                        <a href="/buy-country-lyrics" class="text-red-600 underline">Country Lyrics</a>
                         </p>
                     </div>  
                 </main>
