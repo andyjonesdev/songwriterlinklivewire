@@ -15,6 +15,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+    <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/bbabaf2200.js" crossorigin="anonymous"></script>
@@ -27,42 +28,273 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @if ($title=='Buy Pop Song Lyrics | Original Pop Lyrics for Sale - SongwriterLink')
-        <script type="application/ld+json">
+    {{-- Pop --}}
+@if ($title=='Buy Pop Song Lyrics | Original Pop Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
 <?php
 echo json_encode([
-    "@context" => "https://schema.org",
-    "@type" => "CollectionPage",
-    "name" => "Buy Pop Song Lyrics",
-    "description" => "Browse and license original pop song lyrics written by independent lyricists. Purchase professional pop lyrics for your next music release.",
-    "url" => url('/buy-pop-lyrics'),
-    "isPartOf" => [
-        "@type" => "WebSite",
-        "name" => "SongwriterLink",
-        "url" => url('/')
-    ],
-    "about" => [
-        "@type" => "CreativeWork",
-        "genre" => "Pop",
-        "name" => "Pop Song Lyrics"
-    ],
-    "offers" => [
-        "@type" => "Offer",
-        "category" => "Digital content",
-        "availability" => "https://schema.org/InStock",
-        "priceCurrency" => "USD"
-    ],
-    "provider" => [
-        "@type" => "Organization",
-        "name" => "SongwriterLink",
-        "url" => url('/')
-    ]
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Pop Song Lyrics",
+    "description"=>"Browse and license original pop song lyrics written by independent lyricists. Purchase professional pop lyrics for your next music release.",
+    "url"=>url('/buy-pop-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Pop","name"=>"Pop Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
 ?>
 </script>
+@endif
+
+{{-- Rap --}}
+@if ($title=='Buy Rap Lyrics | Original Rap Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Rap Song Lyrics",
+    "description"=>"Browse and license original rap song lyrics written by independent lyricists. Purchase professional rap lyrics for your next music release.",
+    "url"=>url('/buy-rap-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Rap","name"=>"Rap Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Country --}}
+@if ($title=='Buy Country Song Lyrics | Original Country Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Country Song Lyrics",
+    "description"=>"Browse and license original country song lyrics written by independent lyricists. Purchase professional country lyrics for your next music release.",
+    "url"=>url('/buy-country-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Country","name"=>"Country Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Rock --}}
+@if ($title=='Buy Rock Song Lyrics | Original Rock Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Rock Song Lyrics",
+    "description"=>"Browse and license original rock song lyrics written by independent lyricists. Purchase professional rock lyrics for your next music release.",
+    "url"=>url('/buy-rock-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Rock","name"=>"Rock Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Indie --}}
+@if ($title=='Buy Indie Song Lyrics | Original Indie Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Indie Song Lyrics",
+    "description"=>"Browse and license original indie song lyrics written by independent lyricists. Purchase professional indie lyrics for your next music release.",
+    "url"=>url('/buy-indie-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Indie","name"=>"Indie Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Metal --}}
+@if ($title=='Buy Metal Song Lyrics | Original Metal Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Metal Song Lyrics",
+    "description"=>"Browse and license original metal song lyrics written by independent lyricists. Purchase professional metal lyrics for your next music release.",
+    "url"=>url('/buy-metal-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Metal","name"=>"Metal Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- R&B --}}
+@if ($title=='Buy R&B Song Lyrics | Original R&B Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy R&B Song Lyrics",
+    "description"=>"Browse and license original R&B song lyrics written by independent lyricists. Purchase professional R&B lyrics for your next music release.",
+    "url"=>url('/buy-rnb-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"R&B","name"=>"R&B Song Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Singer-Songwriter --}}
+@if ($title=='Buy Singer-Songwriter Lyrics | Original Acoustic Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Singer-Songwriter Lyrics",
+    "description"=>"Browse and license original singer-songwriter lyrics written by independent lyricists. Purchase professional lyrics for your next music release.",
+    "url"=>url('/buy-singer-songwriter-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Singer-Songwriter","name"=>"Singer-Songwriter Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Jazz --}}
+@if ($title=='Buy Jazz Lyrics | Original Jazz Lyrics for Sale - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Jazz Lyrics",
+    "description"=>"Explore original jazz lyrics written by independent lyricists. License sophisticated, lyrical lyrics for jazz standards, ballads, and swing — ready for recording and performance.",
+    "url"=>url('/buy-jazz-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Jazz","name"=>"Jazz Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Christian --}}
+@if ($title=='Buy Christian Lyrics | Original Christian Song Lyrics - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Christian Lyrics",
+    "description"=>"Browse and license original Christian song lyrics written by independent lyricists. Purchase professional Christian lyrics for your next music release.",
+    "url"=>url('/buy-christian-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Christian","name"=>"Christian Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Folk --}}
+@if ($title=='Buy Folk Lyrics | Original Folk Song Lyrics - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Folk Lyrics",
+    "description"=>"Browse and license original folk song lyrics written by independent lyricists. Purchase professional folk lyrics for your next music release.",
+    "url"=>url('/buy-folk-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Folk","name"=>"Folk Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- World --}}
+@if ($title=='Buy World Lyrics | Original World Music Lyrics - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy World Lyrics",
+    "description"=>"Browse and license original world music lyrics written by independent lyricists. Purchase professional world lyrics for your next music release.",
+    "url"=>url('/buy-world-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"World","name"=>"World Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Soul --}}
+@if ($title=='Buy Soul Lyrics | Original Soul Song Lyrics - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Soul Lyrics",
+    "description"=>"Browse and license original soul song lyrics written by independent lyricists. Purchase professional soul lyrics for your next music release.",
+    "url"=>url('/buy-soul-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Soul","name"=>"Soul Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
+{{-- Reggae --}}
+@if ($title=='Buy Reggae Lyrics | Original Reggae Song Lyrics - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context"=>"https://schema.org",
+    "@type"=>"CollectionPage",
+    "name"=>"Buy Reggae Lyrics",
+    "description"=>"Browse and license original reggae song lyrics written by independent lyricists. Purchase professional reggae lyrics for your next music release.",
+    "url"=>url('/buy-reggae-lyrics'),
+    "isPartOf"=>["@type"=>"WebSite","name"=>"SongwriterLink","url"=>url('/')],
+    "about"=>["@type"=>"CreativeWork","genre"=>"Reggae","name"=>"Reggae Lyrics"],
+    "offers"=>["@type"=>"Offer","category"=>"Digital content","availability"=>"https://schema.org/InStock","priceCurrency"=>"USD"],
+    "provider"=>["@type"=>"Organization","name"=>"SongwriterLink","url"=>url('/')]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
 
 
-    @endif
        <script type="application/ld+json">
 <?php
 echo json_encode([
@@ -94,7 +326,7 @@ echo json_encode([
 
     {{ $slot }}
 
-    <div class="bg-gray-900 text-white lg:grid grid-cols-2 gap-4 mt-8 p-12 justify-between">
+    <div class="bg-gray-900 text-white lg:grid grid-cols-2 gap-4 mt-8 p-2 md:p-12 justify-between">
         <div class="p-4">
             <h3 class="text-3xl mt-4 my-2">About Us</h3>
             <p>SongwriterLink is the sister company to Verse-Chorus, run by Andy and Rebecca Jones, a songwriting and development team from the UK.</p>

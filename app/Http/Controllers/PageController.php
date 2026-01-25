@@ -49,6 +49,94 @@ class PageController extends Controller
         ]);
     }
 
+    public function buyRock()
+    {
+        $lyrics = $this->getLyrics('Rock');
+        return view('buy.rock', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyIndie()
+    {
+        $lyrics = $this->getLyrics('Indie');
+        return view('buy.indie', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyMetal()
+    {
+        $lyrics = $this->getLyrics('Metal');
+        return view('buy.metal', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyRandB()
+    {
+        $lyrics = $this->getLyrics('R&B');
+        return view('buy.randb', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buySingerSongwriter()
+    {
+        $lyrics = $this->getLyrics('Singer-Songwriter');
+        return view('buy.singer-songwriter', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyJazz()
+    {
+        $lyrics = $this->getLyrics('Jazz');
+        return view('buy.jazz', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyChristian()
+    {
+        $lyrics = $this->getLyrics('Christian');
+        return view('buy.christian', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyFolk()
+    {
+        $lyrics = $this->getLyrics('Folk');
+        return view('buy.folk', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyWorld()
+    {
+        $lyrics = $this->getLyrics('World');
+        return view('buy.world', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buySoul()
+    {
+        $lyrics = $this->getLyrics('Soul');
+        return view('buy.soul', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
+    public function buyReggae()
+    {
+        $lyrics = $this->getLyrics('Reggae');
+        return view('buy.reggae', [
+            'lyrics' => $lyrics,
+        ]);
+    }
+
     public function getLyrics($genre) {
         $lyrics = Lyric::where('status', 'published')
         ->when($genre, fn ($q) => $q->where('genre', $genre))
