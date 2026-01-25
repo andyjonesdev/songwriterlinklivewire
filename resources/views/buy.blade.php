@@ -98,6 +98,7 @@
                 </div>
             </form>
             
+            @if (count($lyrics_promoted)>0)
             <div class="gap-4 py-12 justify-around lg:grid grid-cols-3 gap-4">
                 @foreach ($lyrics_promoted as $lyric)
                     <div class="relative p-4 border rounded mb-4 bg-white">
@@ -151,6 +152,7 @@
                     </div>
                 @endforeach
             </div>
+            @endif
 
             <div class="gap-4 py-12 justify-around lg:grid grid-cols-3 gap-4">
                 <!-- Loop through lyrics -->
