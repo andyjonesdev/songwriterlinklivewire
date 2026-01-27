@@ -10,7 +10,7 @@
                     lg:p-20 dark:bg-[#161615ba] dark:text-[#EDEDEC]
                     dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]">
 
-                    <h1 class="mb-1 font-medium text-6xl">
+                    <h1 class="mb-1 font-medium text-2xl md:text-6xl">
                         {{ $user->name }}
                     </h1>
 
