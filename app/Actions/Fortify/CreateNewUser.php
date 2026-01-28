@@ -29,7 +29,16 @@ class CreateNewUser implements CreatesNewUsers
             ],
             'password' => $this->passwordRules(),
             'role' => 'required|in:buyer,seller',
+
+            'captcha' => ['required', function ($attribute, $value, $fail) {
+                if ((int)$value !== session('captcha_answer')) {
+                    $fail('Captcha answer is incorrect.');
+                }
+            }],
+
         ])->validate();
+
+        session()->forget('captcha_answer');
 
         $user = User::create([
             'name' => $input['name'],

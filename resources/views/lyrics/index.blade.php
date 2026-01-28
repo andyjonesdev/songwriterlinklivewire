@@ -22,26 +22,33 @@
                     Price: <b>${{ $lyric->price }}</b>
                 </p>
 
-                <div class="flex gap-4 my-4">
+                <div class="flex gap-2 my-4">
                     <a
                         href="{{ route('lyrics.show', $lyric) }}"
-                        class="bg-red-900 text-white px-2 py-1 rounded-md"
+                        class="bg-blue-900 text-white px-2 py-1 rounded-md text-center"
                     >
-                        View
+                        <i class="fa-sharp-duotone fa-solid fa-eye"></i> View
                     </a>
 
                     <a
                         href="{{ route('lyrics.edit', $lyric) }}"
-                        class="bg-red-700 text-white px-2 py-1 rounded-md"
+                        class="bg-red-700 text-white px-2 py-1 rounded-md text-center"
                     >
-                        Edit
+                        <i class="fa-sharp-duotone fa-solid fa-pen-to-square"></i> Edit
                     </a>
 
                     <a
                         href="{{ route('lyrics.promote', $lyric) }}"
-                        class="bg-red-500 text-white px-2 py-1 rounded-md"
+                        class="bg-yellow-500 text-white px-2 py-1 rounded-md text-center"
                     >
-                        Promote
+                        <i class="fa-sharp-duotone fa-solid fa-up"></i> Promote
+                    </a>
+
+                    <a
+                        href="https://copyrightsolved.com" target="_blank"
+                        class="bg-green-700 text-white px-2 py-1 rounded-md text-center"
+                    >
+                        <i class="fa-sharp-duotone fa-solid fa-file-lock"></i> Protect
                     </a>
                     
                     <form
@@ -52,8 +59,8 @@
                         @csrf
                         @method('DELETE')
 
-                        <button class="bg-gray-500 text-white px-2 py-1 rounded-md cursor-pointer">
-                            Delete
+                        <button class="bg-gray-500 text-white px-2 py-1 rounded-md cursor-pointer text-center">
+                            <i class="fa-sharp-duotone fa-solid fa-xmark"></i> Delete
                         </button>
                     </form>
                 </div>

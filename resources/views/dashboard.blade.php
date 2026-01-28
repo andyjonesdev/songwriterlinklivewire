@@ -5,7 +5,9 @@
             <div class="w-full rounded-xl border border-sidebar-border/70 p-6">
                 <h1 class="text-3xl mb-4">Welcome, {{ $user['name'] }}</h1>
                 <p>Use this page to manage your account.</p>
-                @livewire('social-usage-consent')
+                @if ($user['role']=='seller')
+                    @livewire('social-usage-consent')
+                @endif
             </div>
         </div>
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 p-6">
@@ -15,21 +17,35 @@
                 <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
                 hover:bg-black">Upload New Lyric</a></p>
                 
-                <div class="text-lg grid grid-cols-2 lg:grid-cols-5 py-4 border-b-2 border-gray-100">
+                <div class="text-lg grid grid-cols-2 lg:grid-cols-7 py-4 border-b-2 border-gray-100 gap-2">
                     <div class="font-bold col-span-2">Title</div>
                     <div class="font-bold hidden lg:block">Genre</div>
                     <div class="font-bold hidden lg:block">Price</div>
                     <div class="font-bold hidden lg:block">Status</div>
-                    <!-- <div class="font-bold"></div> -->
+                    <div class="font-bold col-span-2"></div>
                 </div>
                 
-                <div class="text-lg grid grid-cols-2 lg:grid-cols-5 my-4">
+                <div class="text-lg grid grid-cols-2 lg:grid-cols-7 my-4 gap-2">
                     @foreach ($lyrics as $lyric)
-                        <div class="col-span-2 mb-2 bg-gray-50 px-2">{{ $lyric['title'] }}</div>
-                        <div class="hidden lg:block mb-2 bg-gray-50">{{ $lyric['genre'] }}</div>
-                        <div class="hidden lg:block mb-2 bg-gray-50">${{ $lyric['price'] }}</div>
-                        <div class="hidden lg:block mb-2 bg-gray-50">{{ $lyric['status'] }}</div>
+                        <div class="col-span-2 border-b-2 border-gray-100 px-2 py-1">{{ $lyric['title'] }}</div>
+                        <div class="hidden lg:block border-b-2 border-gray-100 px-2 py-1">{{ $lyric['genre'] }}</div>
+                        <div class="hidden lg:block border-b-2 border-gray-100 px-2 py-1">${{ $lyric['price'] }}</div>
+                        <div class="hidden lg:block border-b-2 border-gray-100 px-2 py-1">{{ $lyric['status'] }}</div>
                         <!-- <a :href="lyricsEdit.url({ slug: lyric.slug })" class="underline">Edit</a> -->
+
+                    <a
+                        href="{{ route('lyrics.promote', $lyric) }}"
+                        class="bg-yellow-500 text-white py-1 rounded-md text-center"
+                    >
+                        <i class="fa-sharp-duotone fa-solid fa-up"></i> Promote
+                    </a>
+
+                    <a
+                        href="https://copyrightsolved.com" target="_blank"
+                        class="bg-green-700 text-white py-1 rounded-md text-center"
+                    >
+                        <i class="fa-sharp-duotone fa-solid fa-file-lock"></i> Protect
+                    </a>
                     @endforeach
                 </div>
             @endif

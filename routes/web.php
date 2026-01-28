@@ -192,3 +192,7 @@ Route::get('/buy-folk-lyrics', [PageController::class, 'buyFolk'])->name('page.b
 Route::get('/buy-world-lyrics', [PageController::class, 'buyWorld'])->name('page.buy.world');
 Route::get('/buy-soul-lyrics', [PageController::class, 'buySoul'])->name('page.buy.soul');
 Route::get('/buy-reggae-lyrics', [PageController::class, 'buyReggae'])->name('page.buy.reggae');
+
+Route::get('/lyric-marketplace', [PageController::class, 'lyricMarketPlace'])->name('pages.lyricmarketplace');
+Route::get('/royalty-free-lyrics', [PageController::class, 'royaltyFreeLyrics'])->name('pages.royaltyfreelyrics');
+Route::get('/buy-song-lyrics', [PageController::class, 'buySongLyrics'])->name('pages.buysonglyrics');

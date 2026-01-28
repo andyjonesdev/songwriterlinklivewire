@@ -346,6 +346,9 @@ echo json_encode([
         <div class="p-4">
             <h3 class="text-3xl mt-4 my-2">Contact Us​</h3>
             <p>support@songwriterlink.com</p>
+            <p><a href="/lyric-marketplace">Lyric MarketPlace</a><br />
+            <a href="/royalty-free-lyrics">Royalty Free Lyrics</a><br />
+            <a href="/buy-song-lyrics">Buy Song Lyrics</a></p>
         </div>
     </div>
 </body>

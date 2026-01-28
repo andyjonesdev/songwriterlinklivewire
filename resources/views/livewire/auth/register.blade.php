@@ -92,6 +92,25 @@
                 @enderror
             </div>
 
+            @php
+                $a = rand(1,9);
+                $b = rand(1,9);
+                session(['captcha_answer' => $a + $b]);
+            @endphp
+
+            <!-- Captcha -->
+            <flux:input
+                name="captcha"
+                :label="__('Human check')"
+                type="text"
+                required
+                :placeholder="__('What is ' . $a . ' + ' . $b . '?')"
+            />
+
+            @error('captcha')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">

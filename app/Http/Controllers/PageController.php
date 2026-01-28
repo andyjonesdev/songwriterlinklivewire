@@ -152,4 +152,26 @@ class PageController extends Controller
         ->withQueryString();
         return $lyrics;
     }
+
+    public function lyricMarketPlace()
+    {
+        return view('pages.lyricmarketplace', [
+
+        ]);
+    }
+
+    public function royaltyFreeLyrics()
+    {
+        return view('pages.royaltyfreelyrics', [
+
+        ]);
+    }
+
+    public function buySongLyrics()
+    {
+        return view('pages.buysonglyrics', [
+
+        ]);
+    }
+    
 }
