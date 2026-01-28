@@ -35,14 +35,14 @@
 
                     <a
                         href="{{ route('lyrics.promote', $lyric) }}"
-                        class="bg-yellow-500 text-white py-1 rounded-md text-center"
+                        class="bg-yellow-500 text-white py-1 rounded-md text-center h-fit"
                     >
                         <i class="fa-sharp-duotone fa-solid fa-up"></i> Promote
                     </a>
 
                     <a
                         href="https://copyrightsolved.com" target="_blank"
-                        class="bg-green-700 text-white py-1 rounded-md text-center"
+                        class="bg-green-700 text-white py-1 rounded-md text-center h-fit"
                     >
                         <i class="fa-sharp-duotone fa-solid fa-file-lock"></i> Protect
                     </a>
