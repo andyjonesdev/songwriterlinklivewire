@@ -1,7 +1,11 @@
 <x-layouts.page :title="__($blog->title)" :description="__($blog->description)">
     
     <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
-    
+        <nav class="text-sm text-gray-600 mb-4">
+            <a href="/">Home</a> ›
+            <a href="/blog">Blog</a> ›
+            <span>{{ $blog->title }}</span>
+        </nav>
         <div class="flex w-full opacity-100 transition-opacity duration-750 lg:grow">
             <main
                 class="flex lg:w-2/3 flex-col-reverse overflow-hidden rounded-lg lg:flex-row"

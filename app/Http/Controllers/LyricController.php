@@ -70,18 +70,18 @@ class LyricController extends Controller
         ->when($request->mood, fn ($q) => $q->where('mood', $request->mood))
         ->when($request->theme, fn ($q) => $q->where('theme', $request->theme))
         ->when($request->pov, fn ($q) => $q->where('pov', $request->pov))
-        ->when($request->language, fn ($q) => $q->where('language', $request->language))
-        ->with('user') // writer
+        ->where('language', $request->language ?? 'english') // 👈 default
+        ->with('user')
         ->when(auth()->check(), function ($q) {
             $q->withExists([
                 'savedByUsers as is_saved' => fn ($sq) =>
                     $sq->where('user_id', auth()->id())
             ]);
         })
-        // ->latest()
         ->orderBy('created_at', 'desc')
         ->paginate(12)
         ->withQueryString();
+
 
         // $lyrics_promoted = LyricPromote::where('expiry_date', '>', Carbon::now())
         // ->with('user', 'lyric') // writer

@@ -3,7 +3,13 @@
 :canonical="url()->current()">
     
 <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
-    
+    <nav class="text-sm text-gray-600 mb-4">
+            <a href="/">Home</a> ›
+            <a href="/buy-lyrics">Buy Lyrics</a> ›
+            <span>
+                Singer-Songwriter Lyrics
+            </span>
+        </nav>
     <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
         <main class="flex w-full flex-col-reverse overflow-hidden rounded-lg lg:flex-row">
             <div class="p-6 lg:p-0 flex-1 rounded-lg pb-12 text-[13px] leading-[20px] bg-[#ffffff78] bg-gray-50 lg:p-20">

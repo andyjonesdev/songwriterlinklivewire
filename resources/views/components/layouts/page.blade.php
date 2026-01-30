@@ -39,6 +39,36 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+
+@if ($title == 'Buy Song Lyrics | Original Lyrics Marketplace - SongwriterLink')
+<script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context" => "https://schema.org",
+    "@type" => "CollectionPage",
+    "name" => "Buy Song Lyrics",
+    "description" => "Browse and purchase original song lyrics written by independent lyricists. Find pop, rap, country, rock, jazz, and more genres available for licensing.",
+    "url" => url('/buy-lyrics'),
+    "isPartOf" => [
+        "@type" => "WebSite",
+        "name" => "SongwriterLink",
+        "url" => url('/')
+    ],
+    "about" => [
+        "@type" => "CreativeWork",
+        "name" => "Song Lyrics Marketplace",
+        "genre" => "Multiple genres"
+    ],
+    "provider" => [
+        "@type" => "Organization",
+        "name" => "SongwriterLink",
+        "url" => url('/')
+    ]
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+?>
+</script>
+@endif
+
     {{-- Pop --}}
 @if ($title=='Buy Pop Song Lyrics | Original Pop Lyrics for Sale - SongwriterLink')
 <script type="application/ld+json">

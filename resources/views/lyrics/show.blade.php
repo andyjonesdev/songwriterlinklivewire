@@ -1,6 +1,85 @@
+
 <x-layouts.page :title="__($lyric->title. ' - Songwriter Link Original Song Lyrics')" :description="__('Song Lyrics by ' . $lyric->user->name)">
-    
+    <script type="application/ld+json">
+<?php
+echo json_encode([
+    "@context" => "https://schema.org",
+    "@type" => "Product",
+    "name" => $lyric->title,
+    "description" => "Original ".$lyric->genre." song lyrics written by ".$lyric->user->name.". Licensed for recording and commercial release.",
+    "url" => url()->current(),
+    "category" => "Digital lyrics",
+    "brand" => [
+        "@type" => "Person",
+        "name" => $lyric->user->name
+    ],
+    "additionalProperty" => [
+        [
+            "@type" => "PropertyValue",
+            "name" => "Genre",
+            "value" => $lyric->genre
+        ],
+        [
+            "@type" => "PropertyValue",
+            "name" => "License Type",
+            "value" => $lyric->license_type ?? "Standard lyric license"
+        ]
+    ],
+    "offers" => [
+        "@type" => "Offer",
+        "url" => url()->current(),
+        "priceCurrency" => "USD",
+        "price" => $lyric->price,
+        "availability" => "https://schema.org/InStock"
+    ]
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+?>
+</script>
+
+<script type="application/ld+json">
+<?php
+echo json_encode([
+  "@context" => "https://schema.org",
+  "@type" => "BreadcrumbList",
+  "itemListElement" => [
+    [
+      "@type" => "ListItem",
+      "position" => 1,
+      "name" => "Home",
+      "item" => url('/')
+    ],
+    [
+      "@type" => "ListItem",
+      "position" => 2,
+      "name" => "Buy Lyrics",
+      "item" => url('/buy-lyrics')
+    ],
+    [
+      "@type" => "ListItem",
+      "position" => 3,
+      "name" => $lyric->genre." Lyrics",
+      "item" => url('/buy-'.strtolower($lyric->genre).'-lyrics')
+    ],
+    [
+      "@type" => "ListItem",
+      "position" => 4,
+      "name" => $lyric->title,
+      "item" => url()->current()
+    ]
+  ]
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+?>
+</script>
+
     <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
+        <nav class="text-sm text-gray-600 mb-4">
+            <a href="/">Home</a> ›
+            <a href="/buy-lyrics">Buy Lyrics</a> ›
+            <a href="/buy-{{ strtolower($lyric->genre) }}-lyrics">
+                {{ $lyric->genre }} Lyrics
+            </a> ›
+            <span>{{ $lyric->title }}</span>
+        </nav>
     
         <div class="flex w-full opacity-100 transition-opacity duration-750 lg:grow">
         <main class="flex lg:w-2/3 flex-col overflow-hidden rounded-lg">

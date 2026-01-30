@@ -1,7 +1,10 @@
-<x-layouts.page :title="__('Buy Original Song Lyrics: Songwriter Link')" :description="__('Buy original song lyrics from professional writers. Browse unique, high-quality lyrics for all genres—perfect for your next music project.')">
+<x-layouts.page :title="__('Buy Song Lyrics | Original Lyrics Marketplace - SongwriterLink')" :description="__('Buy original song lyrics from professional writers. Browse unique, high-quality lyrics for all genres—perfect for your next music project.')">
     
         <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
-    
+            <nav class="text-sm text-gray-600 mb-4">
+                <a href="/">Home</a> ›
+                <span>Buy Lyrics</span>
+            </nav>
             <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
                 <main
                     class="flex w-full flex-col-reverse overflow-hidden rounded-t-lg lg:flex-row">
@@ -88,7 +91,7 @@
                 <div class="flex gap-2 items-center my-2">
                     <label>Language:</label>
                     <select name="language" class="border rounded" onchange="this.form.submit()">
-                        <option value="">All</option>
+                        <!-- <option value="">All</option> -->
                         @foreach ($languages as $language)
                             <option value="{{ $language }}" @selected(request('language') === $language)>
                                 {{ $language }}

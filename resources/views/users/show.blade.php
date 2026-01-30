@@ -1,14 +1,15 @@
 <x-layouts.page :title="__($user->name . ' - Profile')" :description="__('View the profile and lyrics of ' . $user->name)">
     
     <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8 dark:bg-[#0a0a0a]">
-    
+        <nav class="text-sm text-gray-600 mb-4">
+            <a href="/">Home</a> ›
+            <a href="/buy-lyrics">Buy Lyrics</a> ›
+            <span>{{ $user->name }}</span>
+        </nav>
         {{-- User header --}}
         <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow">
             <main class="flex w-full flex-col-reverse overflow-hidden rounded-lg lg:flex-row">
-                <div class="p-6 flex-1 rounded-lg pb-12 text-[13px] leading-[20px]
-                    bg-[#ffffff78] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)]
-                    lg:p-20 dark:bg-[#161615ba] dark:text-[#EDEDEC]
-                    dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]">
+                <div class="flex-1 rounded-t-lg p-4 lg:p-0 pb-12 text-[13px] leading-[20px] bg-[#ffffff78] bg-gray-50 lg:pt-20 lg:px-20 lg:pb-12">
 
                     <h1 class="mb-1 font-medium text-3xl md:text-6xl">
                         {{ $user->name }}
