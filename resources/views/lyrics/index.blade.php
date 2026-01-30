@@ -6,9 +6,9 @@
     dark:hover:border-white dark:hover:bg-white">Upload New Lyric</a></p>
 
     @foreach ($lyrics as $lyric)
-        <div class="pt-4 pb-8 lg:grid grid-cols-3 gap-8 my-8 border-b border-gray-100">
+        <div class="pt-4 pb-8 lg:grid grid-cols-2 gap-8 my-8 border-b border-gray-100">
 
-            <div class="lg:col-span-2 lg:pr-8 lg:border-r lg:border-gray-100">
+            <div class="lg:pr-8 lg:border-r lg:border-gray-100">
                 <h2 class="font-semibold text-lg">{{ $lyric->title }}</h2>
                 <p class="mt-2 whitespace-pre-line">{{ $lyric->snippet }}</p>
             </div>
