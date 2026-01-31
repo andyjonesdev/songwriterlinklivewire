@@ -8,7 +8,7 @@ class PromoteLyric extends Component
 {
     public Lyric $lyric;
     public $bid = 5;
-    public $duration = 1;
+    public $duration = 2;
     public $placement = '';
 
     protected $rules = [

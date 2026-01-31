@@ -91,7 +91,7 @@
                 <div class="flex gap-2 items-center my-2">
                     <label>Language:</label>
                     <select name="language" class="border rounded" onchange="this.form.submit()">
-                        <!-- <option value="">All</option> -->
+                        <option value="">English</option>
                         @foreach ($languages as $language)
                             <option value="{{ $language }}" @selected(request('language') === $language)>
                                 {{ $language }}
