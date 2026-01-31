@@ -25,6 +25,8 @@
                     </h3>
 
                     <div class="whitespace-pre-wrap my-6 text-lg">{!! $blog->content !!}</div>
+
+                    Browse <a href="/buy-{{ $blog->seo_genre }}-lyrics" class="text-red-600 underline">original {{ $blog->seo_genre }} lyrics for sale</a> on SongwriterLink.
                 </div>
             </main>
         </div>

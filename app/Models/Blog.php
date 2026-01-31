@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 class Blog extends Model
 {   
-    protected $fillable = ['user_id','title','description','category','content','status','slug'];
+    protected $fillable = ['user_id','title','description','category','content','seo_genre','status','slug'];
     protected $appends = ['snippet'];
     protected static function boot()
     {

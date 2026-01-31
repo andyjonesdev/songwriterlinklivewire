@@ -124,6 +124,16 @@
 
         <h3 class="text-lg mt-8 mb-4"><b>Do I own the lyrics after purchase?</b></h3>
         <p class="my-4">You are purchasing a license to use the lyrics, not the copyright itself, unless stated otherwise.</p>
+        
+        <p class="mt-8 text-lg flex gap-2 flex-wrap">
+            Browse more:
+            <a href="/buy-lyrics" class="text-red-600 underline bg-gray-200 px-2">Buy Lyrics</a>
+            <a href="/buy-pop-lyrics" class="text-red-600 underline bg-gray-200 px-2">Pop Lyrics</a>
+            <a href="/buy-folk-lyrics" class="text-red-600 underline bg-gray-200 px-2">Folk Lyrics</a>
+            <a href="/buy-singer-songwriter-lyrics" class="text-red-600 underline bg-gray-200 px-2">Singer-Songwriter Lyrics</a>
+            <a href="/buy-world-lyrics" class="text-red-600 underline bg-gray-200 px-2">World Lyrics</a>
+            <a href="/lyric-marketplace" class="text-red-600 underline bg-gray-200 px-2">Lyric Marketplace</a>
+        </p>
     </div>
 
 </div>

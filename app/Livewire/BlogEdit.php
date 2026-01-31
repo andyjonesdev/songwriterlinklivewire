@@ -12,6 +12,7 @@ class BlogEdit extends Component
     public $title;
     public $description;
     public $category;
+    public $seo_genre;
     public $content;
 
     public $updated = false;
@@ -20,6 +21,7 @@ class BlogEdit extends Component
         'title' => 'required|string|max:255',
         'description' => 'required|string|max:255',
         'category' => 'required|string',
+        'seo_genre' => 'required|string',
         'content' => 'required|string',
     ];
 
@@ -30,6 +32,7 @@ class BlogEdit extends Component
         $this->title = $blog->title;
         $this->description = $blog->description;
         $this->category = $blog->category;
+        $this->seo_genre = $blog->seo_genre;
         $this->content = $blog->content;
     }
 
@@ -41,6 +44,7 @@ class BlogEdit extends Component
             'title' => $this->title,
             'description' => $this->description,
             'category' => $this->category,
+            'seo_genre' => $this->seo_genre,
             'content' => $this->content,
         ]);
 

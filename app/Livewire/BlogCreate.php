@@ -11,12 +11,14 @@ class BlogCreate extends Component
     public $title = '';
     public $description = '';
     public $category = '';
+    public $seo_genre = '';
     public $content = '';
 
     protected $rules = [
         'title' => 'required|string|max:255',
         'description' => 'required|string|max:255',
         'category' => 'required|string',
+        'seo_genre' => 'required|string',
         'content' => 'required|string',
     ];
 
@@ -28,6 +30,7 @@ class BlogCreate extends Component
             'title' => $this->title,
             'description' => $this->description,
             'category' => $this->category,
+            'seo_genre' => $this->seo_genre,
             'content' => $this->content,
             'slug' => Str::slug($this->title),
         ]);

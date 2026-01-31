@@ -3,13 +3,13 @@
 :canonical="url()->current()">
 
 <div class="flex flex-col px-6 text-[#1b1b18] lg:justify-between lg:px-8">
-<nav class="text-sm text-gray-600 mb-4">
-            <a href="/">Home</a> ›
-            <a href="/buy-lyrics">Buy Lyrics</a> ›
-            <span>
-                Christian Lyrics
-            </span>
-        </nav>
+    <nav class="text-sm text-gray-600 mb-4">
+        <a href="/">Home</a> ›
+        <a href="/buy-lyrics">Buy Lyrics</a> ›
+        <span>
+            Christian Lyrics
+        </span>
+    </nav>
     <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
         <main class="flex w-full flex-col-reverse overflow-hidden rounded-lg lg:flex-row">
             <div class="p-6 lg:p-0 flex-1 rounded-lg pb-12 text-[13px] leading-[20px] bg-[#ffffff78] bg-gray-50 lg:p-20">
@@ -96,6 +96,16 @@
 
         <h3 class="text-lg mt-8 mb-4"><b>Do I own the lyrics after purchase?</b></h3>
         <p class="my-4">You are purchasing a license to use the lyrics, not the copyright itself.</p>
+        
+        <p class="mt-8 text-lg flex gap-2 flex-wrap">
+            Browse more:
+            <a href="/buy-lyrics" class="text-red-600 underline bg-gray-200 px-2">Buy Lyrics</a>
+            <a href="/buy-pop-lyrics" class="text-red-600 underline bg-gray-200 px-2">Pop Lyrics</a>
+            <a href="/buy-country-lyrics" class="text-red-600 underline bg-gray-200 px-2">Country Lyrics</a>
+            <a href="/buy-rock-lyrics" class="text-red-600 underline bg-gray-200 px-2">Rock Lyrics</a>
+            <a href="/buy-jazz-lyrics" class="text-red-600 underline bg-gray-200 px-2">Jazz Lyrics</a>
+            <a href="/lyric-marketplace" class="text-red-600 underline bg-gray-200 px-2">Lyric Marketplace</a>
+        </p>
     </div>
 
 </div>

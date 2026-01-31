@@ -47,6 +47,17 @@
                 @error('category') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
+            <!-- SEO Genre -->
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">SEO Genre</label>
+                <input
+                    type="text"
+                    wire:model.defer="seo_genre"
+                    class="w-full border px-3 py-2 rounded"
+                >
+                @error('seo_genre') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+            </div>
+
             <!-- Content -->
             <div class="mb-4">
                 <label class="block font-semibold mb-1">Blog Content</label>
