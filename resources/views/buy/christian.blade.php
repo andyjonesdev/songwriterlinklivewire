@@ -81,7 +81,7 @@
         @endif
     </div>
 
-    <div class="lg:w-2/3 lg:mx-20">
+    <div class="lg:w-2/3">
         <button onclick="window.location.href='{{ route('buyLyrics', 'genre=Christian') }}'" class="rounded-sm bg-[#e8363c] px-5 py-1 my-1 text-lg text-white hover:bg-black cursor-pointer mx-auto w-fit">View More Christian Lyrics</button>
 
         <hr class="mt-8" />
@@ -96,17 +96,17 @@
 
         <h3 class="text-lg mt-8 mb-4"><b>Do I own the lyrics after purchase?</b></h3>
         <p class="my-4">You are purchasing a license to use the lyrics, not the copyright itself.</p>
+    </div>
         
-        <p class="mt-8 text-lg flex gap-2 flex-wrap">
+        <p class="mt-8 text-lg flex gap-2 flex-wrap lg:mx-20">
             Browse more:
-            <a href="/buy-lyrics" class="text-red-600 underline bg-gray-200 px-2">Buy Lyrics</a>
             <a href="/buy-pop-lyrics" class="text-red-600 underline bg-gray-200 px-2">Pop Lyrics</a>
             <a href="/buy-country-lyrics" class="text-red-600 underline bg-gray-200 px-2">Country Lyrics</a>
             <a href="/buy-rock-lyrics" class="text-red-600 underline bg-gray-200 px-2">Rock Lyrics</a>
             <a href="/buy-jazz-lyrics" class="text-red-600 underline bg-gray-200 px-2">Jazz Lyrics</a>
+            <a href="/buy-lyrics" class="text-red-600 underline bg-gray-200 px-2">Buy Lyrics</a>
             <a href="/lyric-marketplace" class="text-red-600 underline bg-gray-200 px-2">Lyric Marketplace</a>
         </p>
-    </div>
 
 </div>
 </x-layouts.page>

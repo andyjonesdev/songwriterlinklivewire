@@ -209,7 +209,7 @@
                 @endif
             </div>
 
-            <div class="mt-8 mx-8">
+            <div class="mt-8">
                 {{ $lyrics->links() }}
             </div>
         </div>

@@ -188,7 +188,7 @@ echo json_encode([
 
         <p class="mt-8 text-lg flex gap-2 flex-wrap">
             More lyrics in this genre:
-            <a :href="/buy-{{ $lyric->genre }}-lyrics" class="text-red-600 underline bg-gray-200 px-2">{{ $lyric->genre }} Lyrics</a>
+            <a href="/buy-{{ strtolower($lyric->genre) }}-lyrics" class="text-red-600 underline bg-gray-200 px-2">{{ $lyric->genre }} Lyrics</a>
             More lyrics by this lyricist:
             <a href="{{ route('users.show', $lyric->user) }}" class="text-red-600 underline bg-gray-200 px-2">{{ $lyric['user']['name'] }}</a>
             or <a href="/buy-lyrics" class="text-red-600 underline bg-gray-200 px-2">Browse All Lyrics</a>
