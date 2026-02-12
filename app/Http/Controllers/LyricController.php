@@ -313,6 +313,7 @@ class LyricController extends Controller
         })
         ->whereHas('user', function ($query) {
             $query->where('allow_social_use', 1);
+            $query->where('hide_from_social', 0);
         })
         ->with('user:id,name') // load only what you need
         ->latest()

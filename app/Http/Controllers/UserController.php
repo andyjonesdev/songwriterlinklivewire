@@ -22,4 +22,13 @@ class UserController extends Controller
         ]);
 
     }
+    
+    public function markHide(Request $request, User $user)
+    {
+        $user->update([
+            'hide_from_social' => $request->boolean('hide_from_social')
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 }

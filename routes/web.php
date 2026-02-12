@@ -146,6 +146,7 @@ Route::middleware(['auth'])->group(function () {
     // ->name('lyrics.markUsed');
 
     Route::patch('/lyrics/{lyric}/used', [LyricController::class, 'markUsed']);
+    Route::patch('/users/{user}/hide', [UserController::class, 'markHide']);
 
 
     // Route::middleware(['auth', 'admin.user'])->group(function () {

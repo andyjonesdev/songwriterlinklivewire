@@ -15,6 +15,13 @@
                 <span>Mark as used</span>
             </label>
 
+            <label class="inline-flex items-center gap-2 mt-2">
+                <input type="checkbox"
+                    {{ $lyric->user->hide_from_social ? 'checked' : '' }}
+                    onchange="markHide(this, {{ $lyric->user->id }})">
+                <span>Hide user</span>
+            </label>
+
             <script>
                 function markUsed(checkbox, lyricId) {
                     console.log('Mark used');
@@ -26,6 +33,23 @@
                         },
                         body: JSON.stringify({
                             social_used: checkbox.checked ? 1 : 0
+                        })
+                    })
+                    .catch(() => {
+                        alert('Something went wrong');
+                        checkbox.checked = !checkbox.checked; // revert UI
+                    });
+                }
+                function markHide(checkbox, userId) {
+                    console.log('Mark hide');
+                    fetch(`/users/${userId}/hide`, {
+                        method: 'PATCH',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            hide_from_social: checkbox.checked ? 1 : 0
                         })
                     })
                     .catch(() => {
