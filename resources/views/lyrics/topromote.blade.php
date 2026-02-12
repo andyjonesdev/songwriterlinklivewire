@@ -36,4 +36,7 @@
             </script>
         </div>
     @endforeach
+    <div class="mt-8">
+        {{ $lyrics->links() }}
+    </div>
 </x-layouts.app>
