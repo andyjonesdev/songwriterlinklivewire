@@ -163,7 +163,7 @@
                     Sorry, no lyrics were found. Please broaden your search.
                 @else
                     @foreach ($lyrics as $lyric)
-                        <div class="p-4 border rounded mb-4">
+                        <div class="p-4 border border-gray-200 rounded mb-4">
                             <div x-text="lyric.title"></div>
                             <a
                                 href="{{ route('lyrics.show', $lyric->slug) }}"

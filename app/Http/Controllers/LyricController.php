@@ -304,5 +304,30 @@ class LyricController extends Controller
         return view('lyrics.promote', compact('lyric'));
     }
 
+    public function topromote()
+    {
+        $lyrics = Lyric::where('status', 'published')
+        ->where(function ($query) {
+            $query->where('social_used', 0)   // not used
+                ->orWhereNull('social_used'); // handle nulls
+        })
+        ->whereHas('user', function ($query) {
+            $query->where('allow_social_use', 1);
+        })
+        ->with('user:id,name') // load only what you need
+        ->latest()
+        ->paginate(10);
+
+        return view('lyrics.topromote', compact('lyrics'));
+    }
+    
+    public function markUsed(Request $request, Lyric $lyric)
+    {
+        $lyric->update([
+            'social_used' => $request->boolean('social_used')
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 
 }

@@ -9,7 +9,20 @@ use Illuminate\Support\Str;
 class Lyric extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','title','genre','content','price','status','slug', 'mood', 'theme', 'pov', 'language'];
+    protected $fillable = [
+        'user_id',
+        'title',
+        'genre',
+        'content',
+        'price',
+        'status',
+        'slug',
+        'mood',
+        'theme',
+        'pov',
+        'language',
+        'social_used',
+    ];
     protected $appends = ['snippet'];
     protected static function boot()
     {

@@ -14,38 +14,43 @@
 
             @if (auth()->user()->role=='seller')
                 <h2 class="text-2xl mb-8">Your Lyrics</h2>
-                <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
+                <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-md leading-normal text-white hover:border-black 
                 hover:bg-black">Upload New Lyric</a></p>
                 
-                <div class="text-lg grid grid-cols-2 lg:grid-cols-7 py-4 border-b-2 border-gray-100 gap-2">
-                    <div class="font-bold col-span-2">Title</div>
-                    <div class="font-bold hidden lg:block">Genre</div>
-                    <div class="font-bold hidden lg:block">Price</div>
-                    <div class="font-bold hidden lg:block">Status</div>
-                    <div class="font-bold col-span-2"></div>
+                <div class="text-lg grid grid-cols-6 lg:grid-cols-10 py-4 text-sm">
+                    <div class="font-bold px-2 col-span-4">Title</div>
+                    <div class="font-bold px-2 hidden lg:block">Genre</div>
+                    <div class="font-bold px-2 hidden lg:block">Price</div>
+                    <div class="font-bold px-2 hidden lg:block">Status</div>
+                    <div class="font-bold col-span-3"></div>
                 </div>
                 
-                <div class="text-lg grid grid-cols-2 lg:grid-cols-7 my-4 gap-2">
+                <div class="text-lg grid grid-cols-6 md:grid-cols-10 mb-4 text-sm">
                     @foreach ($lyrics as $lyric)
-                        <div class="col-span-2 border-b-2 border-gray-100 px-2 py-1">{{ $lyric['title'] }}</div>
-                        <div class="hidden lg:block border-b-2 border-gray-100 px-2 py-1">{{ $lyric['genre'] }}</div>
-                        <div class="hidden lg:block border-b-2 border-gray-100 px-2 py-1">${{ $lyric['price'] }}</div>
-                        <div class="hidden lg:block border-b-2 border-gray-100 px-2 py-1">{{ $lyric['status'] }}</div>
+                        <div class="col-span-4 md:col-span-4 px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">
+                            <b>{{ $lyric['title'] }}</b>
+                        </div>
+                        <div class="hidden md:block px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">{{ $lyric['genre'] }}</div>
+                        <div class="hidden md:block px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">${{ $lyric['price'] }}</div>
+                        <div class="hidden md:block px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">{{ $lyric['status'] }}</div>
                         <!-- <a :href="lyricsEdit.url({ slug: lyric.slug })" class="underline">Edit</a> -->
 
-                    <a
-                        href="{{ route('lyrics.promote', $lyric) }}"
-                        class="bg-yellow-500 text-white py-1 rounded-md text-center h-fit"
-                    >
-                        <i class="fa-sharp-duotone fa-solid fa-up"></i> Promote
-                    </a>
-
-                    <a
-                        href="https://copyrightsolved.com" target="_blank"
-                        class="bg-green-700 text-white py-1 rounded-md text-center h-fit"
-                    >
-                        <i class="fa-sharp-duotone fa-solid fa-file-lock"></i> Protect
-                    </a>
+                        <div class="w-24 md:w-auto col-span-2 md:col-span-3 px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">
+                            <a
+                                href="{{ route('lyrics.promote', $lyric) }}"
+                                class="bg-yellow-500 text-white px-2 py-1 rounded-md text-center h-fit"
+                            >
+                                <i class="fa-sharp-duotone fa-solid fa-up"></i>
+                                <span class="hidden md:inline">Promote</span>
+                            </a>&nbsp;
+                            <a
+                                href="https://copyrightsolved.com" target="_blank"
+                                class="bg-green-700 text-white px-2 py-1 rounded-md text-center h-fit"
+                            >
+                                <i class="fa-sharp-duotone fa-solid fa-file-lock"></i>
+                                <span class="hidden md:inline">Protect</span>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             @endif

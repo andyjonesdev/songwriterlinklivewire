@@ -30,6 +30,7 @@
                     @endif
                     @if (auth()->user()->id === 1)
                         <flux:navlist.item icon="pencil-square" :href="route('blog.admin')" :current="request()->routeIs('blog.admin')" wire:navigate>{{ __('Blog Admin') }}</flux:navlist.item>
+                        <flux:navlist.item icon="pencil-square" :href="route('lyrics.topromote')" :current="request()->routeIs('lyrics.topromote')" wire:navigate>{{ __('Lyrics to Promote') }}</flux:navlist.item>
                     @endif
 
                 </flux:navlist.group>

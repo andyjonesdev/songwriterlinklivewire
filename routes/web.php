@@ -110,7 +110,6 @@ Route::middleware(['auth'])->group(function () {
         return view('blog.create');
     })->name('blog.create');
 
-
     Route::middleware(['auth'])->get('/admin/blog/{blog:slug}/edit', BlogEdit::class)
         ->name('blog.edit');
 
@@ -139,6 +138,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/lyrics/{lyric:slug}/unsave', [LyricController::class, 'destroyFavorite'])
     ->name('lyrics.unsave');
+
+    Route::middleware(['auth'])->get('/lyrics/topromote', [LyricController::class, 'topromote'])
+        ->name('lyrics.topromote');
+
+    // Route::patch('/lyrics/{lyric}/used', [LyricController::class, 'markUsed'])
+    // ->name('lyrics.markUsed');
+
+    Route::patch('/lyrics/{lyric}/used', [LyricController::class, 'markUsed']);
+
 
     // Route::middleware(['auth', 'admin.user'])->group(function () {
     //     Route::prefix('blog/admin')->group(function () {

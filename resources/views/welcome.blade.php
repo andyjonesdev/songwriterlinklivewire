@@ -84,7 +84,7 @@
             <div class="gap-4 py-12 justify-around lg:grid grid-cols-3 gap-4 text-left">
                 <!-- Loop through lyrics -->
                 @foreach ($lyrics as $lyric)
-                   <div class="p-4 border rounded mb-4">
+                   <div class="p-4 border border-gray-200 rounded mb-4">
                         <div x-text="lyric.title"></div>
                         <a
                             href="{{ route('lyrics.show', $lyric->slug) }}"
@@ -207,7 +207,7 @@
         <div class="gap-4 p-6 lg:px-12 py-12 text-left justify-around lg:grid grid-cols-3 gap-4">
     
             @foreach ($blogs as $blog)
-                <div class="p-4 border rounded mb-4">
+                <div class="p-4 border border-gray-200 rounded mb-4">
                     <a
                         href="{{ route('blog.show', $blog->slug) }}"
                         class="text-2xl font-semibold hover:underline"

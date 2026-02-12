@@ -1,14 +1,14 @@
 <x-layouts.app :title="__('Your Lyrics')">
 
     <h1 class="text-3xl mb-4">Your Lyrics</h1>
-    <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-lg leading-normal text-white hover:border-black 
+    <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-md leading-normal text-white hover:border-black 
     hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
     dark:hover:border-white dark:hover:bg-white">Upload New Lyric</a></p>
 
     @foreach ($lyrics as $lyric)
-        <div class="pt-4 pb-8 lg:grid grid-cols-2 gap-8 my-8 border-b border-gray-100">
+        <div class="pt-4 pb-8 sm:grid grid-cols-3 gap-8 my-8 border-b border-gray-100">
 
-            <div class="lg:pr-8 lg:border-r lg:border-gray-100">
+            <div class="lg:pr-8 lg:border-r lg:border-gray-100 col-span-2">
                 <h2 class="font-semibold text-lg">{{ $lyric->title }}</h2>
                 <p class="mt-2 whitespace-pre-line">{{ $lyric->snippet }}</p>
             </div>
@@ -22,7 +22,8 @@
                     Price: <b>${{ $lyric->price }}</b>
                 </p>
 
-                <div class="flex gap-2 my-4">
+                <div class="flex flex-col gap-2 my-4">
+                    
                     <a
                         href="{{ route('lyrics.show', $lyric) }}"
                         class="bg-blue-900 text-white px-2 py-1 rounded-md text-center"
@@ -59,7 +60,7 @@
                         @csrf
                         @method('DELETE')
 
-                        <button class="bg-gray-500 text-white px-2 py-1 rounded-md cursor-pointer text-center">
+                        <button class="bg-gray-500 text-white px-2 py-1 rounded-md cursor-pointer text-center w-full">
                             <i class="fa-sharp-duotone fa-solid fa-xmark"></i> Delete
                         </button>
                     </form>

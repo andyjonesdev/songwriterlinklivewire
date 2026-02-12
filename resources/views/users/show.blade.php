@@ -34,7 +34,7 @@
 
             <div class="dark:text-white py-12 lg:grid grid-cols-3 gap-4 text-left">
                 @forelse ($lyrics as $lyric)
-                    <div class="p-4 border rounded mb-4">
+                    <div class="p-4 border border-gray-200 rounded mb-4">
                         <h2 class="text-2xl font-semibold">
                             <a
                                 href="{{ url('/lyrics/buy/' . $lyric->slug) }}"
