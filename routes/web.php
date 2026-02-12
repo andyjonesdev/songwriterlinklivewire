@@ -205,3 +205,6 @@ Route::get('/buy-reggae-lyrics', [PageController::class, 'buyReggae'])->name('pa
 Route::get('/lyric-marketplace', [PageController::class, 'lyricMarketPlace'])->name('pages.lyricmarketplace');
 Route::get('/royalty-free-lyrics', [PageController::class, 'royaltyFreeLyrics'])->name('pages.royaltyfreelyrics');
 Route::get('/buy-song-lyrics', [PageController::class, 'buySongLyrics'])->name('pages.buysonglyrics');
+Route::get('/standard-licence-terms', [PageController::class, 'standardLicenceTerms'])->name('pages.standardlicenseterms');
+Route::get('/terms-of-service', [PageController::class, 'termsOfService'])->name('pages.termsofservice');
+Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('pages.privacypolicy');

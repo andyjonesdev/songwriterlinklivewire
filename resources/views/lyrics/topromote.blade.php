@@ -8,19 +8,21 @@
 
             <pre class="whitespace-pre-wrap mt-2 bg-gray-50 p-4">{{ \Illuminate\Support\Str::limit($lyric->content, 400) }}</pre>
             
-            <label class="inline-flex items-center gap-2 mt-2">
-                <input type="checkbox"
-                    {{ $lyric->used ? 'checked' : '' }}
-                    onchange="markUsed(this, {{ $lyric->id }})">
-                <span>Mark as used</span>
-            </label>
+            <div class="flex gap-6">
+                <label class="inline-flex items-center gap-2 mt-2">
+                    <input type="checkbox"
+                        {{ $lyric->used ? 'checked' : '' }}
+                        onchange="markUsed(this, {{ $lyric->id }})">
+                    <span>Mark as used</span>
+                </label>
 
-            <label class="inline-flex items-center gap-2 mt-2">
-                <input type="checkbox"
-                    {{ $lyric->user->hide_from_social ? 'checked' : '' }}
-                    onchange="markHide(this, {{ $lyric->user->id }})">
-                <span>Hide user</span>
-            </label>
+                <label class="inline-flex items-center gap-2 mt-2">
+                    <input type="checkbox"
+                        {{ $lyric->user->hide_from_social ? 'checked' : '' }}
+                        onchange="markHide(this, {{ $lyric->user->id }})">
+                    <span>Hide user</span>
+                </label>
+            </div>
 
             <script>
                 function markUsed(checkbox, lyricId) {

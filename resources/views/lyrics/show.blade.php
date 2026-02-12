@@ -109,31 +109,10 @@ echo json_encode([
 
                 <pre class="whitespace-pre-wrap my-6 bg-gray-50 p-4">{{ $lyric->content }}</pre>
 
-                <h4 class="text-lg font-semibold mt-6">
-                    Standard License Terms
-                </h4>
 
-                <p class="my-2 text-lg">
-                    The following rights are granted:
-                </p>
-
-                <ul class="list-disc ml-8 text-lg">
-                    <li>Public performance rights</li>
-                    <li>Synchronization rights for video/visual content</li>
-                    <li>Internet broadcasting rights</li>
-                    <li>Reproduction rights for CD, DVD, and digital downloads</li>
-                    <li>Radio and television broadcast rights</li>
-                    <li>Film, games, and musical theatre usage</li>
-                </ul>
-
-                <h3 class="text-2xl my-6">
+                <h3 class="text-2xl my-6 bg-gray-200 px-4 py-2 w-fit">
                     Price: <b>${{ $lyric->price }}</b>
                 </h3>
-
-                <p class="my-8 p-2 bg-yellow-100 dark:bg-gray-900 text-lg">
-                    <b>Important!</b>
-                    This lyric is not available for use unless you purchase the licence.
-                </p>
 
                 {{-- Buy button --}}
                 @guest
@@ -180,6 +159,42 @@ echo json_encode([
                 <a href="https://buy.stripe.com/9B6cMYfrU2ro5YDeaObo402?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
                 class="hidden">Buy Test</a>
                 @endguest
+
+
+                <h4 class="text-lg font-semibold mt-6">
+                    Standard License - Quick Summary
+                </h4>
+
+                <p class="my-2 text-lg">
+                    This is a non-exclusive license to use purchased lyrics in your own song.
+                </p>
+
+                <ul class="list-disc ml-8 text-lg">
+                    <li>You can record and release a song using the lyrics.</li>
+                    <li>You can use the song for streaming, downloads, CD/vinyl, radio, TV, film, games, and stage productions.</li>
+                    <li>You can make money from your song.</li>
+                    <li>You do NOT own the lyrics — the songwriter keeps the copyright.</li>
+                    <li>Other buyers may also license the same lyrics.</li>
+                    <li>You must credit the songwriter.</li>
+                    <li>You may not resell the lyrics as text or claim you wrote them.</li>
+                    <!-- <li>Public performance rights</li>
+                    <li>Synchronization rights for video/visual content</li>
+                    <li>Internet broadcasting rights</li>
+                    <li>Reproduction rights for CD, DVD, and digital downloads</li>
+                    <li>Radio and television broadcast rights</li>
+                    <li>Film, games, and musical theatre usage</li> -->
+                </ul>
+                <p class="my-2 text-lg">
+                    For exclusive ownership or large commercial releases, please purchase an upgraded license.
+                </p>
+                <p class="my-2 text-lg">
+                    Read more about our <a href="/standard-licence-terms" class="underline text-red-600">Standard License Terms</a>.
+                </p>
+
+                <p class="my-8 p-2 bg-yellow-100 dark:bg-gray-900 text-lg">
+                    <b>Important!</b>
+                    This lyric is not available for use unless you purchase the licence.
+                </p>
 
             </div>
         </main>

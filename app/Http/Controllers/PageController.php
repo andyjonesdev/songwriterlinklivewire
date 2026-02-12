@@ -173,5 +173,26 @@ class PageController extends Controller
 
         ]);
     }
+
+    public function standardLicenceTerms()
+    {
+        return view('pages.standardlicenseterms', [
+
+        ]);
+    }
+
+    public function termsOfService()
+    {
+        return view('pages.termsofservice', [
+
+        ]);
+    }
+
+    public function privacyPolicy()
+    {
+        return view('pages.privacypolicy', [
+
+        ]);
+    }
     
 }

@@ -31,7 +31,7 @@ class CreateLyric extends Component
     {
         $this->validate();
 
-        auth()->user()->lyrics()->create([
+        $lyric = auth()->user()->lyrics()->create([
             'title' => $this->title,
             'genre' => $this->genre,
             'content' => $this->content,
@@ -49,7 +49,9 @@ class CreateLyric extends Component
         session()->flash('success', 'Lyric uploaded successfully!');
         
         // Set a session flag for redirect
-        session()->flash('redirect_after', true);
+        // session()->flash('redirect_after', true);
+
+        return redirect()->to("/lyrics/{$lyric->id}/promote");
     }
 
     public function render()
