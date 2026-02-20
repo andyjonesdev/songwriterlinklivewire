@@ -202,6 +202,26 @@
             </div>
         </div>
 
+        <div class="p-4 lg:mt-12 text-center">
+
+                <div class="md:p-12">
+                    <h2 class="text-4xl font-bold mb-8"><i class="fa-solid fa-trophy-star"></i> SL Lyric Writing Contest!</h2>
+                    <h4 class="text-xl my-2">The first Songwriter Link lyric writing contest is now open!</h4>
+                    <h4 class="text-xl my-2">Full details can be found on our 
+                        <a href="https://greatbritishlyriccontest.com/" target="_blank"><u>dedicated contest website</u></a>.</h4>
+                    <h3 class="my-4 text-2xl font-bold"><b>The current prize pot is £500</b>.</h3>
+                    <p class="my-2">The contest runs from February 20th 2026 until April 30th 2026.</p>
+					<p class="mt-2 mb-6">Winners announced May 2026.</p>
+                    <a
+                        href="https://greatbritishlyriccontest.com/" tartget="_blank"
+                        class="
+                        rounded-sm bg-[#e8363c] mt-4 px-5 py-2 my-4 text-lg leading-normal text-white hover:border-black hover:bg-black"
+                    >
+                        Enter your lyric now
+                    </a>
+                </div>
+        </div>
+
         <h3 class="text-4xl mt-12 font-bold text-center">Latest Songwriting Articles​</h3>
 
         <div class="gap-4 p-6 lg:px-12 py-12 text-left justify-around lg:grid grid-cols-3 gap-4">

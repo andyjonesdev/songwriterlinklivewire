@@ -11,23 +11,6 @@
                     <div class="flex-1 rounded-t-lg p-4 lg:p-0 pb-12 text-[13px] leading-[20px] bg-[#ffffff78] bg-gray-50 lg:pt-20 lg:px-20 lg:pb-12">
                         <h1 class="mb-1 font-medium text-6xl">Buy Original Song Lyrics</h1>
 
-                        <p class="mt-4 text-lg flex gap-2 flex-wrap">
-                        Browse by genre:
-                        <a href="/buy-pop-lyrics" class="text-red-600 underline bg-gray-200 px-2">Pop Lyrics</a>
-                        <a href="/buy-rap-lyrics" class="text-red-600 underline bg-gray-200 px-2">Rap Lyrics</a>
-                        <a href="/buy-country-lyrics" class="text-red-600 underline bg-gray-200 px-2">Country Lyrics</a>
-                        <a href="/buy-rock-lyrics" class="text-red-600 underline bg-gray-200 px-2">Rock Lyrics</a>
-                        <a href="/buy-indie-lyrics" class="text-red-600 underline bg-gray-200 px-2">Indie Lyrics</a>
-                        <a href="/buy-metal-lyrics" class="text-red-600 underline bg-gray-200 px-2">Metal Lyrics</a>
-                        <a href="/buy-randb-lyrics" class="text-red-600 underline bg-gray-200 px-2">R&B Lyrics</a>
-                        <a href="/buy-singer-songwriter-lyrics" class="text-red-600 underline bg-gray-200 px-2">Singer-Songwriter Lyrics</a>
-                        <a href="/buy-jazz-lyrics" class="text-red-600 underline bg-gray-200 px-2">Jazz Lyrics</a>
-                        <a href="/buy-christian-lyrics" class="text-red-600 underline bg-gray-200 px-2">Christian Lyrics</a>
-                        <a href="/buy-folk-lyrics" class="text-red-600 underline bg-gray-200 px-2">Folk Lyrics</a>
-                        <a href="/buy-world-lyrics" class="text-red-600 underline bg-gray-200 px-2">World Lyrics</a>
-                        <a href="/buy-soul-lyrics" class="text-red-600 underline bg-gray-200 px-2">Soul Lyrics</a>
-                        <a href="/buy-reggae-lyrics" class="text-red-600 underline bg-gray-200 px-2">Reggae Lyrics</a>
-                        </p>
                     </div>  
                 </main>
             </div>
@@ -212,6 +195,25 @@
             <div class="mt-8">
                 {{ $lyrics->links() }}
             </div>
+
+
+                        <p class="mt-4 text-lg flex gap-2 flex-wrap">
+                        Browse by genre:
+                        <a href="/buy-pop-lyrics" class="text-red-600 underline bg-gray-200 px-2">Pop Lyrics</a>
+                        <a href="/buy-rap-lyrics" class="text-red-600 underline bg-gray-200 px-2">Rap Lyrics</a>
+                        <a href="/buy-country-lyrics" class="text-red-600 underline bg-gray-200 px-2">Country Lyrics</a>
+                        <a href="/buy-rock-lyrics" class="text-red-600 underline bg-gray-200 px-2">Rock Lyrics</a>
+                        <a href="/buy-indie-lyrics" class="text-red-600 underline bg-gray-200 px-2">Indie Lyrics</a>
+                        <a href="/buy-metal-lyrics" class="text-red-600 underline bg-gray-200 px-2">Metal Lyrics</a>
+                        <a href="/buy-randb-lyrics" class="text-red-600 underline bg-gray-200 px-2">R&B Lyrics</a>
+                        <a href="/buy-singer-songwriter-lyrics" class="text-red-600 underline bg-gray-200 px-2">Singer-Songwriter Lyrics</a>
+                        <a href="/buy-jazz-lyrics" class="text-red-600 underline bg-gray-200 px-2">Jazz Lyrics</a>
+                        <a href="/buy-christian-lyrics" class="text-red-600 underline bg-gray-200 px-2">Christian Lyrics</a>
+                        <a href="/buy-folk-lyrics" class="text-red-600 underline bg-gray-200 px-2">Folk Lyrics</a>
+                        <a href="/buy-world-lyrics" class="text-red-600 underline bg-gray-200 px-2">World Lyrics</a>
+                        <a href="/buy-soul-lyrics" class="text-red-600 underline bg-gray-200 px-2">Soul Lyrics</a>
+                        <a href="/buy-reggae-lyrics" class="text-red-600 underline bg-gray-200 px-2">Reggae Lyrics</a>
+                        </p>
         </div>
         
     </div>
