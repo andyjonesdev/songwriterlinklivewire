@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'allow_social_use',
         'hide_from_social',
+        'allow_marketing',
     ];
 
     /**

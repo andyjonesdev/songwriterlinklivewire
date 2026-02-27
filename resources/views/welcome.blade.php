@@ -209,7 +209,7 @@
                     <h4 class="text-xl my-2">The first Songwriter Link lyric writing contest is now open!</h4>
                     <h4 class="text-xl my-2">Full details can be found on our 
                         <a href="https://greatbritishlyriccontest.com/" target="_blank"><u>dedicated contest website</u></a>.</h4>
-                    <h3 class="my-4 text-2xl font-bold"><b>The current prize pot is £500</b>.</h3>
+                    <h3 class="my-4 text-2xl font-bold"><b>The current prize pot is £800</b>.</h3>
                     <p class="my-2">The contest runs from February 20th 2026 until April 30th 2026.</p>
 					<p class="mt-2 mb-6">Winners announced May 2026.</p>
                     <a
