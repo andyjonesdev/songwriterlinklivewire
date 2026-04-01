@@ -18,9 +18,9 @@ class StripeWebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        $payload = $request->getContent();
+        $payload = file_get_contents('php://input');
         $sigHeader = $request->header('Stripe-Signature');
-        $endpointSecret = env('whsec_a2NZ21jwJQoBB4mPFO4kOQ34yN8VMiMV');
+        $endpointSecret = 'whsec_a2NZ21jwJQoBB4mPFO4kOQ34yN8VMiMV';
 
         // Verify the webhook signature
         try {
@@ -44,7 +44,7 @@ class StripeWebhookController extends Controller
             // $customer = $event->data->object->customer; //i.e. payer_id
             // $payment_intent = $event->data->object->payment_intent;
             $status = $event->data->object->status;
-            echo 'client_reference_id: '.$client_reference_id;
+            // echo 'client_reference_id: '.$client_reference_id;
             $client_reference_id_explode = explode('-', $client_reference_id);
             $type = $client_reference_id_explode[0];
             $user_id = $client_reference_id_explode[1];
