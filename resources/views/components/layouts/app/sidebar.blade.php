@@ -33,6 +33,7 @@
                         <flux:navlist.item icon="pencil-square" :href="route('lyrics.topromote')" :current="request()->routeIs('lyrics.topromote')" wire:navigate>{{ __('Lyrics to Promote') }}</flux:navlist.item>
                         <flux:navlist.item icon="star" :href="route('admin.add-promoted-lyric')" :current="request()->routeIs('admin.add-promoted-lyric')" wire:navigate>{{ __('Add Promoted Lyric') }}</flux:navlist.item>
                         <flux:navlist.item icon="chart-bar" :href="route('admin.promoted-lyric-stats')" :current="request()->routeIs('admin.promoted-lyric-stats')" wire:navigate>{{ __('Promoted Lyrics Stats') }}</flux:navlist.item>
+                        <flux:navlist.item icon="cpu-chip" :href="route('admin.ai-lyric-check')" :current="request()->routeIs('admin.ai-lyric-check')" wire:navigate>{{ __('AI Lyric Check') }}</flux:navlist.item>
                     @endif
 
                 </flux:navlist.group>

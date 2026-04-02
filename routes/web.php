@@ -114,6 +114,10 @@ Route::middleware(['auth'])->group(function () {
         return view('admin.promoted-lyric-stats');
     })->name('admin.promoted-lyric-stats');
 
+    Route::middleware(['auth', 'admin.user'])->get('/admin/ai-lyric-check', function () {
+        return view('admin.ai-lyric-check');
+    })->name('admin.ai-lyric-check');
+
     Route::middleware(['auth'])->get('/admin/blog/create', function () {
         return view('blog.create');
     })->name('blog.create');

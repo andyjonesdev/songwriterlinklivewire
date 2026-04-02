@@ -22,6 +22,9 @@ class Lyric extends Model
         'pov',
         'language',
         'social_used',
+        'ai_flagged',
+        'ai_flag_reason',
+        'ai_confidence',
     ];
     protected $appends = ['snippet'];
     protected static function boot()

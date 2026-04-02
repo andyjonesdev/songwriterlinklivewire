@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Lyric;
+use App\Services\AiLyricChecker;
+use Illuminate\Support\Facades\Log;
 
 class CreateLyric extends Component
 {
@@ -42,6 +44,16 @@ class CreateLyric extends Component
             'language' => $this->language,
             'status' => 'published',
         ]);
+
+        try {
+            (new AiLyricChecker())->check($lyric);
+            $lyric->refresh();
+            if ($lyric->ai_flagged) {
+                session()->flash('ai_warning', true);
+            }
+        } catch (\RuntimeException $e) {
+            Log::warning("AI check skipped for lyric #{$lyric->id}: " . $e->getMessage());
+        }
 
         $this->reset();
 

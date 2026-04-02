@@ -1,4 +1,13 @@
 <div class="flex flex-col gap-4">
+    @if (session('ai_warning'))
+        <div class="p-4 bg-yellow-50 border border-yellow-400 rounded text-yellow-800 text-sm">
+            ⚠️ Our AI checker has flagged this lyric as potentially AI-generated. Please ensure your lyrics are original and written by you before listing them for sale.
+        </div>
+        <a href="{{ route('lyrics.create') }}" wire:navigate
+           class="inline-block mt-4 w-fit rounded-sm bg-[#e8363c] px-5 py-2 text-lg text-white hover:bg-black">
+            Upload a Different Lyric
+        </a>
+    @else
     <h1 class="text-2xl font-bold">Promote Lyric</h1>
     <p class="my-4">Put your lyric at the top of the 'Buy Lyrics' page.</p>
     <form wire:submit.prevent="pay">
@@ -55,4 +64,5 @@
         </button>
 
     </form>
+    @endif
 </div>
