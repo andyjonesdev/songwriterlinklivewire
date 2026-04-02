@@ -18,17 +18,17 @@ class DuplicateLyrics extends Component
 
     public function render()
     {
-        // Find titles that appear more than once (case-insensitive)
-        $duplicateTitles = Lyric::select(DB::raw('LOWER(title) as lower_title'))
-            ->groupBy(DB::raw('LOWER(title)'))
+        // Find groups where both title AND content are identical
+        $duplicates = Lyric::select(DB::raw('LOWER(title) as lower_title, MD5(LOWER(TRIM(content))) as content_hash'))
+            ->groupBy(DB::raw('LOWER(title), MD5(LOWER(TRIM(content)))'))
             ->havingRaw('COUNT(*) > 1')
-            ->pluck('lower_title');
+            ->get();
 
-        // Load all lyrics matching those titles, grouped
         $groups = [];
-        foreach ($duplicateTitles as $lowerTitle) {
+        foreach ($duplicates as $row) {
             $groups[] = Lyric::with('user')
-                ->whereRaw('LOWER(title) = ?', [$lowerTitle])
+                ->whereRaw('LOWER(title) = ?', [$row->lower_title])
+                ->whereRaw('MD5(LOWER(TRIM(content))) = ?', [$row->content_hash])
                 ->orderBy('created_at', 'asc')
                 ->get();
         }
