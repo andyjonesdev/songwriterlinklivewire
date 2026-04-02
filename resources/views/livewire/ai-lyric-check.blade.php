@@ -83,6 +83,11 @@
                                                     class="bg-green-600 text-white text-sm px-2 py-1 rounded hover:bg-green-700">
                                                 Approve
                                             </button>
+                                            <button wire:click="delete({{ $lyric->id }})"
+                                                    onclick="return confirm('Permanently delete this lyric? This cannot be undone.')"
+                                                    class="bg-red-600 text-white text-sm px-2 py-1 rounded hover:bg-red-700">
+                                                Delete
+                                            </button>
                                         @endif
                                     </div>
                                 </td>
