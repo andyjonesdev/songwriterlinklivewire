@@ -49,6 +49,12 @@ PROMPT;
      */
     public function check(Lyric $lyric): void
     {
+        // Ensure every lyric has a language set
+        if (empty($lyric->language)) {
+            $lyric->update(['language' => 'english']);
+            $lyric->refresh();
+        }
+
         $apiKey = config('services.anthropic.key');
 
         if (empty($apiKey)) {

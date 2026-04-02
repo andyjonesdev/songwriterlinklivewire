@@ -40,7 +40,7 @@ class LyricController extends Controller
         //         ];
         //     });
 
-        $lyrics = Lyric::where('status','published')->latest()->take(9)->get();
+        $lyrics = Lyric::where('status','published')->notAiFlagged()->latest()->take(9)->get();
         $blogs = Blog::where('status','published')->latest()->take(3)->get();
 
         return view('welcome', [
@@ -66,6 +66,7 @@ class LyricController extends Controller
         // ->withQueryString();
 
         $lyrics = Lyric::where('status', 'published')
+        ->notAiFlagged()
         ->when($request->genre, fn ($q) => $q->where('genre', $request->genre))
         ->when($request->mood, fn ($q) => $q->where('mood', $request->mood))
         ->when($request->theme, fn ($q) => $q->where('theme', $request->theme))
@@ -210,6 +211,10 @@ class LyricController extends Controller
 
     public function show(Lyric $lyric)
     {
+        if ($lyric->ai_flagged && !$lyric->ai_approved && auth()->id() !== 1) {
+            abort(404);
+        }
+
         // Load the user relationship (only get the name)
         $lyric->load('user:id,name');
         $user = auth()->user();

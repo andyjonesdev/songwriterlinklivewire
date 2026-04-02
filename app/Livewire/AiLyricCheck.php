@@ -48,6 +48,11 @@ class AiLyricCheck extends Component
         }
     }
 
+    public function approve(int $lyricId): void
+    {
+        Lyric::findOrFail($lyricId)->update(['ai_approved' => true]);
+    }
+
     public function render()
     {
         return view('livewire.ai-lyric-check', [

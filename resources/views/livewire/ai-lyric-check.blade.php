@@ -49,12 +49,13 @@
                             <th class="pb-2 pr-4">Title</th>
                             <th class="pb-2 pr-4">Author</th>
                             <th class="pb-2 pr-4">Confidence</th>
-                            <th class="pb-2">Reason</th>
+                            <th class="pb-2 pr-4">Reason</th>
+                            <th class="pb-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($lyrics as $lyric)
-                            <tr class="border-b border-sidebar-border/70 dark:border-sidebar-border">
+                            <tr class="border-b border-sidebar-border/70 dark:border-sidebar-border {{ $lyric->ai_approved ? 'opacity-50' : '' }}">
                                 <td class="py-2 pr-4 font-medium">{{ $lyric->title }}</td>
                                 <td class="py-2 pr-4">{{ $lyric->user->name ?? '—' }}</td>
                                 <td class="py-2 pr-4">
@@ -66,7 +67,25 @@
                                         —
                                     @endif
                                 </td>
-                                <td class="py-2 text-gray-500">{{ $lyric->ai_flag_reason ?? '—' }}</td>
+                                <td class="py-2 pr-4 text-gray-500 text-xs max-w-xs">{{ $lyric->ai_flag_reason ?? '—' }}</td>
+                                <td class="py-2">
+                                    <div class="flex items-center gap-2">
+                                        <a href="{{ route('lyrics.show', $lyric->slug) }}"
+                                           target="_blank"
+                                           class="text-blue-600 hover:underline text-sm whitespace-nowrap">
+                                            View Lyric
+                                        </a>
+                                        @if ($lyric->ai_approved)
+                                            <span class="text-green-600 text-sm font-semibold">✓ Approved</span>
+                                        @else
+                                            <button wire:click="approve({{ $lyric->id }})"
+                                                    onclick="return confirm('Approve this lyric and make it visible on the site?')"
+                                                    class="bg-green-600 text-white text-sm px-2 py-1 rounded hover:bg-green-700">
+                                                Approve
+                                            </button>
+                                        @endif
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

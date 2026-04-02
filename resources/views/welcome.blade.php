@@ -92,6 +92,7 @@
                         >
                             {{ $lyric['title'] }}
                         </a>
+                        <x-ai-badge :lyric="$lyric" />
                         <br />Written By:
                     
                         <a

@@ -24,7 +24,7 @@ class CreateLyric extends Component
         'mood' => 'nullable|string',
         'theme' => 'nullable|string',
         'pov' => 'nullable|string',
-        'language' => 'nullable|string',
+        'language' => 'required|string',
         'price' => 'required|numeric',
         'content' => 'required|string',
     ];

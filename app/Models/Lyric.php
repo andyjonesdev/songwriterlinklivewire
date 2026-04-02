@@ -25,8 +25,14 @@ class Lyric extends Model
         'ai_flagged',
         'ai_flag_reason',
         'ai_confidence',
+        'ai_approved',
     ];
     protected $appends = ['snippet'];
+
+    protected $casts = [
+        'ai_flagged'  => 'boolean',
+        'ai_approved' => 'boolean',
+    ];
     protected static function boot()
     {
         parent::boot();
@@ -68,6 +74,15 @@ class Lyric extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
+    }
+
+    public function scopeNotAiFlagged($query)
+    {
+        return $query->where(function ($q) {
+            $q->whereNull('ai_flagged')
+              ->orWhere('ai_flagged', 0)
+              ->orWhere('ai_approved', 1);
+        });
     }
     public function writer() // lyric author
     {

@@ -100,6 +100,9 @@
                         >
                             {{ $lyric->title }}
                         </a>
+                        @if ($lyric->ai_flagged === false)
+                            <span class="ml-2 inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded-full border border-green-300">✓ AI Quality Checked</span>
+                        @endif
 
                         <br />Written By:
 
@@ -154,6 +157,7 @@
                             >
                                 {{ $lyric['title'] }}
                             </a>
+                            <x-ai-badge :lyric="$lyric" />
                             <br />Written By:
                             <a
                                 href="{{ route('users.show', $lyric->user) }}"

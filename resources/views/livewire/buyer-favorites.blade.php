@@ -9,6 +9,7 @@
                 <h2 class="text-xl font-bold">
                     {{ $lyric->title }}
                 </h2>
+                <x-ai-badge :lyric="$lyric" />
 
                 <p class="text-sm text-gray-600">
                     Written by {{ $lyric->writer->name }}
