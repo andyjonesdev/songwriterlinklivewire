@@ -51,6 +51,8 @@ class AddPromotedLyric extends Component
             $ends_at = $starts->copy()->addMonth();
         }
 
+        $amount = $this->getEstimatedCostProperty($placement, $bid, $duration);
+
         LyricPromote::create([
             'stripe_session_id' => 'manual_' . uniqid(),
             'user_id'           => $user_id,
@@ -58,7 +60,7 @@ class AddPromotedLyric extends Component
             'placement'         => $placement,
             'duration'          => $duration,
             'bid'               => $bid,
-            'amount'            => 0,
+            'amount'            => $amount,
             'starts_at'         => $starts,
             'ends_at'           => $ends_at,
         ]);
@@ -66,6 +68,15 @@ class AddPromotedLyric extends Component
         session()->flash('success', "Promotion added for lyric #{$lyric_id} (user #{$user_id}), placement: {$placement}, duration: {$duration}.");
 
         $this->client_reference_id = '';
+    }
+
+    public function getEstimatedCostProperty($placement, $bid, $duration)
+    {
+        $placement_cost = 1;
+        if ($placement=='all') {
+            $placement_cost = 2;
+        }
+        return $bid * ($duration) * $placement_cost;
     }
 
     public function render()
