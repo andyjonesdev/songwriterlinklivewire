@@ -83,7 +83,7 @@ class StripeWebhookController extends Controller
             }
             if ($type=='pro') {
                 $bid = $client_reference_id_explode[3];
-                $placement = $client_reference_id_explode[4];
+                $placement = rawurldecode($client_reference_id_explode[4]);
                 $duration = $client_reference_id_explode[5];
                 if ($duration==1) {
                     $ends_at = Carbon::now()->addWeeks(1);

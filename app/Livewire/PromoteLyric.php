@@ -52,7 +52,7 @@ class PromoteLyric extends Component
                      . auth()->user()->email
                      . "&client_reference_id=pro-" . auth()->id() . "-" . $this->lyric->id
                      . "-" . $this->bid
-                     . "-" . $this->placement
+                     . "-" . rawurlencode($this->placement)
                      . "-" . $this->duration;
 
         return redirect()->to($stripeUrlWithParams);
