@@ -106,6 +106,10 @@ Route::middleware(['auth'])->group(function () {
         return view('blog.admin');
     })->name('blog.admin');
 
+    Route::middleware(['auth', 'admin.user'])->get('/admin/add-promoted-lyric', function () {
+        return view('admin.add-promoted-lyric');
+    })->name('admin.add-promoted-lyric');
+
     Route::middleware(['auth'])->get('/admin/blog/create', function () {
         return view('blog.create');
     })->name('blog.create');
