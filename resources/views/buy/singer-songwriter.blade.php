@@ -69,7 +69,10 @@
                     <a href="{{ route('lyrics.show', $lyric->slug) }}" class="text-2xl font-semibold hover:underline">
                         {{ $lyric['title'] }}
                     </a>
-                    <x-ai-badge :lyric="$lyric" />
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <x-ai-badge :lyric="$lyric" />
+                        <x-plagiarism-badge :lyric="$lyric" />
+                    </div>
                     <br />Written By:
                     <a href="{{ route('users.show', $lyric->user) }}" class="font-semibold hover:underline">
                         {{ $lyric['user']['name'] }}

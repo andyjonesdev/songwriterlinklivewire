@@ -18,6 +18,11 @@ return [
         'key' => env('ANTHROPIC_API_KEY'),
     ],
 
+    'copyscape' => [
+        'username' => env('COPYSCAPE_USERNAME'),
+        'key'      => env('COPYSCAPE_API_KEY'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

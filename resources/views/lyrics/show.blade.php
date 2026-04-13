@@ -91,7 +91,10 @@ echo json_encode([
                 <h1 class="mb-4 font-medium text-6xl">
                     {{ $lyric->title }}
                 </h1>
-                <x-ai-badge :lyric="$lyric" />
+                <div class="flex flex-wrap gap-2">
+                    <x-ai-badge :lyric="$lyric" />
+                    <x-plagiarism-badge :lyric="$lyric" />
+                </div>
 
                 <h2 class="text-lg">
                     Written By:

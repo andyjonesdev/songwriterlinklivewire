@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class AiLyricChecker
 {
     // Flag as suspected AI if confidence >= this threshold
-    const THRESHOLD = 80;
+    const THRESHOLD = 70;
 
     private string $prompt = <<<'PROMPT'
 You are an expert at detecting AI-generated song lyrics. Analyse the lyrics below carefully and assess how likely they are to have been written by an AI system such as ChatGPT, Gemini, or Claude.

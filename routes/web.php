@@ -122,6 +122,10 @@ Route::middleware(['auth'])->group(function () {
         return view('admin.duplicate-lyrics');
     })->name('admin.duplicate-lyrics');
 
+    Route::middleware(['auth', 'admin.user'])->get('/admin/plagiarism-check', function () {
+        return view('admin.plagiarism-check');
+    })->name('admin.plagiarism-check');
+
     Route::middleware(['auth'])->get('/admin/blog/create', function () {
         return view('blog.create');
     })->name('blog.create');

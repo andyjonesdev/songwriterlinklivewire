@@ -1,7 +1,7 @@
 <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <div class="relative flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-6">
 
-        <h1 class="text-2xl font-bold mb-6">Lyric Integrity Checks</h1>
+        <h1 class="text-2xl font-bold mb-6">Plagiarism Check</h1>
 
         {{-- Stats --}}
         <div class="grid grid-cols-3 gap-4 mb-8">
@@ -15,7 +15,7 @@
             </div>
             <div class="rounded-lg border border-red-400 p-4 text-center">
                 <div class="text-3xl font-bold text-red-500">{{ $flagged }}</div>
-                <div class="text-sm text-gray-500 mt-1">AI Flagged</div>
+                <div class="text-sm text-gray-500 mt-1">Plagiarism Flagged</div>
             </div>
         </div>
 
@@ -37,12 +37,14 @@
                 <span wire:loading.remove wire:target="runCheck">Check Next 10 Unchecked Lyrics ({{ $unchecked }} remaining)</span>
                 <span wire:loading wire:target="runCheck">Checking... this may take a moment</span>
             </button>
+
+            <p class="mt-3 text-sm text-gray-500">Checks are run via the Copyscape API. Each check uses API credits.</p>
         </div>
 
-        {{-- Plagiarism flagged lyrics table --}}
-        @if ($plagiarismFlagged->isNotEmpty())
-            <h2 class="text-lg font-semibold mb-3 mt-8">Plagiarism Flagged Lyrics</h2>
-            <div class="overflow-x-auto mb-8">
+        {{-- Flagged lyrics table --}}
+        @if ($lyrics->isNotEmpty())
+            <h2 class="text-lg font-semibold mb-3">Plagiarism Flagged Lyrics</h2>
+            <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-sidebar-border/70 dark:border-sidebar-border text-left text-gray-500">
@@ -54,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($plagiarismFlagged as $lyric)
+                        @foreach ($lyrics as $lyric)
                             <tr class="border-b border-sidebar-border/70 dark:border-sidebar-border">
                                 <td class="py-2 pr-4 font-medium">{{ $lyric->title }}</td>
                                 <td class="py-2 pr-4">{{ $lyric->user->name ?? '—' }}</td>
@@ -87,65 +89,9 @@
                     </tbody>
                 </table>
             </div>
+        @else
+            <p class="text-gray-500 text-sm">No plagiarism flagged lyrics found.</p>
         @endif
 
-        {{-- AI Flagged lyrics table --}}
-        @if ($lyrics->isNotEmpty())
-            <h2 class="text-lg font-semibold mb-3">AI Flagged Lyrics</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="border-b border-sidebar-border/70 dark:border-sidebar-border text-left text-gray-500">
-                            <th class="pb-2 pr-4">Title</th>
-                            <th class="pb-2 pr-4">Author</th>
-                            <th class="pb-2 pr-4">Confidence</th>
-                            <th class="pb-2 pr-4">Reason</th>
-                            <th class="pb-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($lyrics as $lyric)
-                            <tr class="border-b border-sidebar-border/70 dark:border-sidebar-border {{ $lyric->ai_approved ? 'opacity-50' : '' }}">
-                                <td class="py-2 pr-4 font-medium">{{ $lyric->title }}</td>
-                                <td class="py-2 pr-4">{{ $lyric->user->name ?? '—' }}</td>
-                                <td class="py-2 pr-4">
-                                    @if ($lyric->ai_confidence !== null)
-                                        <span class="font-semibold {{ $lyric->ai_confidence >= 75 ? 'text-red-600' : ($lyric->ai_confidence >= 50 ? 'text-orange-500' : 'text-gray-400') }}">
-                                            {{ $lyric->ai_confidence }}%
-                                        </span>
-                                    @else
-                                        —
-                                    @endif
-                                </td>
-                                <td class="py-2 pr-4 text-gray-500 text-xs max-w-xs">{{ $lyric->ai_flag_reason ?? '—' }}</td>
-                                <td class="py-2">
-                                    <div class="flex items-center gap-2">
-                                        <a href="{{ route('lyrics.show', $lyric->slug) }}"
-                                           target="_blank"
-                                           class="text-blue-600 hover:underline text-sm whitespace-nowrap">
-                                            View Lyric
-                                        </a>
-                                        @if ($lyric->ai_approved)
-                                            <span class="text-green-600 text-sm font-semibold">✓ Approved</span>
-                                        @else
-                                            <button wire:click="approve({{ $lyric->id }})"
-                                                    onclick="return confirm('Approve this lyric and make it visible on the site?')"
-                                                    class="bg-green-600 text-white text-sm px-2 py-1 rounded hover:bg-green-700">
-                                                Approve
-                                            </button>
-                                            <button wire:click="delete({{ $lyric->id }})"
-                                                    onclick="return confirm('Permanently delete this lyric? This cannot be undone.')"
-                                                    class="bg-red-600 text-white text-sm px-2 py-1 rounded hover:bg-red-700">
-                                                Delete
-                                            </button>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @endif
     </div>
 </div>

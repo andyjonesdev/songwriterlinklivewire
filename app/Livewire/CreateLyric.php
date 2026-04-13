@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Lyric;
 use App\Services\AiLyricChecker;
+use App\Services\CopyscapeChecker;
 use Illuminate\Support\Facades\Log;
 
 class CreateLyric extends Component
@@ -17,6 +18,7 @@ class CreateLyric extends Component
     public $language = '';
     public $price = '';
     public $content = '';
+    public $originalConfirmed = false;
 
     protected $rules = [
         'title' => 'required|string|max:255',
@@ -27,6 +29,11 @@ class CreateLyric extends Component
         'language' => 'required|string',
         'price' => 'required|numeric',
         'content' => 'required|string',
+        'originalConfirmed' => 'accepted',
+    ];
+
+    protected $messages = [
+        'originalConfirmed.accepted' => 'You must confirm that these are your own original lyrics.',
     ];
 
     public function submit()
@@ -53,6 +60,13 @@ class CreateLyric extends Component
             }
         } catch (\RuntimeException $e) {
             Log::warning("AI check skipped for lyric #{$lyric->id}: " . $e->getMessage());
+        }
+
+        try {
+            (new CopyscapeChecker())->check($lyric);
+            $lyric->refresh();
+        } catch (\RuntimeException $e) {
+            Log::warning("Plagiarism check skipped for lyric #{$lyric->id}: " . $e->getMessage());
         }
 
         $this->reset();

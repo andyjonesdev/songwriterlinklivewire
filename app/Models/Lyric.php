@@ -26,12 +26,16 @@ class Lyric extends Model
         'ai_flag_reason',
         'ai_confidence',
         'ai_approved',
+        'plagiarism_flagged',
+        'plagiarism_match_url',
+        'plagiarism_flag_reason',
     ];
     protected $appends = ['snippet'];
 
     protected $casts = [
-        'ai_flagged'  => 'boolean',
-        'ai_approved' => 'boolean',
+        'ai_flagged'        => 'boolean',
+        'ai_approved'       => 'boolean',
+        'plagiarism_flagged' => 'boolean',
     ];
     protected static function boot()
     {
@@ -82,6 +86,14 @@ class Lyric extends Model
             $q->whereNull('ai_flagged')
               ->orWhere('ai_flagged', 0)
               ->orWhere('ai_approved', 1);
+        });
+    }
+
+    public function scopeNotPlagiarismFlagged($query)
+    {
+        return $query->where(function ($q) {
+            $q->whereNull('plagiarism_flagged')
+              ->orWhere('plagiarism_flagged', 0);
         });
     }
     public function writer() // lyric author

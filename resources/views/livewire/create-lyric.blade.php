@@ -51,6 +51,25 @@
                 with a 25% writing share.
             </p>
 
+            {{-- Originality Disclaimer & Confirmation --}}
+            <div class="mt-6 mb-4 p-4 bg-amber-50 border border-amber-300 rounded-lg dark:bg-amber-950 dark:border-amber-700">
+                <p class="text-sm text-amber-800 dark:text-amber-200 font-semibold mb-1">Important Notice</p>
+                <p class="text-sm text-amber-700 dark:text-amber-300">We do not accept AI-generated lyrics or lyrics not written by yourself. Uploading lyrics that are not your own original work may result in your account being suspended.</p>
+            </div>
+
+            <div class="mb-4 flex items-start gap-3">
+                <input
+                    wire:model.defer="originalConfirmed"
+                    type="checkbox"
+                    id="originalConfirmed"
+                    class="mt-1 h-4 w-4 rounded border-gray-300 text-[#e8363c] focus:ring-[#e8363c] cursor-pointer"
+                >
+                <label for="originalConfirmed" class="text-sm cursor-pointer">
+                    I confirm that these lyrics are my own original work, written entirely by me, and are not AI-generated.
+                </label>
+            </div>
+            @error('originalConfirmed') <p class="text-red-500 text-sm mb-4">{{ $message }}</p> @enderror
+
             {{-- Submit --}}
             <button
                 type="submit"

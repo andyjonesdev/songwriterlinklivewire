@@ -157,7 +157,10 @@
                             >
                                 {{ $lyric['title'] }}
                             </a>
-                            <x-ai-badge :lyric="$lyric" />
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                <x-ai-badge :lyric="$lyric" />
+                                <x-plagiarism-badge :lyric="$lyric" />
+                            </div>
                             <br />Written By:
                             <a
                                 href="{{ route('users.show', $lyric->user) }}"
