@@ -100,9 +100,10 @@
                         >
                             {{ $lyric->title }}
                         </a>
-                        @if ($lyric->ai_flagged === false)
-                            <span class="ml-2 inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded-full border border-green-300">✓ AI Quality Checked</span>
-                        @endif
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            <x-ai-badge :lyric="$lyric" />
+                            <x-plagiarism-badge :lyric="$lyric" />
+                        </div>
 
                         <br />Written By:
 
