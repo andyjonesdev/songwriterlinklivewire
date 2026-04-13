@@ -46,6 +46,10 @@
                     @foreach ($lyrics as $lyric)
                         <div class="col-span-4 md:col-span-4 px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">
                             <b>{{ $lyric['title'] }}</b>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                <x-ai-badge :lyric="$lyric" />
+                                <x-plagiarism-badge :lyric="$lyric" />
+                            </div>
                         </div>
                         <div class="hidden md:block px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">{{ $lyric['genre'] }}</div>
                         <div class="hidden md:block px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">${{ $lyric['price'] }}</div>

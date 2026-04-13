@@ -10,6 +10,10 @@
 
             <div class="lg:pr-8 lg:border-r lg:border-gray-100 col-span-2">
                 <h2 class="font-semibold text-lg">{{ $lyric->title }}</h2>
+                <div class="flex flex-wrap gap-1 mt-1 mb-2">
+                    <x-ai-badge :lyric="$lyric" />
+                    <x-plagiarism-badge :lyric="$lyric" />
+                </div>
                 <p class="mt-2 whitespace-pre-line">{{ $lyric->snippet }}</p>
             </div>
 

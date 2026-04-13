@@ -43,7 +43,10 @@
                                 {{ $lyric->title }}
                             </a>
                         </h2>
-                        <x-ai-badge :lyric="$lyric" />
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            <x-ai-badge :lyric="$lyric" />
+                            <x-plagiarism-badge :lyric="$lyric" />
+                        </div>
 
                         <h3>
                             Written By: <b>{{ $user->name }}</b>

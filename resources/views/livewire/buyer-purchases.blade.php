@@ -12,6 +12,11 @@
                         {{ $purchase->lyric->title }}
                     </h2>
 
+                    <div class="flex flex-wrap gap-1">
+                        <x-ai-badge :lyric="$purchase->lyric" />
+                        <x-plagiarism-badge :lyric="$purchase->lyric" />
+                    </div>
+
                     <p class="text-sm text-gray-600">
                         Written by {{ $purchase->lyric->writer->name }}
                     </p>
