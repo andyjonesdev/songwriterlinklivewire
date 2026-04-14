@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\OnboardingWizard;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -14,8 +15,17 @@ Route::get('/terms', fn () => view('pages.terms'))->name('terms');
 
 // ─── Onboarding ──────────────────────────────────────────────────────────────
 
-Route::get('/join', fn () => view('onboarding.start'))->name('onboarding.start');
-Route::get('/onboarding/{step}', fn ($step) => view('onboarding.step', compact('step')))->name('onboarding.step');
+Route::get('/join', OnboardingWizard::class)->name('onboarding.start');
+Route::get('/onboarding/{step}', OnboardingWizard::class)->name('onboarding.step');
+
+// Smart redirect after login / email verification (Fortify home)
+Route::middleware('auth')->get('/onboarding/redirect', function () {
+    $user = auth()->user();
+    if ($user->status === 'active') {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('onboarding.step', $user->onboarding_step ?? 1);
+})->name('onboarding.redirect');
 
 // ─── Authenticated routes ─────────────────────────────────────────────────────
 

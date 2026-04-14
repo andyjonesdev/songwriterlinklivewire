@@ -9,7 +9,8 @@
         {{-- Nav --}}
         <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
             <a href="/" class="flex items-center gap-2">
-                <x-app-logo />
+                <img src="/storage/songwriterlink_logo.png" alt="SongwriterLink" class="h-8 w-auto" />
+                <span class="text-base font-semibold text-white">SongwriterLink</span>
             </a>
             <div class="flex items-center gap-4">
                 @auth
