@@ -34,12 +34,12 @@
                             Buy Lyrics
                         </a>
 
-                        <a
+                        <!-- <a
                             href="/register?role=seller"
                             class="uppercase lg:mt-0 bg-gray-200 lg:bg-white inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] hover:bg-red-100"
                         >
                             Sell Lyrics
-                        </a>
+                        </a> -->
                         <a
                             href="/blog"
                             @class([
@@ -87,11 +87,11 @@
                                     </a>
 
                                     @if (Route::has('register'))
-                                        <a
+                                        <!-- <a
                                             href="{{ route('register') }}"
                                             class="uppercase inline-block px-5 py-1.5 #0a0a0a text-[#1b1b18] rounded-sm text-sm leading-normal">
                                             <i class="fa-sharp-duotone fa-solid fa-user-plus text-xl"></i>
-                                        </a>
+                                        </a> -->
                                     @endif
                                 @endauth
                         @endif

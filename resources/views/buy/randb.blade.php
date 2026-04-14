@@ -98,9 +98,9 @@
                                 <livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" />
                             @endif
                         @else
-                            <a href="/login" class="pt-6">
+                            <!-- <a href="/login" class="pt-6">
                                 <span class="px-3 text-green-700">Log in to Save</span>
-                            </a>
+                            </a> -->
                         @endif
                     </div>
                 </div>

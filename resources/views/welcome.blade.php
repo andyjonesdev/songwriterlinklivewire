@@ -124,9 +124,9 @@
                                             <div class=""><livewire:save-lyric-button :lyric="$lyric" :key="$lyric->id" /></div>
                                         @endif
                                     @else
-                                        <div class="mt-4 xl:mt-0 pt-3"><a href="/login" class="pt-6"><span class="px-3 text-green-700">
+                                        <!-- <div class="mt-4 xl:mt-0 pt-3"><a href="/login" class="pt-6"><span class="px-3 text-green-700">
                                             <i class="fa-sharp-duotone fa-regular fa-plus text-xl"></i> Log in to Save
-                                        </span></a></div>
+                                        </span></a></div> -->
                                     @endif
                                 </div>
                     </div>
@@ -185,7 +185,7 @@
             </div>
         </div>
 
-        <div class="md:grid grid-cols-2 gap-12 p-4 lg:mt-12">
+        <!-- <div class="md:grid grid-cols-2 gap-12 p-4 lg:mt-12">
             <div>
                 <div class="p-12">
                     <h2 class="text-4xl font-bold mb-8">Calling all songwriters!</h2>
@@ -204,9 +204,9 @@
             <div>
                 <img src="/storage/guitarist.jpg" alt="A person writing lyrics" />
             </div>
-        </div>
+        </div> -->
 
-        <div class="p-4 lg:mt-12 text-center">
+        <!-- <div class="p-4 lg:mt-12 text-center">
 
                 <div class="md:p-12">
                     <h2 class="text-4xl font-bold mb-8"><i class="fa-solid fa-trophy-star"></i> SL Lyric Writing Contest!</h2>
@@ -224,7 +224,7 @@
                         Enter your lyric now
                     </a>
                 </div>
-        </div>
+        </div> -->
 
         <h3 class="text-4xl mt-12 font-bold text-center">Latest Songwriting Articles​</h3>
 

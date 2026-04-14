@@ -8,7 +8,7 @@
                 @if ($user['role']=='seller')
                     @livewire('social-usage-consent')
                     @livewire('marketing-consent')
-                    <div class="mt-12">
+                    <!-- <div class="mt-12">
                             <h2 class="text-4xl font-bold mb-8"><i class="fa-solid fa-trophy-star"></i> SL Lyric Writing Contest!</h2>
                             <h4 class="text-xl my-2">The first Songwriter Link lyric writing contest is now open!</h4>
                             <h4 class="text-xl my-2">Full details can be found on our 
@@ -23,7 +23,7 @@
                             >
                                 Enter your lyric now
                             </a>
-                    </div>
+                    </div> -->
                 @endif
             </div>
         </div>
