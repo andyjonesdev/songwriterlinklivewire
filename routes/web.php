@@ -4,27 +4,47 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LyricController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\Auth\BuyerRegisterController;
-use App\Http\Controllers\StripeWebhookController;
+// ─── Public routes ───────────────────────────────────────────────────────────
 
+Route::get('/', fn () => view('welcome'))->name('home');
+Route::get('/members', fn () => view('members.index'))->name('members.index');
+Route::get('/members/{profile:slug}', fn ($profile) => view('members.show', compact('profile')))->name('profile.show');
+Route::get('/privacy', fn () => view('pages.privacy'))->name('privacy');
+Route::get('/terms', fn () => view('pages.terms'))->name('terms');
 
-use App\Models\Blog;
-use App\Livewire\BlogEdit;
+// ─── Onboarding ──────────────────────────────────────────────────────────────
 
-Route::get('/', [LyricController::class, 'welcome'])->name('home');
+Route::get('/join', fn () => view('onboarding.start'))->name('onboarding.start');
+Route::get('/onboarding/{step}', fn ($step) => view('onboarding.step', compact('step')))->name('onboarding.step');
 
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
+// ─── Authenticated routes ─────────────────────────────────────────────────────
 
-    Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
-    Volt::route('settings/password', 'settings.password')->name('user-password.edit');
-    Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
+Route::middleware(['auth', 'verified'])->group(function () {
 
+    // Dashboard
+    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+
+    // Members
+    Route::get('/members/{profile:slug}/connect', fn () => abort(404))->name('members.connect');
+
+    // Messages
+    Route::get('/messages', fn () => view('messages.index'))->name('messages.index');
+    Route::get('/messages/{conversation}', fn ($conversation) => view('messages.show', compact('conversation')))->name('messages.show');
+
+    // Briefs
+    Route::get('/briefs', fn () => view('briefs.index'))->name('briefs.index');
+    Route::get('/briefs/create', fn () => view('briefs.create'))->name('briefs.create');
+    Route::get('/briefs/{brief}', fn ($brief) => view('briefs.show', compact('brief')))->name('briefs.show');
+    Route::post('/briefs/{brief}/apply', fn () => abort(404))->name('briefs.apply');
+
+    // Profile management
+    Route::get('/profile/edit', fn () => view('profile.edit'))->name('profile.edit');
+
+    // Settings
+    Route::redirect('/settings', '/settings/profile');
+    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
+    Volt::route('settings/password', 'settings.password')->name('settings.password');
+    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
     Volt::route('settings/two-factor', 'settings.two-factor')
         ->middleware(
             when(
@@ -35,138 +55,21 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
-    
-});
 
-Route::middleware(['auth'])->group(function () {
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/dashboard/payments', function () {
-        return view('dashboard.payments', [
-            'user_account' => auth()->user()->account,
-        ]);
-    })->name('dashboard.payments');
-
-    Route::get('/sales', [DashboardController::class, 'sales'])->name('sales');
-
-    Route::get('/user/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
-
-    Route::prefix('/lyrics')->group(function () {
-
-        Route::get('/', [LyricController::class, 'index'])->name('lyrics.index');
-
-        // Route::get('/create', function () {
-        //     return view('lyrics.create');
-        // })->name('lyrics.create');
-
-        Route::get('/{lyric}/edit', function (\App\Models\Lyric $lyric) {
-            return view('lyrics.edit', compact('lyric'));
-        })->name('lyrics.edit');
-
-        Route::get('/{lyric}/promote', [LyricController::class, 'promote'])->name('lyrics.promote');
-
-        Route::delete('/{lyric:slug}', [LyricController::class, 'destroy'])
-            ->name('lyrics.destroy');
-
-    });
-
-    Route::middleware(['auth', 'admin.user'])->get('/admin/blog', function () {
-        return view('blog.admin');
-    })->name('blog.admin');
-
-    Route::middleware(['auth', 'admin.user'])->get('/admin/add-promoted-lyric', function () {
-        return view('admin.add-promoted-lyric');
-    })->name('admin.add-promoted-lyric');
-
-    Route::middleware(['auth', 'admin.user'])->get('/admin/promoted-lyric-stats', function () {
-        return view('admin.promoted-lyric-stats');
-    })->name('admin.promoted-lyric-stats');
-
-    Route::middleware(['auth', 'admin.user'])->get('/admin/ai-lyric-check', function () {
-        return view('admin.ai-lyric-check');
-    })->name('admin.ai-lyric-check');
-
-    Route::middleware(['auth', 'admin.user'])->get('/admin/duplicate-lyrics', function () {
-        return view('admin.duplicate-lyrics');
-    })->name('admin.duplicate-lyrics');
-
-    Route::middleware(['auth', 'admin.user'])->get('/admin/plagiarism-check', function () {
-        return view('admin.plagiarism-check');
-    })->name('admin.plagiarism-check');
-
-    Route::middleware(['auth'])->get('/admin/blog/create', function () {
-        return view('blog.create');
-    })->name('blog.create');
-
-    Route::middleware(['auth'])->get('/admin/blog/{blog:slug}/edit', BlogEdit::class)
-        ->name('blog.edit');
-
-    Route::get('/seller/profile/edit', function () {
-        return view('users.edit'); // blade with livewire
-    })->name('users.edit');
-
-    Route::get('/seller/sales', function () {
-        return view('users.sales'); // blade with livewire
-    })->name('users.sales');
-
-    Route::get('/buyer/purchases', function () {
-        return view('users.purchases'); // blade with livewire
-    })->name('users.purchases');
-
-    Route::get('/buyer/favorites', function () {
-        return view('users.favorites'); // blade with livewire
-    })->name('users.favorites');
-
-    Route::get('/music/upload', function () {
-        return view('music.upload');
-    })->name('music.upload');
-
-    Route::post('/lyrics/{lyric:slug}/save', [LyricController::class, 'favorite'])
-    ->name('lyrics.save');
-
-    Route::delete('/lyrics/{lyric:slug}/unsave', [LyricController::class, 'destroyFavorite'])
-    ->name('lyrics.unsave');
-
-    Route::middleware(['auth'])->get('/lyrics/topromote', [LyricController::class, 'topromote'])
-        ->name('lyrics.topromote');
-
-    Route::patch('/lyrics/{lyric}/used', [LyricController::class, 'markUsed']);
-    Route::patch('/users/{user}/hide', [UserController::class, 'markHide']);
+    // Data export (GDPR)
+    Route::get('/settings/export-data', fn () => abort(501))->name('settings.export-data');
 
 });
-    
-Route::get('/buy-lyrics', [LyricController::class, 'buyLyrics'])->name('buyLyrics');
-Route::get('/success', [LyricController::class, 'success'])->name('success');
 
-Route::get('/lyrics/buy/{lyric:slug}', [LyricController::class, 'show'])->name('lyrics.show');
+// ─── Admin routes ─────────────────────────────────────────────────────────────
 
-Route::get('/lyricist/{user}', [UserController::class, 'show'])->name('users.show');
-Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
-
-
-Route::get('/buy-pop-lyrics', [PageController::class, 'buyPop'])->name('page.buy.pop');
-Route::get('/buy-rap-lyrics', [PageController::class, 'buyRap'])->name('page.buy.rap');
-Route::get('/buy-country-lyrics', [PageController::class, 'buyCountry'])->name('page.buy.country');
-Route::get('/buy-rock-lyrics', [PageController::class, 'buyRock'])->name('page.buy.rock');
-Route::get('/buy-indie-lyrics', [PageController::class, 'buyIndie'])->name(name: 'page.buy.indie');
-Route::get('/buy-metal-lyrics', [PageController::class, 'buyMetal'])->name('page.buy.metal');
-Route::get('/buy-randb-lyrics', [PageController::class, 'buyRAndB'])->name('page.buy.randb');
-Route::get('/buy-singer-songwriter-lyrics', [PageController::class, 'buySingerSongwriter'])->name('page.buy.singersongwriter');
-Route::get('/buy-jazz-lyrics', [PageController::class, 'buyJazz'])->name('page.buy.jazz');
-Route::get('/buy-christian-lyrics', [PageController::class, 'buyChristian'])->name('page.buy.christian');
-Route::get('/buy-folk-lyrics', [PageController::class, 'buyFolk'])->name('page.buy.folk');
-Route::get('/buy-world-lyrics', [PageController::class, 'buyWorld'])->name('page.buy.world');
-Route::get('/buy-soul-lyrics', [PageController::class, 'buySoul'])->name('page.buy.soul');
-Route::get('/buy-reggae-lyrics', [PageController::class, 'buyReggae'])->name('page.buy.reggae');
-
-Route::get('/lyric-marketplace', [PageController::class, 'lyricMarketPlace'])->name('pages.lyricmarketplace');
-Route::get('/royalty-free-lyrics', [PageController::class, 'royaltyFreeLyrics'])->name('pages.royaltyfreelyrics');
-Route::get('/buy-song-lyrics', [PageController::class, 'buySongLyrics'])->name('pages.buysonglyrics');
-Route::get('/standard-licence-terms', [PageController::class, 'standardLicenceTerms'])->name('pages.standardlicenseterms');
-Route::get('/terms-of-service', [PageController::class, 'termsOfService'])->name('pages.termsofservice');
-Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('pages.privacypolicy');
+Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', fn () => view('admin.index'))->name('index');
+    Route::get('/verification-queue', fn () => view('admin.verification-queue'))->name('verification-queue');
+    Route::get('/reports', fn () => view('admin.reports'))->name('reports');
+    Route::get('/producer-badges', fn () => view('admin.producer-badges'))->name('producer-badges');
+    Route::get('/suspended', fn () => view('admin.suspended'))->name('suspended');
+    Route::get('/promotions', fn () => view('admin.promotions'))->name('promotions');
+    Route::get('/members', fn () => view('admin.members'))->name('members');
+    Route::get('/stats', fn () => view('admin.stats'))->name('stats');
+});

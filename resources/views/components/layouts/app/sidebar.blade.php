@@ -10,44 +10,43 @@
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>
-            
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__(auth()->user()->name)" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    @if (auth()->user()->role=='seller')
-                        <flux:navlist.item icon="pencil-square" :href="route('lyrics.index')" :current="request()->routeIs('lyrics.index')" wire:navigate>{{ __('Your Lyrics') }}</flux:navlist.item>
-                        <flux:navlist.item icon="user-circle" :href="route('users.edit')" :current="request()->routeIs('users.edit')" wire:navigate>{{ __('Your Bio') }}</flux:navlist.item>
-                        <flux:navlist.item icon="currency-dollar" :href="route('dashboard.payments')" :current="request()->routeIs('dashboard.payments')" wire:navigate>{{ __('Your Payment Details') }}</flux:navlist.item>
-                        <flux:navlist.item icon="presentation-chart-line" :href="route('users.sales')" :current="request()->routeIs('users.sales')" wire:navigate>{{ __('Your Sales') }}</flux:navlist.item>
-                        <flux:navlist.item icon="document-text" :href="route('buyLyrics')" :current="request()->routeIs('buyLyrics')" wire:navigate>{{ __('Browse Lyrics') }}</flux:navlist.item>
-                        <!-- <flux:navlist.item icon="musical-note" :href="route('music.upload')" :current="request()->routeIs('music.upload')" wire:navigate>{{ __('Your Music') }}</flux:navlist.item> -->
-                    @endif
-                    <flux:navlist.item icon="heart" :href="route('users.favorites')" :current="request()->routeIs('users.favorites')" wire:navigate>{{ __('Your Saved Lyrics') }}</flux:navlist.item>
-                        
-                    @if (auth()->user()->role=='buyer')
-                        <flux:navlist.item icon="pencil-square" :href="route('buyLyrics')" :current="request()->routeIs('buyLyrics')" wire:navigate>{{ __('Browse Lyrics') }}</flux:navlist.item>
-                        <flux:navlist.item icon="presentation-chart-line" :href="route('users.purchases')" :current="request()->routeIs('users.purchases')" wire:navigate>{{ __('Your Purchased Lyrics') }}</flux:navlist.item>
-                    @endif
-                    @if (auth()->user()->id === 1)
-                        <flux:navlist.item icon="pencil-square" :href="route('blog.admin')" :current="request()->routeIs('blog.admin')" wire:navigate>{{ __('Blog Admin') }}</flux:navlist.item>
-                        <flux:navlist.item icon="pencil-square" :href="route('lyrics.topromote')" :current="request()->routeIs('lyrics.topromote')" wire:navigate>{{ __('Lyrics to Promote') }}</flux:navlist.item>
-                        <flux:navlist.item icon="star" :href="route('admin.add-promoted-lyric')" :current="request()->routeIs('admin.add-promoted-lyric')" wire:navigate>{{ __('Add Promoted Lyric') }}</flux:navlist.item>
-                        <flux:navlist.item icon="chart-bar" :href="route('admin.promoted-lyric-stats')" :current="request()->routeIs('admin.promoted-lyric-stats')" wire:navigate>{{ __('Promoted Lyrics Stats') }}</flux:navlist.item>
-                        <flux:navlist.item icon="cpu-chip" :href="route('admin.ai-lyric-check')" :current="request()->routeIs('admin.ai-lyric-check')" wire:navigate>{{ __('AI Lyric Check') }}</flux:navlist.item>
-                        <flux:navlist.item icon="document-duplicate" :href="route('admin.duplicate-lyrics')" :current="request()->routeIs('admin.duplicate-lyrics')" wire:navigate>{{ __('Duplicate Lyrics') }}</flux:navlist.item>
-                        <flux:navlist.item icon="document-duplicate" :href="route('admin.plagiarism-check')" :current="request()->routeIs('admin.plagiarism-check')" wire:navigate>{{ __('Plagiarism Check') }}</flux:navlist.item>
-                    @endif
 
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="auth()->user()->name" class="grid">
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                        {{ __('Dashboard') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="users" :href="route('members.index')" :current="request()->routeIs('members.*')" wire:navigate>
+                        {{ __('Members') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="chat-bubble-left-right" :href="route('messages.index')" :current="request()->routeIs('messages.*')" wire:navigate>
+                        {{ __('Messages') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="document-text" :href="route('briefs.index')" :current="request()->routeIs('briefs.*')" wire:navigate>
+                        {{ __('Brief Board') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="user-circle" :href="route('profile.show', auth()->user()->profile)" :current="request()->routeIs('profile.show')" wire:navigate>
+                        {{ __('My Profile') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
+
+                @if(auth()->user()->is_admin)
+                    <flux:navlist.group heading="Admin" class="grid">
+                        <flux:navlist.item icon="shield-check" :href="route('admin.index')" :current="request()->routeIs('admin.*')" wire:navigate>
+                            {{ __('Admin Panel') }}
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+                @endif
             </flux:navlist>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="book-open-text" href="/faqs">
-                {{ __('FAQs') }}
-                </flux:navlist.item>
-            </flux:navlist>
+            <!-- Subscription badge -->
+            @if(auth()->user()->isPro())
+                <div class="mx-2 mb-2 rounded-lg bg-brand/10 px-3 py-2 text-xs font-medium text-brand dark:text-brand-light">
+                    {{ auth()->user()->isProPlus() ? 'Pro+ Member' : 'Pro Member' }}
+                </div>
+            @endif
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
@@ -55,7 +54,6 @@
                     :name="auth()->user()->name"
                     :initials="auth()->user()->initials()"
                     icon:trailing="chevrons-up-down"
-                    data-test="sidebar-menu-button"
                 />
 
                 <flux:menu class="w-[220px]">
@@ -63,13 +61,10 @@
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                    <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
+                                    <span class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                                         {{ auth()->user()->initials() }}
                                     </span>
                                 </span>
-
                                 <div class="grid flex-1 text-start text-sm leading-tight">
                                     <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
                                     <span class="truncate text-xs">{{ auth()->user()->email }}</span>
@@ -81,14 +76,14 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full" data-test="logout-button">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>
@@ -96,49 +91,18 @@
             </flux:dropdown>
         </flux:sidebar>
 
-        <!-- Mobile User Menu -->
+        <!-- Mobile Header -->
         <flux:header class="lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-
             <flux:spacer />
-
             <flux:dropdown position="top" align="end">
-                <flux:profile
-                    :initials="auth()->user()->initials()"
-                    icon-trailing="chevron-down"
-                />
-
+                <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
                 <flux:menu>
-                    <flux:menu.radio.group>
-                        <div class="p-0 text-sm font-normal">
-                            <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                    <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
-                                        {{ auth()->user()->initials() }}
-                                    </span>
-                                </span>
-
-                                <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </flux:menu.radio.group>
-
+                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
                     <flux:menu.separator />
-
-                    <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                    </flux:menu.radio.group>
-
-                    <flux:menu.separator />
-
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full" data-test="logout-button">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>

@@ -8,56 +8,61 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
-        'allow_social_use',
-        'hide_from_social',
-        'allow_marketing',
+        'phone',
+        'phone_verified_at',
+        'stripe_customer_id',
+        'subscription_tier',
+        'subscription_expires_at',
+        'subscription_term',
+        'id_verified',
+        'id_verified_at',
+        'id_verification_status',
+        'stripe_identity_session_id',
+        'producer_verified',
+        'publisher_verified',
+        'joining_fee_paid',
+        'joining_fee_paid_at',
+        'status',
+        'suspension_reason',
+        'report_count',
+        'onboarding_step',
+        'is_admin',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
-        'two_factor_secret',
-        'two_factor_recovery_codes',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at'       => 'datetime',
+            'phone_verified_at'       => 'datetime',
+            'id_verified'             => 'boolean',
+            'id_verified_at'          => 'datetime',
+            'producer_verified'       => 'boolean',
+            'publisher_verified'      => 'boolean',
+            'joining_fee_paid'        => 'boolean',
+            'joining_fee_paid_at'     => 'datetime',
+            'subscription_expires_at' => 'datetime',
+            'is_admin'                => 'boolean',
+            'password'                => 'hashed',
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
     public function initials(): string
     {
         return Str::of($this->name)
@@ -66,24 +71,81 @@ class User extends Authenticatable implements MustVerifyEmail
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
-    public function lyrics(): HasMany
+
+    // Relationships
+
+    public function profile()
     {
-        return $this->hasMany(Lyric::class);
+        return $this->hasOne(Profile::class);
     }
 
-    public function account()
+    public function portfolioItems()
     {
-        return $this->hasOne(UserAccount::class);
+        return $this->hasMany(PortfolioItem::class);
     }
 
-    public function music()
+    public function sentConnections()
     {
-        return $this->hasMany(Music::class);
-    }
-    public function savedLyrics()
-    {
-        return $this->belongsToMany(Lyric::class, 'saved_lyrics')
-            ->withTimestamps();
+        return $this->hasMany(Connection::class, 'requester_id');
     }
 
+    public function receivedConnections()
+    {
+        return $this->hasMany(Connection::class, 'recipient_id');
+    }
+
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'conversation_participants')
+            ->withPivot('last_read_at');
+    }
+
+    public function briefs()
+    {
+        return $this->hasMany(Brief::class);
+    }
+
+    public function briefApplications()
+    {
+        return $this->hasMany(BriefApplication::class, 'applicant_id');
+    }
+
+    public function verificationLogs()
+    {
+        return $this->hasMany(VerificationLog::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'reported_user_id');
+    }
+
+    public function promotedProfiles()
+    {
+        return $this->hasMany(PromotedProfile::class);
+    }
+
+    // Helpers
+
+    public function isPro(): bool
+    {
+        return in_array($this->subscription_tier, ['pro', 'pro_plus'])
+            && ($this->subscription_expires_at === null || $this->subscription_expires_at->isFuture());
+    }
+
+    public function isProPlus(): bool
+    {
+        return $this->subscription_tier === 'pro_plus'
+            && ($this->subscription_expires_at === null || $this->subscription_expires_at->isFuture());
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->id_verified && $this->isActive();
+    }
 }
