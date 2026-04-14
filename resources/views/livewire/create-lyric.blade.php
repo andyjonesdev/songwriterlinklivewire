@@ -55,7 +55,17 @@
             <div class="mt-6 mb-4 p-4 bg-amber-50 border border-amber-300 rounded-lg dark:bg-amber-950 dark:border-amber-700">
                 <p class="text-sm text-amber-800 dark:text-amber-200 font-semibold mb-1">Important Notice</p>
                 <p class="text-sm text-amber-700 dark:text-amber-300">We do not accept AI-generated lyrics or lyrics not written by yourself. Uploading lyrics that are not your own original work may result in your account being suspended.</p>
+
+<p class="text-sm text-amber-700 dark:text-amber-300 my-2">To use our service, you must either fully own the rights to any material you upload, license, or sell through SongwriterLink — or own a share of the rights and have obtained explicit permission from all co-writers or rights holders.</p>
+
+<p class="text-sm text-amber-700 dark:text-amber-300 my-2">If you do not hold these rights, or do not have permission from all relevant parties, you are not permitted to use our service. If you’re unsure about any of these terms, please seek clarification before uploading your work.</p>
+
+<p class="text-sm text-amber-700 dark:text-amber-300">Do not upload material that you do not own or works by other artists. Unauthorized use of copyrighted material is a serious offense and may result in legal action.</p>
+
             </div>
+
+
+           
 
             <div class="mb-4 flex items-start gap-3">
                 <input
@@ -65,7 +75,7 @@
                     class="mt-1 h-4 w-4 rounded border-gray-300 text-[#e8363c] focus:ring-[#e8363c] cursor-pointer"
                 >
                 <label for="originalConfirmed" class="text-sm cursor-pointer">
-                    I confirm that these lyrics are my own original work, written entirely by me, and are not AI-generated.
+                    I confirm that I own the rights or have permission to use these lyrics, and they are not AI-generated.
                 </label>
             </div>
             @error('originalConfirmed') <p class="text-red-500 text-sm mb-4">{{ $message }}</p> @enderror
