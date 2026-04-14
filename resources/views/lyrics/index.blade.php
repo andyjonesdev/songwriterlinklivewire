@@ -1,9 +1,9 @@
 <x-layouts.app :title="__('Your Lyrics')">
 
     <h1 class="text-3xl mb-4">Your Lyrics</h1>
-    <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-md leading-normal text-white hover:border-black 
+    <!-- <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-md leading-normal text-white hover:border-black 
     hover:bg-black dark:border-[#e8363c] dark:bg-[#e8363c] dark:text-[#1C1C1A] 
-    dark:hover:border-white dark:hover:bg-white">Upload New Lyric</a></p>
+    dark:hover:border-white dark:hover:bg-white">Upload New Lyric</a></p> -->
 
     @foreach ($lyrics as $lyric)
         <div class="pt-4 pb-8 sm:grid grid-cols-3 gap-8 my-8 border-b border-gray-100">

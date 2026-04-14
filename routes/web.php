@@ -18,14 +18,6 @@ use App\Livewire\BlogEdit;
 
 Route::get('/', [LyricController::class, 'welcome'])->name('home');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
-// Route::view('dashboard', 'dashboard')
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
-
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
@@ -46,18 +38,9 @@ Route::middleware(['auth'])->group(function () {
     
 });
 
-
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/dashboard/buyer', [BuyerDashboardController::class, 'index'])->name('buyerdashboard');
-    // Route::get('/dashboard/seller', [SellerDashboardController::class, 'index'])->name('sellerdashboard');
-
-
-    // Route::get('/lyrics/create', \App\Livewire\CreateLyric::class)
-    // ->name('lyrics.create');
-    // Route::get('/lyrics/edit', \App\Livewire\EditLyric::class)
-    // ->name('lyrics.edit');
 
     Route::get('/dashboard/payments', function () {
         return view('dashboard.payments', [
@@ -66,7 +49,6 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard.payments');
 
     Route::get('/sales', [DashboardController::class, 'sales'])->name('sales');
-    // Route::get('/seller/faqs', [SellerDashboardController::class, 'sellerFaqs'])->name('sellerFaqs');
 
     Route::get('/user/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
 
@@ -74,29 +56,16 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/', [LyricController::class, 'index'])->name('lyrics.index');
 
-        Route::get('/create', function () {
-            return view('lyrics.create');
-        })->name('lyrics.create');
+        // Route::get('/create', function () {
+        //     return view('lyrics.create');
+        // })->name('lyrics.create');
 
         Route::get('/{lyric}/edit', function (\App\Models\Lyric $lyric) {
             return view('lyrics.edit', compact('lyric'));
         })->name('lyrics.edit');
 
-        // Route::get('/{lyric}/promote', function (\App\Models\Lyric $lyric) {
-        //     return view('lyrics.promote', compact('lyric'));
-        // })->name('lyrics.promote');
-
-        // Route::get('/{lyric}/promote', \App\Livewire\PromoteLyric::class)->name('lyrics.promote');
-
-        // Route::view("/{lyric}/promote",'lyrics.promote')->name('lyrics.promote');
         Route::get('/{lyric}/promote', [LyricController::class, 'promote'])->name('lyrics.promote');
-        
-        // Route::post('/', [LyricController::class, 'store'])
-        //     ->name('lyricsSave');
-        // Route::get('/{lyric:slug}/edit', [LyricController::class, 'edit'])
-        //     ->name('lyricsEdit');
-        // Route::put('/{lyric:slug}', [LyricController::class, 'update'])
-        //     ->name('lyricsUpdate');
+
         Route::delete('/{lyric:slug}', [LyricController::class, 'destroy'])
             ->name('lyrics.destroy');
 
@@ -162,34 +131,10 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth'])->get('/lyrics/topromote', [LyricController::class, 'topromote'])
         ->name('lyrics.topromote');
 
-    // Route::patch('/lyrics/{lyric}/used', [LyricController::class, 'markUsed'])
-    // ->name('lyrics.markUsed');
-
     Route::patch('/lyrics/{lyric}/used', [LyricController::class, 'markUsed']);
     Route::patch('/users/{user}/hide', [UserController::class, 'markHide']);
 
-
-    // Route::middleware(['auth', 'admin.user'])->group(function () {
-    //     Route::prefix('blog/admin')->group(function () {
-    //         Route::get('/list', [BlogController::class, 'blogAdmin'])
-    //             ->name('blog.index');
-    //         Route::get('/create', [BlogController::class, 'create'])
-    //             ->name('blogCreate');
-    //         Route::post('/', [BlogController::class, 'store'])
-    //             ->name('blogSave');
-    //         Route::get('/{blog:slug}/edit', [BlogController::class, 'edit'])
-    //             ->name('blogEdit');
-    //         Route::put('/{blog:slug}', [BlogController::class, 'update'])
-    //             ->name('blogUpdate');
-    //         Route::delete('/{blog:slug}', [BlogController::class, 'destroy'])
-    //             ->name('blogDestroy');
-    //     });
-    // });
 });
-
-// Route::get('dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
     
 Route::get('/buy-lyrics', [LyricController::class, 'buyLyrics'])->name('buyLyrics');
 Route::get('/success', [LyricController::class, 'success'])->name('success');
@@ -199,8 +144,6 @@ Route::get('/lyrics/buy/{lyric:slug}', [LyricController::class, 'show'])->name('
 Route::get('/lyricist/{user}', [UserController::class, 'show'])->name('users.show');
 Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-// Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
-// Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blogShow');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');

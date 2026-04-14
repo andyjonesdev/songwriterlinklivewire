@@ -31,8 +31,8 @@
 
             @if (auth()->user()->role=='seller')
                 <h2 class="text-2xl mb-8">Your Lyrics</h2>
-                <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-md leading-normal text-white hover:border-black 
-                hover:bg-black">Upload New Lyric</a></p>
+                <!-- <p class="my-8"><a href="/lyrics/create" class="rounded-sm bg-[#e8363c] px-5 py-2 text-md leading-normal text-white hover:border-black 
+                hover:bg-black">Upload New Lyric</a></p> -->
                 
                 <div class="text-lg grid grid-cols-6 lg:grid-cols-10 py-4 text-sm">
                     <div class="font-bold px-2 col-span-4">Title</div>
@@ -56,7 +56,7 @@
                         <div class="hidden md:block px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">{{ $lyric['status'] }}</div>
                         <!-- <a :href="lyricsEdit.url({ slug: lyric.slug })" class="underline">Edit</a> -->
 
-                        <div class="w-24 md:w-auto col-span-2 md:col-span-3 px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">
+                        <!-- <div class="w-24 md:w-auto col-span-2 md:col-span-3 px-2 py-1 my-2 {{ $loop->odd ? 'bg-gray-100' : '' }}">
                             <a
                                 href="{{ route('lyrics.promote', $lyric) }}"
                                 class="bg-yellow-500 text-white px-2 py-1 rounded-md text-center h-fit"
@@ -71,7 +71,7 @@
                                 <i class="fa-sharp-duotone fa-solid fa-file-lock"></i>
                                 <span class="hidden md:inline">Protect</span>
                             </a>
-                        </div>
+                        </div> -->
                     @endforeach
                 </div>
             @endif
