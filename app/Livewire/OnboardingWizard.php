@@ -45,7 +45,13 @@ class OnboardingWizard extends Component
     public string $selectedPlan = 'free';
     public string $selectedTerm = 'annual';
 
-    public function mount(int $step = 1): void
+    public function mount(int|string $step = 1): void
+    {
+        $step = (int) $step;
+    }
+
+    /** @phpstan-ignore-next-line */
+    private function _mount(int $step = 1): void
     {
         if (auth()->check()) {
             $user = auth()->user();

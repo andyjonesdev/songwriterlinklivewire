@@ -1,69 +1,46 @@
 <div>
-    <h1 class="mb-2 text-2xl font-bold">Choose your plan</h1>
-    <p class="mb-8 text-sm text-zinc-400">All paid plans are fixed-term — no recurring billing. Pay once, full access for the term.</p>
+    <flux:heading size="xl" class="text-center">Choose your plan</flux:heading>
+    <flux:subheading class="text-center">Fixed-term, no recurring billing. Pay once, full access for the term.</flux:subheading>
 
     @php
         $plans = [
-            'free' => [
-                'label' => 'Free',
-                'price' => null,
-                'features' => ['Verified profile', 'Free messaging', 'Up to 3 portfolio items', 'Browse & apply to briefs'],
-            ],
-            'pro' => [
-                'label' => 'Pro',
-                'annual' => 80, 'six_month' => 45, 'three_month' => 25,
-                'features' => ['Everything in Free', 'Unlimited portfolio items', 'Profile analytics', '2× search visibility boost', 'Pay per brief post'],
-            ],
-            'pro_plus' => [
-                'label' => 'Pro+',
-                'annual' => 180, 'six_month' => 100, 'three_month' => 55,
-                'features' => ['Everything in Pro', '3× search visibility boost', 'Post briefs free (included)', 'Priority in search results'],
-            ],
+            'free'     => ['label' => 'Free',  'price' => null, 'annual' => null, 'six_month' => null, 'three_month' => null, 'features' => ['Verified profile', 'Free messaging', 'Up to 3 portfolio items', 'Browse & apply to briefs']],
+            'pro'      => ['label' => 'Pro',   'annual' => 80,  'six_month' => 45, 'three_month' => 25, 'features' => ['Everything in Free', 'Unlimited portfolio', 'Profile analytics', '2× search boost', 'Pay per brief post']],
+            'pro_plus' => ['label' => 'Pro+',  'annual' => 180, 'six_month' => 100,'three_month' => 55, 'features' => ['Everything in Pro', '3× search boost', 'Post briefs free', 'Priority in results']],
         ];
         $termLabels = ['annual' => 'Annual', 'six_month' => '6 months', 'three_month' => '3 months'];
     @endphp
 
-    {{-- Term selector (only relevant for paid plans) --}}
     @if($selectedPlan !== 'free')
-        <div class="mb-6 flex gap-2 rounded-xl border border-zinc-700 bg-zinc-900 p-1">
+        <div class="flex gap-1 rounded-lg border border-zinc-200 bg-zinc-50 p-1">
             @foreach($termLabels as $term => $label)
-                <button
-                    wire:click="$set('selectedTerm', '{{ $term }}')"
-                    class="flex-1 rounded-lg py-2 text-sm font-medium transition-colors
-                        {{ $selectedTerm === $term ? 'bg-brand text-white' : 'text-zinc-400 hover:text-zinc-200' }}"
-                >
-                    {{ $label }}
-                    @if($term === 'annual') <span class="ml-1 text-xs opacity-75">Best value</span> @endif
+                <button wire:click="$set('selectedTerm', '{{ $term }}')" type="button"
+                    class="flex-1 rounded-md py-1.5 text-xs font-medium transition-colors
+                        {{ $selectedTerm === $term ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-700' }}">
+                    {{ $label }}@if($term === 'annual') <span class="text-violet-500"> ★</span>@endif
                 </button>
             @endforeach
         </div>
     @endif
 
-    <div class="space-y-3">
+    <div class="space-y-2">
         @foreach($plans as $planKey => $plan)
-            <button
-                wire:click="$set('selectedPlan', '{{ $planKey }}')"
-                class="w-full rounded-xl border px-5 py-4 text-left transition-colors
-                    {{ $selectedPlan === $planKey
-                        ? 'border-brand bg-brand/10'
-                        : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500' }}"
-            >
+            <button wire:click="$set('selectedPlan', '{{ $planKey }}')" type="button"
+                class="w-full rounded-lg border px-4 py-3 text-left transition-colors
+                    {{ $selectedPlan === $planKey ? 'border-violet-400 bg-violet-50' : 'border-zinc-200 bg-white hover:border-zinc-300' }}">
                 <div class="flex items-center justify-between">
-                    <div class="font-semibold">{{ $plan['label'] }}</div>
-                    <div class="text-right">
-                        @if($plan['price'] === null)
-                            <span class="text-lg font-bold">Free</span>
-                        @else
-                            <span class="text-lg font-bold">£{{ $plan[$selectedTerm] }}</span>
-                            <span class="ml-1 text-xs text-zinc-500">/ {{ $termLabels[$selectedTerm] }}</span>
+                    <span class="text-sm font-semibold text-zinc-900">{{ $plan['label'] }}</span>
+                    <span class="text-sm font-bold text-zinc-900">
+                        @if($plan['price'] === null && $plan['annual'] === null) Free
+                        @else £{{ $plan[$selectedTerm] }} <span class="text-xs font-normal text-zinc-400">/ {{ strtolower($termLabels[$selectedTerm]) }}</span>
                         @endif
-                    </div>
+                    </span>
                 </div>
-                <ul class="mt-2 space-y-0.5">
-                    @foreach($plan['features'] as $feature)
-                        <li class="flex items-center gap-2 text-xs text-zinc-400">
-                            <svg class="h-3.5 w-3.5 shrink-0 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            {{ $feature }}
+                <ul class="mt-1.5 space-y-0.5">
+                    @foreach($plan['features'] as $f)
+                        <li class="flex items-center gap-1.5 text-xs text-zinc-500">
+                            <svg class="h-3 w-3 shrink-0 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {{ $f }}
                         </li>
                     @endforeach
                 </ul>
@@ -72,17 +49,12 @@
     </div>
 
     @if($selectedPlan !== 'free')
-        <div class="mt-4 rounded-lg border border-zinc-700 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-400">
-            <strong class="text-white">Stripe payments coming soon.</strong>
-            During development, selecting a paid plan will activate it without charging.
-        </div>
+        <p class="text-center text-xs text-amber-600">Stripe payments coming soon — selecting a paid plan activates it without charging during development.</p>
     @endif
 
-    <flux:button wire:click="selectPlan" variant="primary" class="mt-6 w-full">
-        @if($selectedPlan === 'free')
-            Join for free
-        @else
-            {{ $selectedPlan === 'pro_plus' ? 'Pro+' : 'Pro' }} — £{{ $plans[$selectedPlan][$selectedTerm] }} for {{ strtolower($termLabels[$selectedTerm]) }}
+    <flux:button wire:click="selectPlan" variant="primary" class="w-full">
+        @if($selectedPlan === 'free') Join for free
+        @else {{ $selectedPlan === 'pro_plus' ? 'Pro+' : 'Pro' }} — £{{ $plans[$selectedPlan][$selectedTerm] }} for {{ strtolower($termLabels[$selectedTerm]) }}
         @endif
     </flux:button>
 </div>
