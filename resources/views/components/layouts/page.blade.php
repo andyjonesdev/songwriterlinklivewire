@@ -370,8 +370,8 @@ echo json_encode([
     <div class="bg-gray-900 text-white lg:grid grid-cols-2 gap-4 mt-8 p-2 md:p-12 justify-between">
         <div class="p-4">
             <h3 class="text-3xl mt-4 my-2">About Us</h3>
-            <p>SongwriterLink is run by Andy and Rebecca Jones, a songwriting and development team from the UK.</p>
-            <p>Our aim is to bring lyricists, poets and wordsmiths together with musicians, producers, singers and composers.</p>
+            <p>SongwriterLink is run by Andy and Rebecca Jones, a songwriting and development team from the UK. 
+                Our aim is to bring lyricists, poets and wordsmiths together with musicians, producers, singers and composers.</p>
             <p class="mt-4"><a href="/terms-of-service">Terms of Service</a><br />
             <a href="/privacy-policy">Privacy Policy</a></p>
         </div>
