@@ -26,13 +26,13 @@
                         >
                             Home
                         </a>
-                        <a href="{{ route('buyLyrics') }}"
+                        <!-- <a href="{{ route('buyLyrics') }}"
                             @class([
                                 'uppercase lg:mt-0 bg-gray-200 lg:bg-white inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18] hover:bg-red-100',
                                 'border-b-2 border-[#e8363c]' => request()->routeIs('buyLyrics'),
                             ])>
                             Buy Lyrics
-                        </a>
+                        </a> -->
 
                         <!-- <a
                             href="/register?role=seller"
@@ -71,20 +71,20 @@
 
                         @if (Route::has('login'))
                                 @auth
-                                    <a
+                                    <!-- <a
                                         href="{{ url('/dashboard') }}"
                                         class='uppercase lg:mt-0 bg-gray-200 lg:bg-white inline-block px-5 py-2 text-sm leading-normal text-[#1b1b18]'
                                     >
                                         <i class="fa-sharp-duotone fa-light fa-user text-xl"></i>
-                                    </a>
+                                    </a> -->
                                 @else
-                                    <a
+                                    <!-- <a
                                         href="{{ route('login') }}"
                                         class="uppercase inline-block px-5 py-1.5 text-[#1b1b18] border border-transparent rounded-sm text-sm leading-normal"
                                     >
                                         
                                         <i class="fa-sharp-duotone fa-solid fa-arrow-right-to-bracket text-xl"></i>
-                                    </a>
+                                    </a> -->
 
                                     @if (Route::has('register'))
                                         <!-- <a

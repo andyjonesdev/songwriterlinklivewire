@@ -370,17 +370,17 @@ echo json_encode([
     <div class="bg-gray-900 text-white lg:grid grid-cols-2 gap-4 mt-8 p-2 md:p-12 justify-between">
         <div class="p-4">
             <h3 class="text-3xl mt-4 my-2">About Us</h3>
-            <p>SongwriterLink is the sister company to Verse-Chorus, run by Andy and Rebecca Jones, a songwriting and development team from the UK.</p>
-            <p>Our aim is to bring lyricists, poets and wordsmiths together with musicians, producers, singers and composers. Both our websites have that in mind and use different ways of achieving this goal.</p>
+            <p>SongwriterLink is run by Andy and Rebecca Jones, a songwriting and development team from the UK.</p>
+            <p>Our aim is to bring lyricists, poets and wordsmiths together with musicians, producers, singers and composers.</p>
             <p class="mt-4"><a href="/terms-of-service">Terms of Service</a><br />
             <a href="/privacy-policy">Privacy Policy</a></p>
         </div>
         <div class="p-4">
             <h3 class="text-3xl mt-4 my-2">Contact Us​</h3>
             <p>support@songwriterlink.com</p>
-            <p><a href="/lyric-marketplace">Lyric MarketPlace</a><br />
+            <!-- <p><a href="/lyric-marketplace">Lyric MarketPlace</a><br />
             <a href="/royalty-free-lyrics">Royalty Free Lyrics</a><br />
-            <a href="/buy-song-lyrics">Buy Song Lyrics</a></p>
+            <a href="/buy-song-lyrics">Buy Song Lyrics</a></p> -->
         </div>
     </div>
 </body>
