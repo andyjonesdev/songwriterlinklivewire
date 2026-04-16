@@ -15,7 +15,6 @@ return new class extends Migration
                 'id_check_started',
                 'id_check_passed',
                 'id_check_failed',
-                'phone_verified',
                 'producer_badge_granted',
                 'publisher_badge_granted',
                 'account_suspended',

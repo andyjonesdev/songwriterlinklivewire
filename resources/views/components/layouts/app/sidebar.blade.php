@@ -11,6 +11,24 @@
                 <x-app-logo />
             </a>
 
+            @php
+                // Unread message count for sidebar badge
+                $unreadCount = 0;
+                if (auth()->check()) {
+                    $userId = auth()->id();
+                    $unreadCount = auth()->user()->conversations()
+                        ->with(['latestMessage'])
+                        ->get()
+                        ->filter(function ($c) use ($userId) {
+                            $latest = $c->latestMessage;
+                            if (! $latest || $latest->sender_id === $userId) return false;
+                            $lastRead = $c->participants->firstWhere('id', $userId)?->pivot->last_read_at;
+                            return $lastRead === null || $latest->created_at->gt(\Carbon\Carbon::parse($lastRead));
+                        })
+                        ->count();
+                }
+            @endphp
+
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="auth()->user()->name" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
@@ -20,13 +38,25 @@
                         {{ __('Members') }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="chat-bubble-left-right" :href="route('messages.index')" :current="request()->routeIs('messages.*')" wire:navigate>
-                        {{ __('Messages') }}
+                        <div class="flex items-center justify-between w-full">
+                            <span>{{ __('Messages') }}</span>
+                            @if($unreadCount > 0)
+                                <span class="flex h-5 min-w-5 items-center justify-center rounded-full bg-violet-600 px-1 text-[10px] font-bold text-white">
+                                    {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                                </span>
+                            @endif
+                        </div>
                     </flux:navlist.item>
                     <flux:navlist.item icon="document-text" :href="route('briefs.index')" :current="request()->routeIs('briefs.*')" wire:navigate>
                         {{ __('Brief Board') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="user-circle" :href="route('profile.show', auth()->user()->profile)" :current="request()->routeIs('profile.show')" wire:navigate>
-                        {{ __('My Profile') }}
+                    @if(auth()->user()->profile)
+                        <flux:navlist.item icon="user-circle" :href="route('profile.show', auth()->user()->profile)" :current="request()->routeIs('profile.show')" wire:navigate>
+                            {{ __('My Profile') }}
+                        </flux:navlist.item>
+                    @endif
+                    <flux:navlist.item icon="musical-note" :href="route('portfolio.index')" :current="request()->routeIs('portfolio.*')" wire:navigate>
+                        {{ __('Portfolio') }}
                     </flux:navlist.item>
                 </flux:navlist.group>
 

@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\StripeCheckoutController;
+use App\Http\Controllers\StripeIdentityController;
+use App\Http\Controllers\StripeWebhookController;
+use App\Livewire\MemberProfile;
+use App\Livewire\MemberSearch;
+use App\Livewire\Messages\Inbox as MessagesInbox;
+use App\Livewire\Messages\Thread as MessagesThread;
 use App\Livewire\OnboardingWizard;
+use App\Livewire\Portfolio;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -8,24 +16,44 @@ use Livewire\Volt\Volt;
 // ─── Public routes ───────────────────────────────────────────────────────────
 
 Route::get('/', fn () => view('welcome'))->name('home');
-Route::get('/members', fn () => view('members.index'))->name('members.index');
-Route::get('/members/{profile:slug}', fn ($profile) => view('members.show', compact('profile')))->name('profile.show');
+Route::get('/members', MemberSearch::class)->name('members.index');
+Route::get('/members/{profile:slug}', MemberProfile::class)->name('profile.show');
 Route::get('/privacy', fn () => view('pages.privacy'))->name('privacy');
 Route::get('/terms', fn () => view('pages.terms'))->name('terms');
+
+// ─── Stripe webhooks (CSRF exempt — handled in bootstrap/app.php) ────────────
+
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');
 
 // ─── Onboarding ──────────────────────────────────────────────────────────────
 
 Route::get('/join', OnboardingWizard::class)->name('onboarding.start');
-Route::get('/onboarding/{step}', OnboardingWizard::class)->name('onboarding.step');
 
 // Smart redirect after login / email verification (Fortify home)
+// Must be defined BEFORE the {step} wildcard or it will be swallowed by it
 Route::middleware('auth')->get('/onboarding/redirect', function () {
     $user = auth()->user();
     if ($user->status === 'active') {
         return redirect()->route('dashboard');
     }
+    // Hold on the email verification notice until they click the link
+    if (! $user->hasVerifiedEmail()) {
+        return redirect()->route('verification.notice');
+    }
     return redirect()->route('onboarding.step', $user->onboarding_step ?? 1);
 })->name('onboarding.redirect');
+
+// Stripe routes — must be above {step} wildcard to avoid being swallowed
+Route::middleware('auth')->group(function () {
+    Route::get('/onboarding/identity/start',      [StripeIdentityController::class, 'start'])->name('identity.start');
+    Route::get('/onboarding/identity/return',     [StripeIdentityController::class, 'return'])->name('identity.return');
+    Route::get('/onboarding/joining-fee/start',    [StripeCheckoutController::class, 'startJoiningFee'])->name('checkout.joining-fee.start');
+    Route::get('/onboarding/joining-fee/return',   [StripeCheckoutController::class, 'joiningFeeReturn'])->name('checkout.joining-fee.return');
+    Route::get('/onboarding/subscription/start',   [StripeCheckoutController::class, 'startSubscription'])->name('checkout.subscription.start');
+    Route::get('/onboarding/subscription/return',  [StripeCheckoutController::class, 'subscriptionReturn'])->name('checkout.subscription.return');
+});
+
+Route::get('/onboarding/{step}', OnboardingWizard::class)->name('onboarding.step');
 
 // ─── Authenticated routes ─────────────────────────────────────────────────────
 
@@ -34,12 +62,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 
-    // Members
-    Route::get('/members/{profile:slug}/connect', fn () => abort(404))->name('members.connect');
-
     // Messages
-    Route::get('/messages', fn () => view('messages.index'))->name('messages.index');
-    Route::get('/messages/{conversation}', fn ($conversation) => view('messages.show', compact('conversation')))->name('messages.show');
+    Route::get('/messages', MessagesInbox::class)->name('messages.index');
+    Route::get('/messages/{conversation}', MessagesThread::class)->name('messages.show');
+
+    // Portfolio
+    Route::get('/portfolio', Portfolio::class)->name('portfolio.index');
 
     // Briefs
     Route::get('/briefs', fn () => view('briefs.index'))->name('briefs.index');
@@ -47,8 +75,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/briefs/{brief}', fn ($brief) => view('briefs.show', compact('brief')))->name('briefs.show');
     Route::post('/briefs/{brief}/apply', fn () => abort(404))->name('briefs.apply');
 
-    // Profile management
-    Route::get('/profile/edit', fn () => view('profile.edit'))->name('profile.edit');
+    // Profile management — redirect to the onboarding profile step (step 5 is the profile form)
+    Route::get('/profile/edit', fn () => redirect()->route('onboarding.step', 5))->name('profile.edit');
 
     // Settings
     Route::redirect('/settings', '/settings/profile');

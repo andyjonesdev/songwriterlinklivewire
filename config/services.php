@@ -18,6 +18,12 @@ return [
         'key' => env('ANTHROPIC_API_KEY'),
     ],
 
+    'stripe' => [
+        'key'            => env('STRIPE_KEY'),
+        'secret'         => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
     'copyscape' => [
         'username' => env('COPYSCAPE_USERNAME'),
         'key'      => env('COPYSCAPE_API_KEY'),

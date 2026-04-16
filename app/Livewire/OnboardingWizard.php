@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\StripeIdentityController;
 use App\Models\Profile;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
@@ -18,12 +19,7 @@ class OnboardingWizard extends Component
     // Step 1 — Role
     public string $role = 'songwriter';
 
-    // Step 3 — Phone
-    public string $phone = '';
-    public string $smsCode = '';
-    public bool $smsSent = false;
-
-    // Step 6 — Profile
+    // Step 5 — Profile
     public string $displayName = '';
     public string $bio = '';
     public string $location = '';
@@ -38,21 +34,17 @@ class OnboardingWizard extends Component
         'discogs'    => '',
     ];
 
-    // Step 7 — Photo
+    // Step 6 — Photo
     public $photo = null;
 
-    // Step 9 — Plan
+    // Step 8 — Plan
     public string $selectedPlan = 'free';
     public string $selectedTerm = 'annual';
 
     public function mount(int|string $step = 1): void
     {
         $step = (int) $step;
-    }
 
-    /** @phpstan-ignore-next-line */
-    private function _mount(int $step = 1): void
-    {
         if (auth()->check()) {
             $user = auth()->user();
 
@@ -62,17 +54,23 @@ class OnboardingWizard extends Component
                 return;
             }
 
+            // Steps 3+ require a verified email address
+            if ($step > 2 && ! $user->hasVerifiedEmail()) {
+                $this->redirect(route('verification.notice'), navigate: true);
+                return;
+            }
+
             // Don't let them skip ahead
             $this->currentStep = min($step, $user->onboarding_step);
 
-            // Pre-fill step 6 if profile exists
+            // Pre-fill step 5 if profile exists
             if ($profile = $user->profile) {
-                $this->displayName   = $profile->display_name ?? '';
-                $this->bio           = $profile->bio ?? '';
-                $this->location      = $profile->location ?? '';
-                $this->country       = $profile->country ?? '';
+                $this->displayName    = $profile->display_name ?? '';
+                $this->bio            = $profile->bio ?? '';
+                $this->location       = $profile->location ?? '';
+                $this->country        = $profile->country ?? '';
                 $this->selectedGenres = $profile->genres ?? [];
-                $this->socialLinks   = array_merge($this->socialLinks, $profile->social_links ?? []);
+                $this->socialLinks    = array_merge($this->socialLinks, $profile->social_links ?? []);
             }
 
             $this->role = $user->role;
@@ -95,63 +93,59 @@ class OnboardingWizard extends Component
         $this->redirect(route('register'), navigate: true);
     }
 
-    // ─── Step 3: Phone verification ───────────────────────────────────────────
-
-    public function sendSmsCode(): void
-    {
-        $this->validate(['phone' => 'required|string|min:7|max:20']);
-
-        // TODO: Twilio integration (Phase 2, item 7)
-        // \Twilio\Rest\Client::messages->create($this->phone, [...])
-        // Store code hash in cache keyed by phone
-
-        $this->smsSent = true;
-        session()->flash('status', 'Code sent — check your phone.');
-    }
-
-    public function verifyPhone(): void
-    {
-        $this->validate(['smsCode' => 'required|digits:6']);
-
-        // TODO: Verify code against Twilio / cache
-        // Check phone is not already used by another active account (fail silently, flag for review)
-
-        $user = auth()->user();
-        $user->update([
-            'phone'            => $this->phone,
-            'phone_verified_at' => now(),
-            'onboarding_step'  => 4,
-        ]);
-
-        $this->redirect(route('onboarding.step', 4), navigate: true);
-    }
-
-    // ─── Step 4: Joining fee ──────────────────────────────────────────────────
+    // ─── Step 3: Joining fee ──────────────────────────────────────────────────
 
     public function skipJoiningFee(): void
     {
-        // Advance without payment (local/dev only or if fee waived by plan upgrade)
-        auth()->user()->update(['onboarding_step' => 5]);
-        $this->redirect(route('onboarding.step', 5), navigate: true);
+        // Dev-mode only bypass — production uses Stripe Checkout
+        auth()->user()->update(['onboarding_step' => 4]);
+        $this->redirect(route('onboarding.step', 4), navigate: true);
     }
 
-    // TODO: Stripe joining fee Checkout Session (Phase 2, item 8)
-    // Webhook handler will set joining_fee_paid = true and advance step
+    public function waiveJoiningFeeForUpgrade(): void
+    {
+        // User chose to pay via Pro/Pro+ subscription instead.
+        // Mark fee as paid (it'll be covered by the subscription checkout in step 8).
+        auth()->user()->update([
+            'joining_fee_paid'    => true,
+            'joining_fee_paid_at' => now(),
+            'onboarding_step'     => 4,
+        ]);
+        $this->redirect(route('onboarding.step', 4), navigate: true);
+    }
 
-    // ─── Step 5: ID verification ──────────────────────────────────────────────
+    // ─── Step 4: ID verification ──────────────────────────────────────────────
 
     public function skipIdVerification(): void
     {
-        // Local bypass only — production uses Stripe Identity webhook
-        auth()->user()->update(['onboarding_step' => 6]);
-        $this->redirect(route('onboarding.step', 6), navigate: true);
+        // Dev-mode bypass only — marks user as fully verified so the app
+        // behaves exactly as it would after a real Stripe Identity pass.
+        auth()->user()->update([
+            'id_verified'            => true,
+            'id_verified_at'         => now(),
+            'id_verification_status' => 'passed',
+            'onboarding_step'        => 5,
+        ]);
+        $this->redirect(route('onboarding.step', 5), navigate: true);
     }
 
     // TODO: Stripe Identity session creation (Phase 2, item 6)
     // Webhook: identity.verification_session.verified → id_verified = true, status = passed
     // Webhook: requires_input (2nd fail) → status = review, notify admin
 
-    // ─── Step 6: Profile setup ────────────────────────────────────────────────
+    // ─── Step 5: Profile setup ────────────────────────────────────────────────
+
+    public function toggleGenre(string $genre): void
+    {
+        if (in_array($genre, $this->selectedGenres)) {
+            $this->selectedGenres = array_values(array_filter(
+                $this->selectedGenres,
+                fn ($g) => $g !== $genre
+            ));
+        } else {
+            $this->selectedGenres[] = $genre;
+        }
+    }
 
     public function saveProfile(): void
     {
@@ -190,11 +184,11 @@ class OnboardingWizard extends Component
             ]
         );
 
-        $user->update(['onboarding_step' => 7]);
-        $this->redirect(route('onboarding.step', 7), navigate: true);
+        $user->update(['onboarding_step' => 6]);
+        $this->redirect(route('onboarding.step', 6), navigate: true);
     }
 
-    // ─── Step 7: Profile photo ────────────────────────────────────────────────
+    // ─── Step 6: Profile photo ────────────────────────────────────────────────
 
     public function savePhoto(): void
     {
@@ -205,27 +199,27 @@ class OnboardingWizard extends Component
             auth()->user()->profile()->update(['profile_photo_path' => $path]);
         }
 
-        auth()->user()->update(['onboarding_step' => 8]);
-        $this->redirect(route('onboarding.step', 8), navigate: true);
+        auth()->user()->update(['onboarding_step' => 7]);
+        $this->redirect(route('onboarding.step', 7), navigate: true);
     }
 
     public function skipPhoto(): void
     {
+        auth()->user()->update(['onboarding_step' => 7]);
+        $this->redirect(route('onboarding.step', 7), navigate: true);
+    }
+
+    // ─── Step 7: Portfolio upload ─────────────────────────────────────────────
+
+    public function skipPortfolio(): void
+    {
         auth()->user()->update(['onboarding_step' => 8]);
         $this->redirect(route('onboarding.step', 8), navigate: true);
     }
 
-    // ─── Step 8: Portfolio upload ─────────────────────────────────────────────
-
-    public function skipPortfolio(): void
-    {
-        auth()->user()->update(['onboarding_step' => 9]);
-        $this->redirect(route('onboarding.step', 9), navigate: true);
-    }
-
     // TODO: Portfolio upload logic (Phase 3, item 14)
 
-    // ─── Step 9: Plan selection ───────────────────────────────────────────────
+    // ─── Step 8: Plan selection ───────────────────────────────────────────────
 
     public function selectPlan(): void
     {
@@ -235,24 +229,96 @@ class OnboardingWizard extends Component
         ]);
 
         if ($this->selectedPlan === 'free') {
-            $this->completeFreeOnboarding();
+            $this->activateFree();
             return;
         }
 
-        // TODO: Stripe Checkout Session (Phase 2, item 9)
-        // Redirect to Stripe. On success webhook: set subscription_tier, subscription_expires_at, then advance to step 10.
-        $this->completeFreeOnboarding(); // placeholder
+        // Paid plan — hand off to Stripe Checkout
+        $this->redirect(
+            route('checkout.subscription.start', [
+                'plan' => $this->selectedPlan,
+                'term' => $this->selectedTerm,
+            ])
+        );
     }
 
-    private function completeFreeOnboarding(): void
+    public function selectPlanDev(): void
     {
-        auth()->user()->update([
-            'subscription_tier' => $this->selectedPlan,
-            'status'            => 'active',
-            'onboarding_step'   => 10,
+        // Dev-mode only: activate without payment
+        $this->validate([
+            'selectedPlan' => 'required|in:free,pro,pro_plus',
+            'selectedTerm' => 'required|in:annual,six_month,three_month',
         ]);
 
-        $this->redirect(route('onboarding.step', 10), navigate: true);
+        $expiresAt = match ($this->selectedTerm) {
+            'annual'      => now()->addYear(),
+            'six_month'   => now()->addMonths(6),
+            'three_month' => now()->addMonths(3),
+            default       => now()->addYear(),
+        };
+
+        auth()->user()->update([
+            'subscription_tier'       => $this->selectedPlan,
+            'subscription_expires_at' => $this->selectedPlan !== 'free' ? $expiresAt : null,
+            'subscription_term'       => $this->selectedPlan !== 'free' ? $this->selectedTerm : null,
+            'joining_fee_paid'        => true,
+            'status'                  => 'active',
+            'onboarding_step'         => 9,
+        ]);
+
+        $this->redirect(route('onboarding.step', 9), navigate: true);
+    }
+
+    private function activateFree(): void
+    {
+        auth()->user()->update([
+            'subscription_tier' => 'free',
+            'status'            => 'active',
+            'onboarding_step'   => 9,
+        ]);
+
+        $this->redirect(route('onboarding.step', 9), navigate: true);
+    }
+
+    // ─── Back navigation ─────────────────────────────────────────────────────
+
+    public function goBack(): void
+    {
+        // Steps 1-3 have no in-wizard back (pre-registration or can't undo)
+        if ($this->currentStep > 3) {
+            $this->currentStep--;
+        }
+    }
+
+    // ─── Step 4: Identity status polling ─────────────────────────────────────
+
+    /**
+     * Called every 5 seconds by wire:poll when the user is on step 4 with a
+     * pending verification. Checks the Stripe API directly so it works in local
+     * dev (where webhooks can't reach the server) as well as production.
+     */
+    public function pollIdentityStatus(): void
+    {
+        if ($this->currentStep !== 4) {
+            return;
+        }
+
+        $user = auth()->user()->fresh();
+
+        // Already skipped via dev bypass
+        if ($user->id_verified) {
+            $this->redirect(route('onboarding.step', 5), navigate: true);
+            return;
+        }
+
+        // Don't hit the Stripe API in local dev — use the skip button instead
+        if (app()->isLocal()) {
+            return;
+        }
+
+        if (StripeIdentityController::pollStatus($user)) {
+            $this->redirect(route('onboarding.step', 5), navigate: true);
+        }
     }
 
     // ─── Render ───────────────────────────────────────────────────────────────

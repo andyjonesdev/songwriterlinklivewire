@@ -16,7 +16,6 @@ This is a greenfield Laravel application. Use the stack and conventions below th
 - **Database:** MySQL 8
 - **File storage:** Laravel Filesystem with `local` driver using the hosting provider's disk — no S3 or external object storage
 - **Payments & ID verification:** Stripe (Stripe Identity for ID checks, Stripe Billing for subscriptions)
-- **SMS:** Twilio (phone verification)
 - **Search:** Laravel Scout + Meilisearch
 - **Email:** Laravel Mail with Postmark driver (`symfony/postmark-mailer`)
 - **Queue:** Laravel Queues with database driver (no Redis — use `php artisan queue:work` via cron or hosting scheduler)
@@ -30,7 +29,6 @@ This is a greenfield Laravel application. Use the stack and conventions below th
 ### User
 ```
 id, name, email, email_verified_at, password,
-phone, phone_verified_at,
 role (enum: songwriter, composer, producer, publisher, other),
 stripe_customer_id, stripe_subscription_id, subscription_tier (enum: free, pro, pro_plus),
 id_verified (bool), id_verified_at, id_verification_status (enum: pending, passed, failed, review),
@@ -119,7 +117,7 @@ created_at, updated_at
 ### VerificationLog
 ```
 id, user_id,
-event (enum: id_check_started, id_check_passed, id_check_failed, phone_verified, 
+event (enum: id_check_started, id_check_passed, id_check_failed,
              producer_badge_granted, publisher_badge_granted, account_suspended, 
              account_reinstated, report_received),
 detail (JSON),
@@ -148,7 +146,7 @@ created_at
 
 ## Onboarding & verification flow
 
-Implement as a multi-step flow using a single Livewire component (`OnboardingWizard`) that manages state across steps. Progress is stored on the User model (use a `onboarding_step` column: integer 1–10). Each step renders a different Blade partial within the component.
+Implement as a multi-step flow using a single Livewire component (`OnboardingWizard`) that manages state across steps. Progress is stored on the User model (use a `onboarding_step` column: integer 1–9). Each step renders a different Blade partial within the component.
 
 ### Step 1 — Role selection
 - Page: `/join`
@@ -161,48 +159,63 @@ Implement as a multi-step flow using a single Livewire component (`OnboardingWiz
 - On submit: create User record (status = pending), send email verification link
 - Do not advance until email is verified
 
-### Step 3 — Phone verification
-- Show phone number input
-- On submit: send SMS via Twilio with 6-digit code
-- On code entry: verify code, check phone number is not already used by another active account (if duplicate: block silently, flag for review — do NOT tell the user why)
-- Store `phone_verified_at`
-
-### Step 4 — Joining fee
+### Step 3 — Joining fee
 - Show Stripe payment element for £4 one-time fee
-- If user has already selected Pro or Pro+ on a previous screen, skip this step (waive fee)
+- If user selects Pro or Pro+ on plan selection (step 8), skip this step and waive the fee — collect payment as part of the subscription checkout instead
 - On payment success: set `joining_fee_paid = true`
 
-### Step 5 — ID verification (Stripe Identity)
+### Step 4 — ID verification (Stripe Identity)
 - Trigger a Stripe Identity verification session
 - Show Stripe Identity embedded UI
 - On webhook `identity.verification_session.verified`: set `id_verified = true`, `id_verification_status = passed`
 - On webhook `identity.verification_session.requires_input` (second failure): set status to `review`, notify admin
 - Do not store any raw document data — Stripe handles this
 
-### Step 6 — Profile setup
+### Step 5 — Profile setup
 - Display name, location, genres (multi-select), bio
 - At least one social link required (Spotify, SoundCloud, IMDB, LinkedIn, PRS/ASCAP, Discogs)
 - On bio submission: call Claude API to scan for AI-generated content (see AI scanning section)
 - If AI-flagged: show warning, ask user to rewrite — do not hard-block but log flag
 
-### Step 7 — Profile photo
+### Step 6 — Profile photo
 - Upload profile photo
 - Run basic stock photo / AI face detection (see below)
 - If flagged: note for admin review, do not block
 
-### Step 8 — Portfolio upload (optional)
+### Step 7 — Portfolio upload (optional)
 - Up to 3 audio tracks or lyric text files
 - Show: "Add a track now and be discoverable from day one"
 - Skip button available
 
-### Step 9 — Plan selection
+### Step 8 — Plan selection
 - Show Free / Pro / Pro+ options with feature comparison
 - For each paid tier, show three term options: Annual (£80 / £180) — presented as default and best value, 6 months (£45 / £100), 3 months (£25 / £55)
 - Annual option is visually prominent with a "Best value" label
-- If user paid the joining fee in step 4, Pro annual is highlighted as recommended
+- If user paid the joining fee in step 3, Pro annual is highlighted as recommended
 - Stripe Checkout (one-time payment) for chosen tier + term — on success, set `subscription_tier`, `subscription_expires_at`, `subscription_term`
 
-### Step 10 — Complete
+**Feature comparison to show on plan selection screen:**
+
+| Feature | Free | Pro | Pro+ |
+|---|---|---|---|
+| Messaging | Full | Full | Full |
+| Portfolio uploads | 3 | Unlimited | Unlimited |
+| Profile analytics | — | Yes | Yes |
+| Search boost | — | Yes | Yes |
+| Credits page / CV export | — | Yes | Yes |
+| Split sheet generator | — | Yes | Yes |
+| Verified industry badge | — | Yes | Yes |
+| Post briefs | £7/post | £7/post | Free (included) |
+| Open briefs simultaneously | 1 | 1 | Up to 5 |
+| Brief applicant pipeline view | Basic list | Basic list | Full pipeline UI |
+| Instant application alerts | 1-hour delay | 1-hour delay | Immediate |
+| View member social links | — | — | Yes |
+| Bulk message brief matches | — | — | Yes |
+| Promoted profile (included) | — | — | 1 per term |
+| Priority support | — | — | Yes |
+| Producer / publisher badge | — | — | Yes |
+
+### Step 9 — Complete
 - Set `status = active`
 - Redirect to dashboard
 - Show welcome screen with suggested connections based on role and genres
@@ -258,10 +271,15 @@ Create a `MembershipService` or use a policy/gate approach:
 
 ```php
 // Example gates
-Gate::define('upload-unlimited-portfolio', fn($user) => $user->isPro());
-Gate::define('post-brief-free', fn($user) => $user->isProPlus()); // Pro+ posts free; others pay per post
-Gate::define('view-profile-analytics', fn($user) => $user->isPro());
-Gate::define('boost-search', fn($user) => $user->isPro());
+Gate::define('upload-unlimited-portfolio',  fn($user) => $user->isPro());
+Gate::define('post-brief-free',             fn($user) => $user->isProPlus());
+Gate::define('multiple-briefs-open',        fn($user) => $user->isProPlus()); // up to 5 open simultaneously; Free/Pro: 1 at a time
+Gate::define('applicant-pipeline-view',     fn($user) => $user->isProPlus()); // full shortlist/pipeline UI for brief applicants
+Gate::define('view-profile-analytics',      fn($user) => $user->isPro());
+Gate::define('boost-search',               fn($user) => $user->isPro());
+Gate::define('view-member-social-links',    fn($user) => $user->isProPlus()); // see linked Spotify/SoundCloud on profiles without opening a conversation
+Gate::define('bulk-message-brief-matches',  fn($user) => $user->isProPlus()); // message multiple matched members at once, within daily rate limit
+Gate::define('instant-application-alerts',  fn($user) => $user->isProPlus()); // new brief applications visible immediately; others have 1-hour delay
 ```
 
 ### Search boost
@@ -345,8 +363,19 @@ Use Laravel Scout with Meilisearch.
 - Any verified member can apply
 - Application: 200-word pitch + optional portfolio item selection
 - One application per brief per user
-- Poster receives notification, can view applicants in a shortlist view
-- Poster can message shortlisted applicants directly (opens a conversation)
+- Poster receives a notification on new application
+  - Pro+ posters: notification is immediate
+  - Free/Pro posters: notification is delayed by 1 hour (incentive to upgrade)
+
+### Applicant management
+- Free/Pro posters: basic list view of applicants with name, role, and pitch text
+- Pro+ posters: full pipeline UI — columns for Pending / Shortlisted / Rejected, drag to move applicants, add private notes per applicant
+- All posters can message shortlisted applicants directly (opens a conversation)
+- Pro+ posters can bulk-message multiple applicants at once (e.g. "Thanks for applying — we'll be in touch"), subject to the daily rate limit
+
+### Social link visibility
+- Pro+ members can view a member's linked social profiles (Spotify, SoundCloud, Discogs etc.) directly on their profile card in search results and brief applicant lists, without needing to open a conversation first
+- Free and Pro members must open the full profile page to see social links (minor friction, meaningful upgrade nudge for producers browsing applicants)
 
 ---
 
@@ -438,7 +467,6 @@ GET  /admin                     → Admin panel (role:admin only)
 - CSRF protection on all forms (Laravel default)
 - Rate limiting:
   - Login: 5 attempts per minute
-  - SMS send: 3 per phone per hour
   - Message send: 20 new conversations per day per user (Redis)
   - Brief applications: 10 per day per user
 - GDPR:
@@ -446,7 +474,6 @@ GET  /admin                     → Admin panel (role:admin only)
   - Data export endpoint: `/settings/export-data` — generates JSON of all user data
   - Account deletion: soft-delete user, anonymise messages, retain financial records
 - No raw ID documents stored — Stripe Identity handles all document data
-- Phone numbers stored hashed (bcrypt) — checked for uniqueness via hash comparison only
 
 ---
 
@@ -464,9 +491,6 @@ STRIPE_PRO_PLUS_ANNUAL_PRICE_ID=
 STRIPE_PRO_PLUS_6MONTH_PRICE_ID=
 STRIPE_PRO_PLUS_3MONTH_PRICE_ID=
 STRIPE_BRIEF_POST_PRICE_ID=
-TWILIO_SID=
-TWILIO_TOKEN=
-TWILIO_FROM=
 ANTHROPIC_API_KEY=
 MEILISEARCH_HOST=
 MEILISEARCH_KEY=
@@ -487,14 +511,13 @@ COMPANIES_HOUSE_API_KEY=
 ### Phase 2 — Onboarding & verification
 5. Multi-step onboarding Livewire component (`OnboardingWizard`)
 6. Stripe Identity integration (webhooks)
-7. Twilio SMS verification
-8. Stripe joining fee (one-time Checkout Session)
-9. Subscription plan selection + Stripe one-time Checkout Sessions (annual / 6-month / 3-month)
-10. Scheduled job: `CheckExpiredSubscriptions` — downgrade expired subscribers, send renewal reminders
+7. Stripe joining fee (one-time Checkout Session)
+8. Subscription plan selection + Stripe one-time Checkout Sessions (annual / 6-month / 3-month)
+9. Scheduled job: `CheckExpiredSubscriptions` — downgrade expired subscribers, send renewal reminders
 
 ### Phase 3 — Core platform
 10. Profile pages (view + edit)
-11. Member search with Meilisearch
+11. Member search
 12. Messaging (conversations + messages + scanning)
 13. Connection requests
 14. Portfolio upload
@@ -530,6 +553,7 @@ COMPANIES_HOUSE_API_KEY=
 - No Inertia, no Vue, no npm build pipeline — Blade + Livewire + Alpine.js only
 - Tailwind can be loaded via CDN for development; use a pre-compiled stylesheet for production if the hosting environment supports it, otherwise CDN is acceptable
 - Queue driver is `database` — ensure `php artisan queue:work` runs via the hosting scheduler (cron). All async jobs (email, AI scanning, verification webhooks) go through the queue
+- No SMS or phone verification — identity is confirmed entirely via Stripe Identity (government ID) and email verification
 - File uploads go to the hosting provider's local disk storage via Laravel's `local` filesystem driver. Use `Storage::disk('local')` — do not reference S3 or cloud storage
 - Use Postmark for all transactional email (`MAIL_MAILER=postmark`). Install `symfony/postmark-mailer`
 - When in doubt on UI patterns: clean, professional, minimal — this is a B2B-adjacent music industry tool, not a consumer social app

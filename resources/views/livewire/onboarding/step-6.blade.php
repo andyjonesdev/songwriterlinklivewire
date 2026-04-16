@@ -1,58 +1,60 @@
 <div>
-    <flux:heading size="xl" class="text-center">Set up your profile</flux:heading>
-    <flux:subheading class="text-center">Your public profile — make it count. Be specific and genuine.</flux:subheading>
+    <flux:heading size="xl" class="text-center">Add a profile photo</flux:heading>
+    <flux:subheading class="text-center">A clear, professional photo builds trust. Use a real photo of yourself — stock images are not permitted.</flux:subheading>
 
-    <div class="space-y-4">
-        <div>
-            <flux:input wire:model="displayName" label="Display name" placeholder="The name you go by professionally" maxlength="100" />
-            @error('displayName') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
-        </div>
+    {{-- Photo preview + upload zone --}}
+    <div x-data="{ dragging: false }"
+         x-on:dragover.prevent="dragging = true"
+         x-on:dragleave.prevent="dragging = false"
+         x-on:drop.prevent="dragging = false">
 
-        <div>
-            <flux:textarea wire:model="bio" label="Bio" placeholder="Your background, style, notable credits, what you're looking for. Minimum 50 characters." rows="4" maxlength="1000" />
-            <div class="mt-1 flex justify-between text-xs text-zinc-400">
-                <span>Min 50 characters</span>
-                <span>{{ strlen($bio) }} / 1000</span>
+        @if($photo)
+            {{-- Preview after selection --}}
+            <div class="flex flex-col items-center gap-3">
+                <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="h-32 w-32 rounded-full object-cover ring-4 ring-violet-400 shadow-md" />
+                <p class="text-xs text-zinc-400">Looking good! Save &amp; continue, or choose a different photo below.</p>
             </div>
-            @error('bio') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-            <flux:input wire:model="location" label="City / Region" placeholder="e.g. Manchester" />
-            <flux:input wire:model="country" label="Country" placeholder="e.g. United Kingdom" />
-        </div>
-
-        <div>
-            <label class="mb-2 block text-sm font-medium text-zinc-700">Genres <span class="text-zinc-400">(select all that apply)</span></label>
-            @php $genreOptions = ['Pop','Rock','Hip-Hop / Rap','R&B / Soul','Country','Folk','Indie','Electronic','Jazz','Classical','Gospel / Christian','Reggae','Metal','Singer-Songwriter','World','Other']; @endphp
-            <div class="flex flex-wrap gap-1.5">
-                @foreach($genreOptions as $genre)
-                    <button wire:click="$toggle('selectedGenres', '{{ $genre }}')" type="button"
-                        class="rounded-full border px-3 py-1 text-xs font-medium transition-colors
-                            {{ in_array($genre, $selectedGenres) ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-zinc-200 text-zinc-600 hover:border-zinc-300' }}">
-                        {{ $genre }}
-                    </button>
-                @endforeach
+        @elseif(auth()->user()->profile?->profile_photo_path)
+            {{-- Existing photo --}}
+            <div class="flex flex-col items-center gap-3">
+                <img src="{{ Storage::url(auth()->user()->profile->profile_photo_path) }}" alt="Current photo" class="h-32 w-32 rounded-full object-cover ring-4 ring-zinc-200 shadow-md" />
+                <p class="text-xs text-zinc-400">Your current photo. Choose a new one below to replace it.</p>
             </div>
-            @error('selectedGenres') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
-        </div>
+        @endif
 
-        <div>
-            <label class="mb-1 block text-sm font-medium text-zinc-700">Social &amp; professional links <span class="text-red-500">*</span></label>
-            <p class="mb-3 text-xs text-zinc-400">At least one required.</p>
-            <div class="space-y-2">
-                <flux:input wire:model="socialLinks.spotify"    label="Spotify Artist URL"     placeholder="https://open.spotify.com/artist/..." />
-                <flux:input wire:model="socialLinks.soundcloud" label="SoundCloud URL"          placeholder="https://soundcloud.com/..." />
-                <flux:input wire:model="socialLinks.imdb"       label="IMDB URL"                placeholder="https://www.imdb.com/name/..." />
-                <flux:input wire:model="socialLinks.linkedin"   label="LinkedIn URL"            placeholder="https://www.linkedin.com/in/..." />
-                <flux:input wire:model="socialLinks.prs_ascap"  label="PRS / ASCAP Profile URL" placeholder="https://www.prsformusic.com/..." />
-                <flux:input wire:model="socialLinks.discogs"    label="Discogs URL"             placeholder="https://www.discogs.com/artist/..." />
+        {{-- Upload zone --}}
+        <label class="mt-4 flex flex-col items-center gap-3 w-full cursor-pointer rounded-xl border-2 border-dashed px-6 py-8 text-center transition-colors"
+               :class="dragging ? 'border-violet-400 bg-violet-50' : 'border-zinc-300 bg-zinc-50 hover:border-violet-300 hover:bg-violet-50/50'">
+            <input wire:model="photo" type="file" accept="image/*" class="sr-only" />
+
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white border border-zinc-200 shadow-sm">
+                <svg class="h-6 w-6 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
             </div>
-            @error('socialLinks') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
-        </div>
 
-        <flux:button wire:click="saveProfile" variant="primary" class="w-full">
-            Save &amp; continue
-        </flux:button>
+            <div>
+                <p class="text-sm font-medium text-zinc-700">
+                    {{ $photo ? 'Change photo' : 'Click to upload a photo' }}
+                </p>
+                <p class="mt-0.5 text-xs text-zinc-400">or drag and drop here</p>
+                <p class="mt-1 text-xs text-zinc-400">JPG, PNG or WebP — max 4 MB</p>
+            </div>
+        </label>
+    </div>
+
+    @error('photo') <p class="text-sm text-red-500">{{ $message }}</p> @enderror
+
+    <div wire:loading wire:target="photo" class="flex items-center gap-2 text-sm text-zinc-400">
+        <svg class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        Uploading…
+    </div>
+
+    <div class="pt-4 border-t border-zinc-100 space-y-2">
+        <flux:button wire:click="savePhoto" variant="primary" class="w-full">Save &amp; continue</flux:button>
+        <button wire:click="skipPhoto" class="w-full text-sm text-zinc-400 hover:text-zinc-600">Skip for now</button>
     </div>
 </div>

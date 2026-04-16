@@ -31,7 +31,9 @@ class CreateNewUser implements CreatesNewUsers
             'onboarding_step'  => 3,
         ]);
 
-        $user->sendEmailVerificationNotification();
+        // Fortify fires the Registered event which sends the verification email
+        // automatically — do not call sendEmailVerificationNotification() here
+        // or the user will receive two emails.
 
         return $user;
     }

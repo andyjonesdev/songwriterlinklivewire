@@ -15,8 +15,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['songwriter', 'composer', 'producer', 'publisher', 'other'])->default('songwriter');
-            $table->string('phone')->nullable();
-            $table->timestamp('phone_verified_at')->nullable();
             $table->string('stripe_customer_id')->nullable();
             $table->enum('subscription_tier', ['free', 'pro', 'pro_plus'])->default('free');
             $table->timestamp('subscription_expires_at')->nullable();

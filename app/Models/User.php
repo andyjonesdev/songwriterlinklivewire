@@ -18,8 +18,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
-        'phone',
-        'phone_verified_at',
         'stripe_customer_id',
         'subscription_tier',
         'subscription_expires_at',
@@ -50,7 +48,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at'       => 'datetime',
-            'phone_verified_at'       => 'datetime',
             'id_verified'             => 'boolean',
             'id_verified_at'          => 'datetime',
             'producer_verified'       => 'boolean',

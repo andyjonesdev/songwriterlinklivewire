@@ -3,11 +3,11 @@
         {{-- Progress bar matching the wizard --}}
         <div>
             <div class="mb-1.5 flex items-center justify-between text-xs text-zinc-400">
-                <span>Step 2 of 10 — Account</span>
-                <span>20%</span>
+                <span>Step 2 of 9 — Account</span>
+                <span>22%</span>
             </div>
             <div class="h-1 w-full overflow-hidden rounded-full bg-zinc-100">
-                <div class="h-full w-[20%] rounded-full bg-violet-600"></div>
+                <div class="h-full w-[22%] rounded-full bg-violet-600"></div>
             </div>
         </div>
 

@@ -6,7 +6,7 @@
     </head>
     <body class="min-h-screen bg-white font-sans text-zinc-900 antialiased">
         <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-            <div class="flex w-full max-w-lg flex-col gap-6">
+            <div class="flex w-full max-w-2xl flex-col gap-6">
 
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2" wire:navigate>
