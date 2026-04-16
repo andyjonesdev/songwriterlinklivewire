@@ -48,29 +48,11 @@
                         </radialGradient>
                     </defs>
 
-                    <!-- Purple radial glow behind the text -->
+                    <!-- Background glow -->
                     <rect width="1440" height="660" fill="url(#heroGlow)"/>
 
-                    <!-- Musical staff lines — top left -->
-                    <g stroke="#7c3aed" stroke-width="0.8" opacity="0.07">
-                        <line x1="0"   y1="88"  x2="520" y2="88"/>
-                        <line x1="0"   y1="104" x2="520" y2="104"/>
-                        <line x1="0"   y1="120" x2="520" y2="120"/>
-                        <line x1="0"   y1="136" x2="520" y2="136"/>
-                        <line x1="0"   y1="152" x2="520" y2="152"/>
-                    </g>
-
-                    <!-- Musical staff lines — bottom right -->
-                    <g stroke="#7c3aed" stroke-width="0.8" opacity="0.07">
-                        <line x1="920" y1="510" x2="1440" y2="510"/>
-                        <line x1="920" y1="526" x2="1440" y2="526"/>
-                        <line x1="920" y1="542" x2="1440" y2="542"/>
-                        <line x1="920" y1="558" x2="1440" y2="558"/>
-                        <line x1="920" y1="574" x2="1440" y2="574"/>
-                    </g>
-
-                    <!-- Connection network edges -->
-                    <g stroke="#7c3aed" stroke-width="0.7" opacity="0.16">
+                    <!-- Connection edges -->
+                    <g stroke="#7c3aed" stroke-width="0.8" opacity="0.18">
                         <line x1="100"  y1="210" x2="265"  y2="155"/>
                         <line x1="265"  y1="155" x2="445"  y2="235"/>
                         <line x1="100"  y1="210" x2="315"  y2="375"/>
@@ -78,124 +60,117 @@
                         <line x1="445"  y1="235" x2="645"  y2="175"/>
                         <line x1="445"  y1="235" x2="585"  y2="415"/>
                         <line x1="645"  y1="175" x2="825"  y2="125"/>
-                        <line x1="645"  y1="175" x2="765"  y2="305"/>
-                        <line x1="765"  y1="305" x2="945"  y2="375"/>
+                        <line x1="645"  y1="175" x2="762"  y2="302"/>
+                        <line x1="762"  y1="302" x2="945"  y2="375"/>
                         <line x1="825"  y1="125" x2="985"  y2="185"/>
                         <line x1="985"  y1="185" x2="1165" y2="145"/>
-                        <line x1="985"  y1="185" x2="1085" y2="325"/>
-                        <line x1="1085" y1="325" x2="1305" y2="275"/>
+                        <line x1="985"  y1="185" x2="1082" y2="322"/>
+                        <line x1="1082" y1="322" x2="1305" y2="275"/>
                         <line x1="1165" y1="145" x2="1305" y2="275"/>
                         <line x1="315"  y1="375" x2="585"  y2="415"/>
-                        <line x1="585"  y1="415" x2="765"  y2="305"/>
-                        <line x1="945"  y1="375" x2="1085" y2="325"/>
-                        <line x1="100"  y1="460" x2="315"  y2="375"/>
+                        <line x1="585"  y1="415" x2="762"  y2="302"/>
+                        <line x1="945"  y1="375" x2="1082" y2="322"/>
+                        <line x1="90"   y1="455" x2="315"  y2="375"/>
                         <line x1="1305" y1="275" x2="1385" y2="440"/>
                         <line x1="1385" y1="195" x2="1165" y2="145"/>
                         <line x1="1385" y1="195" x2="1305" y2="275"/>
                         <line x1="265"  y1="155" x2="100"  y2="210"/>
                     </g>
 
-                    <!-- Connection nodes (filled circles) -->
+                    <!-- Small music notes sitting on edges (quarter notes, UP or DOWN) -->
+                    <!-- A→B midpoint (182,182) UP -->
+                    <g fill="#7c3aed" opacity="0.42">
+                        <ellipse cx="182" cy="182" rx="3.5" ry="2.5" transform="rotate(-20 182 182)"/>
+                        <line x1="185" y1="181" x2="185" y2="169" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- C→E midpoint (545,205) UP -->
+                    <g fill="#7c3aed" opacity="0.42">
+                        <ellipse cx="545" cy="205" rx="3.5" ry="2.5" transform="rotate(-20 545 205)"/>
+                        <line x1="548" y1="204" x2="548" y2="192" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- F→I midpoint (905,155) DOWN -->
+                    <g fill="#7c3aed" opacity="0.38">
+                        <ellipse cx="905" cy="155" rx="3.5" ry="2.5" transform="rotate(-20 905 155)"/>
+                        <line x1="902" y1="156" x2="902" y2="168" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- E→G midpoint (703,238) DOWN -->
+                    <g fill="#7c3aed" opacity="0.40">
+                        <ellipse cx="703" cy="238" rx="3.5" ry="2.5" transform="rotate(-20 703 238)"/>
+                        <line x1="700" y1="239" x2="700" y2="251" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- I→K midpoint (1075,165) UP -->
+                    <g fill="#7c3aed" opacity="0.40">
+                        <ellipse cx="1075" cy="165" rx="3.5" ry="2.5" transform="rotate(-20 1075 165)"/>
+                        <line x1="1078" y1="164" x2="1078" y2="152" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- G→H midpoint (853,338) UP -->
+                    <g fill="#7c3aed" opacity="0.38">
+                        <ellipse cx="853" cy="338" rx="3.5" ry="2.5" transform="rotate(-20 853 338)"/>
+                        <line x1="856" y1="337" x2="856" y2="325" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- J→L midpoint (1193,298) DOWN -->
+                    <g fill="#7c3aed" opacity="0.38">
+                        <ellipse cx="1193" cy="298" rx="3.5" ry="2.5" transform="rotate(-20 1193 298)"/>
+                        <line x1="1190" y1="299" x2="1190" y2="311" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+                    <!-- D→M midpoint (450,395) UP -->
+                    <g fill="#7c3aed" opacity="0.38">
+                        <ellipse cx="450" cy="395" rx="3.5" ry="2.5" transform="rotate(-20 450 395)"/>
+                        <line x1="453" y1="394" x2="453" y2="382" stroke="#7c3aed" stroke-width="1.2"/>
+                    </g>
+
+                    <!-- Circular nodes -->
                     <g fill="#7c3aed">
-                        <circle cx="100"  cy="210" r="2.5" opacity="0.4"/>
-                        <circle cx="265"  cy="155" r="3.5" opacity="0.55"/>
-                        <circle cx="445"  cy="235" r="5.2" opacity="0.75"/>
-                        <circle cx="315"  cy="375" r="3"   opacity="0.45"/>
-                        <circle cx="645"  cy="175" r="4"   opacity="0.6"/>
-                        <circle cx="825"  cy="125" r="2.8" opacity="0.4"/>
-                        <circle cx="765"  cy="305" r="4.5" opacity="0.65"/>
-                        <circle cx="945"  cy="375" r="3.5" opacity="0.5"/>
-                        <circle cx="985"  cy="185" r="5.2" opacity="0.75"/>
-                        <circle cx="1085" cy="325" r="3.5" opacity="0.5"/>
-                        <circle cx="1165" cy="145" r="3.8" opacity="0.55"/>
-                        <circle cx="1305" cy="275" r="4.5" opacity="0.6"/>
-                        <circle cx="585"  cy="415" r="2.8" opacity="0.4"/>
-                        <circle cx="100"  cy="460" r="2.2" opacity="0.35"/>
-                        <circle cx="1385" cy="440" r="2.8" opacity="0.4"/>
-                        <circle cx="1385" cy="195" r="3"   opacity="0.45"/>
+                        <circle cx="100"  cy="210" r="5.5" opacity="0.35"/>
+                        <circle cx="265"  cy="155" r="6.5" opacity="0.45"/>
+                        <circle cx="445"  cy="235" r="8.5" opacity="0.60"/>
+                        <circle cx="315"  cy="375" r="5.5" opacity="0.38"/>
+                        <circle cx="645"  cy="175" r="6.5" opacity="0.48"/>
+                        <circle cx="825"  cy="125" r="5.5" opacity="0.34"/>
+                        <circle cx="762"  cy="302" r="8"   opacity="0.55"/>
+                        <circle cx="945"  cy="375" r="5.5" opacity="0.38"/>
+                        <circle cx="985"  cy="185" r="8.5" opacity="0.60"/>
+                        <circle cx="1082" cy="322" r="6.5" opacity="0.45"/>
+                        <circle cx="1165" cy="145" r="6"   opacity="0.46"/>
+                        <circle cx="1305" cy="275" r="7"   opacity="0.48"/>
+                        <circle cx="585"  cy="415" r="5"   opacity="0.36"/>
+                        <circle cx="90"   cy="455" r="5"   opacity="0.32"/>
+                        <circle cx="1385" cy="195" r="5"   opacity="0.35"/>
+                        <circle cx="1385" cy="440" r="4.5" opacity="0.30"/>
                     </g>
 
-                    <!-- Animated pulse rings on 3 hub nodes -->
+                    <!-- Pulse rings on hub nodes C(445,235), G(762,302), I(985,185) -->
                     <g fill="none" stroke="#7c3aed" stroke-width="1.2">
-                        <circle cx="445" cy="235" r="5">
-                            <animate attributeName="r"       values="5;24"    dur="3.5s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.55;0"  dur="3.5s" repeatCount="indefinite"/>
+                        <circle cx="445" cy="235" r="9">
+                            <animate attributeName="r"       values="9;27"   dur="3.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.45;0" dur="3.5s" repeatCount="indefinite"/>
                         </circle>
-                        <circle cx="985" cy="185" r="5">
-                            <animate attributeName="r"       values="5;24"    dur="3.5s" begin="1.2s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.55;0"  dur="3.5s" begin="1.2s" repeatCount="indefinite"/>
+                        <circle cx="985" cy="185" r="9">
+                            <animate attributeName="r"       values="9;27"   dur="3.5s" begin="1.2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.45;0" dur="3.5s" begin="1.2s" repeatCount="indefinite"/>
                         </circle>
-                        <circle cx="765" cy="305" r="5">
-                            <animate attributeName="r"       values="5;24"    dur="3.5s" begin="2.4s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.55;0"  dur="3.5s" begin="2.4s" repeatCount="indefinite"/>
+                        <circle cx="762" cy="302" r="9">
+                            <animate attributeName="r"       values="9;27"   dur="3.5s" begin="2.4s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.45;0" dur="3.5s" begin="2.4s" repeatCount="indefinite"/>
                         </circle>
                     </g>
 
-                    <!-- Music note 1 — lower left, quarter note -->
-                    <g opacity="0.13" fill="#7c3aed" stroke="none">
-                        <ellipse cx="185" cy="505" rx="9"  ry="6.5" transform="rotate(-20 185 505)"/>
-                        <line   x1="193" y1="503" x2="193" y2="460" stroke="#7c3aed" stroke-width="2" fill="none"/>
-                    </g>
-
-                    <!-- Music note 2 — upper right, eighth note (with flag) -->
-                    <g opacity="0.12" fill="#7c3aed" stroke="none">
-                        <ellipse cx="1258" cy="118" rx="12" ry="8"  transform="rotate(-20 1258 118)"/>
-                        <line   x1="1269"  y1="115" x2="1269" y2="58" stroke="#7c3aed" stroke-width="2.5" fill="none"/>
-                        <path   d="M1269,58 Q1292,72 1280,91" stroke="#7c3aed" stroke-width="2.5" fill="none"/>
-                    </g>
-
-                    <!-- Music note 3 — mid left, beamed eighth-note pair -->
-                    <g opacity="0.10" fill="#7c3aed">
-                        <ellipse cx="58"  cy="348" rx="8" ry="5.5" transform="rotate(-20 58 348)"/>
-                        <line   x1="65.5" y1="346" x2="65.5" y2="298" stroke="#7c3aed" stroke-width="2" fill="none"/>
-                        <ellipse cx="93"  cy="336" rx="8" ry="5.5" transform="rotate(-20 93 336)"/>
-                        <line   x1="100.5" y1="334" x2="100.5" y2="286" stroke="#7c3aed" stroke-width="2" fill="none"/>
-                        <!-- beam -->
-                        <polygon points="65.5,298 67.5,298 102.5,286 100.5,286"/>
-                    </g>
-
-                    <!-- Music note 4 — right edge, quarter note -->
-                    <g opacity="0.11" fill="#7c3aed">
-                        <ellipse cx="1392" cy="338" rx="9"   ry="6"   transform="rotate(-20 1392 338)"/>
-                        <line   x1="1400"  y1="336" x2="1400" y2="292" stroke="#7c3aed" stroke-width="2" fill="none"/>
-                    </g>
-
-                    <!-- Sine / soundwave — left edge -->
-                    <path d="M0,335 C22,305 44,365 66,335 C88,305 110,365 132,335 C154,305 176,365 198,335 C220,305 242,365 264,335"
-                          stroke="#7c3aed" stroke-width="1.2" fill="none" opacity="0.07"/>
-
-                    <!-- Sine / soundwave — right -->
-                    <path d="M1176,215 C1198,185 1220,245 1242,215 C1264,185 1286,245 1308,215 C1330,185 1352,245 1374,215 C1396,185 1418,245 1440,215"
-                          stroke="#7c3aed" stroke-width="1.2" fill="none" opacity="0.07"/>
-
-                    <!-- EQ / frequency bars — bottom left -->
-                    <g fill="#7c3aed" opacity="0.08">
-                        <rect x="28"  y="620" width="5" height="20" rx="1"/>
-                        <rect x="40"  y="608" width="5" height="32" rx="1"/>
-                        <rect x="52"  y="600" width="5" height="40" rx="1"/>
-                        <rect x="64"  y="594" width="5" height="46" rx="1"/>
-                        <rect x="76"  y="612" width="5" height="28" rx="1"/>
-                        <rect x="88"  y="604" width="5" height="36" rx="1"/>
-                        <rect x="100" y="622" width="5" height="18" rx="1"/>
-                        <rect x="112" y="607" width="5" height="33" rx="1"/>
-                        <rect x="124" y="591" width="5" height="49" rx="1"/>
-                        <rect x="136" y="615" width="5" height="25" rx="1"/>
-                        <rect x="148" y="601" width="5" height="39" rx="1"/>
-                    </g>
-
-                    <!-- EQ / frequency bars — bottom right -->
-                    <g fill="#7c3aed" opacity="0.08">
-                        <rect x="1263" y="622" width="5" height="18" rx="1"/>
-                        <rect x="1275" y="607" width="5" height="33" rx="1"/>
-                        <rect x="1287" y="594" width="5" height="46" rx="1"/>
-                        <rect x="1299" y="601" width="5" height="39" rx="1"/>
-                        <rect x="1311" y="591" width="5" height="49" rx="1"/>
-                        <rect x="1323" y="604" width="5" height="36" rx="1"/>
-                        <rect x="1335" y="615" width="5" height="25" rx="1"/>
-                        <rect x="1347" y="607" width="5" height="33" rx="1"/>
-                        <rect x="1359" y="620" width="5" height="20" rx="1"/>
-                        <rect x="1371" y="612" width="5" height="28" rx="1"/>
-                        <rect x="1383" y="601" width="5" height="39" rx="1"/>
+                    <!-- Audio waveform — 13 parallel sine curves with envelope amplitude -->
+                    <!-- Period=180px, 8 cycles across 1440. Centre y≈567, band y=537–597 -->
+                    <g stroke="#7c3aed" fill="none" opacity="0.09">
+                        <path stroke-width="0.8" d="M0,537 C45,533 135,533 180,537 C225,541 315,541 360,537 C405,533 495,533 540,537 C585,541 675,541 720,537 C765,533 855,533 900,537 C945,541 1035,541 1080,537 C1125,533 1215,533 1260,537 C1305,541 1395,541 1440,537"/>
+                        <path stroke-width="0.9" d="M0,542 C45,535 135,535 180,542 C225,549 315,549 360,542 C405,535 495,535 540,542 C585,549 675,549 720,542 C765,535 855,535 900,542 C945,549 1035,549 1080,542 C1125,535 1215,535 1260,542 C1305,549 1395,549 1440,542"/>
+                        <path stroke-width="1"   d="M0,547 C45,537 135,537 180,547 C225,557 315,557 360,547 C405,537 495,537 540,547 C585,557 675,557 720,547 C765,537 855,537 900,547 C945,557 1035,557 1080,547 C1125,537 1215,537 1260,547 C1305,557 1395,557 1440,547"/>
+                        <path stroke-width="1"   d="M0,552 C45,540 135,540 180,552 C225,564 315,564 360,552 C405,540 495,540 540,552 C585,564 675,564 720,552 C765,540 855,540 900,552 C945,564 1035,564 1080,552 C1125,540 1215,540 1260,552 C1305,564 1395,564 1440,552"/>
+                        <path stroke-width="1.1" d="M0,557 C45,543 135,543 180,557 C225,571 315,571 360,557 C405,543 495,543 540,557 C585,571 675,571 720,557 C765,543 855,543 900,557 C945,571 1035,571 1080,557 C1125,543 1215,543 1260,557 C1305,571 1395,571 1440,557"/>
+                        <path stroke-width="1.2" d="M0,562 C45,547 135,547 180,562 C225,577 315,577 360,562 C405,547 495,547 540,562 C585,577 675,577 720,562 C765,547 855,547 900,562 C945,577 1035,577 1080,562 C1125,547 1215,547 1260,562 C1305,577 1395,577 1440,562"/>
+                        <path stroke-width="1.3" d="M0,567 C45,552 135,552 180,567 C225,582 315,582 360,567 C405,552 495,552 540,567 C585,582 675,582 720,567 C765,552 855,552 900,567 C945,582 1035,582 1080,567 C1125,552 1215,552 1260,567 C1305,582 1395,582 1440,567"/>
+                        <path stroke-width="1.3" d="M0,572 C45,557 135,557 180,572 C225,587 315,587 360,572 C405,557 495,557 540,572 C585,587 675,587 720,572 C765,557 855,557 900,572 C945,587 1035,587 1080,572 C1125,557 1215,557 1260,572 C1305,587 1395,587 1440,572"/>
+                        <path stroke-width="1.2" d="M0,577 C45,563 135,563 180,577 C225,591 315,591 360,577 C405,563 495,563 540,577 C585,591 675,591 720,577 C765,563 855,563 900,577 C945,591 1035,591 1080,577 C1125,563 1215,563 1260,577 C1305,591 1395,591 1440,577"/>
+                        <path stroke-width="1.1" d="M0,582 C45,570 135,570 180,582 C225,594 315,594 360,582 C405,570 495,570 540,582 C585,594 675,594 720,582 C765,570 855,570 900,582 C945,594 1035,594 1080,582 C1125,570 1215,570 1260,582 C1305,594 1395,594 1440,582"/>
+                        <path stroke-width="1"   d="M0,587 C45,577 135,577 180,587 C225,597 315,597 360,587 C405,577 495,577 540,587 C585,597 675,597 720,587 C765,577 855,577 900,587 C945,597 1035,597 1080,587 C1125,577 1215,577 1260,587 C1305,597 1395,597 1440,587"/>
+                        <path stroke-width="0.9" d="M0,592 C45,585 135,585 180,592 C225,599 315,599 360,592 C405,585 495,585 540,592 C585,599 675,599 720,592 C765,585 855,585 900,592 C945,599 1035,599 1080,592 C1125,585 1215,585 1260,592 C1305,599 1395,599 1440,592"/>
+                        <path stroke-width="0.8" d="M0,597 C45,593 135,593 180,597 C225,601 315,601 360,597 C405,593 495,593 540,597 C585,601 675,601 720,597 C765,593 855,593 900,597 C945,601 1035,601 1080,597 C1125,593 1215,593 1260,597 C1305,601 1395,601 1440,597"/>
                     </g>
                 </svg>
             </div>
