@@ -13,13 +13,9 @@
                     <h1 class="mb-1 font-medium text-6xl">Notice to all songwriters</h1>
                     <h2 class="text-3xl my-4">Lyrics and users under review</h2>
                     <div class="text-lg">
-                        <p class="my-2">SongwriterLink was setup originally to help songwriters and lyricists sell their lyrics in a simple and 
-                        affordable manner. We only accept original lyrics written by the person uploading them. However, we have recently found out 
-                        that many of the lyric submissions uploaded have been copied directly and illegally from another web platform. Therefore, 
-                        SongwriterLink is currently unavailable whilst we do a thorough internal review.</p>
-                        <p class="my-2">
-                        We take matters of copyright infringement very seriously and we will ban and report any users trying to pass other people's work as their own.
-                        </p>
+                        <p class="my-2">SongwriterLink was set up originally to help songwriters and lyricists sell their lyrics in a simple and affordable manner. We only accept original lyrics written by the person uploading them. This is a mandatory requirement and all users must confirm ownership before uploading their lyrics.</p>
+                        <p class="my-2">However, we have recently become aware of possible infringements occuring. We have therefore taken the tough but necessary decision to suspend all access to SongwriterLink . This is to protect our users and allow us to investigate this matter further. Any infringement of copyright found will be removed immediately and the user banned from using Songwriting Link.</p>
+                        <p class="my-2">We sincerely apologise for any inconvenience this will cause.</p>
                     </div>
                 </div>
                 <div
