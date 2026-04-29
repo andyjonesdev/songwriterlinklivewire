@@ -137,31 +137,31 @@ echo json_encode([
                     </div>
                 @else
                     @if ($lyric->price==20)
-                    <a
+                    <!-- <a
                         href="https://buy.stripe.com/cNicMY5Rk5DA4Uz9Uybo403?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
                         class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white"
                     >
                         Buy Now
-                    </a>
+                    </a> -->
                     @endif
                     @if ($lyric->price==40)
-                    <a
+                    <!-- <a
                         href="https://buy.stripe.com/7sYcMYbbE2rodr5giWbo404?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
                         class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white"
                     >
                         Buy Now
-                    </a>
+                    </a> -->
                     @endif
                     @if ($lyric->price==60)
-                    <a
+                    <!-- <a
                         href="https://buy.stripe.com/fZudR20x00jg72Hc2Gbo405?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
                         class="rounded-sm bg-[#e8363c] px-5 py-2 my-4 text-lg leading-normal text-white"
                     >
                         Buy Now
-                    </a>
+                    </a> -->
                     @endif
-                <a href="https://buy.stripe.com/9B6cMYfrU2ro5YDeaObo402?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
-                class="hidden">Buy Test</a>
+                <!-- <a href="https://buy.stripe.com/9B6cMYfrU2ro5YDeaObo402?prefilled_email={{ auth()->user()->email }}&client_reference_id=lyric-{{ auth()->id() }}-{{ $lyric->id }}"
+                class="hidden">Buy Test</a> -->
                 @endguest
 
 
