@@ -1,7 +1,5 @@
-<x-layouts.app :title="'Messages — ' . ($other?->profile?->display_name ?? $other?->name ?? 'Conversation')">
-
-    {{-- Poll for new messages every 5s --}}
-    <div wire:poll.5s="loadMessages" class="mx-auto flex max-w-2xl flex-col" style="height: calc(100vh - 140px)">
+{{-- Poll for new messages every 5s --}}
+<div wire:poll.5s="loadMessages" class="mx-auto flex max-w-2xl flex-col" style="height: calc(100vh - 140px)">
 
         {{-- Header --}}
         <div class="mb-4 flex items-center gap-3">
@@ -97,5 +95,4 @@
                 Messages are monitored for spam. Do not share payment details on-platform.
             </p>
         @endif
-    </div>
-</x-layouts.app>
+</div>

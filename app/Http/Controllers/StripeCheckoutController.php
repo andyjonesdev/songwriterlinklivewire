@@ -96,23 +96,33 @@ class StripeCheckoutController extends Controller
 
     public function startSubscription(Request $request)
     {
-        $plan = $request->query('plan');
-        $term = $request->query('term');
+        $plan   = $request->query('plan');
+        $term   = $request->query('term');
+        $source = $request->query('source', 'onboarding'); // 'onboarding' | 'settings'
 
         if (! isset(self::PRICES[$plan][$term])) {
-            return redirect()->route('onboarding.step', 8)
-                ->with('error', 'Invalid plan or term selected.');
+            $cancelRoute = $source === 'settings'
+                ? route('settings.subscription')
+                : route('onboarding.step', 8);
+            return redirect($cancelRoute)->with('error', 'Invalid plan or term selected.');
         }
 
         $user = auth()->user();
 
-        // Already on an active paid plan — skip ahead
-        if ($user->isPro() && $user->subscription_tier !== 'free') {
+        // Already on an active paid plan — skip ahead (onboarding only)
+        if ($user->isPro() && $source === 'onboarding') {
             $this->advanceIfNeeded($user, 9);
             return redirect()->route('onboarding.step', 9);
         }
 
         $price = self::PRICES[$plan][$term];
+
+        $successUrl = route('checkout.subscription.return')
+            . '?session_id={CHECKOUT_SESSION_ID}&source=' . $source;
+
+        $cancelUrl = $source === 'settings'
+            ? route('settings.subscription')
+            : route('onboarding.step', 8);
 
         $stripe  = new StripeClient(config('services.stripe.secret'));
         $session = $stripe->checkout->sessions->create([
@@ -131,9 +141,10 @@ class StripeCheckoutController extends Controller
                 'type'    => 'subscription',
                 'plan'    => $plan,
                 'term'    => $term,
+                'source'  => $source,
             ],
-            'success_url' => route('checkout.subscription.return') . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url'  => route('onboarding.step', 8),
+            'success_url' => $successUrl,
+            'cancel_url'  => $cancelUrl,
         ]);
 
         return redirect($session->url);
@@ -143,24 +154,32 @@ class StripeCheckoutController extends Controller
     {
         $user      = auth()->user();
         $sessionId = $request->query('session_id');
+        $source    = $request->query('source', 'onboarding');
+
+        $isSettings = $source === 'settings';
 
         // Already handled (e.g. webhook beat us to it)
-        if ($user->isPro() && $user->onboarding_step >= 9) {
+        if ($user->isPro()) {
+            if ($isSettings) {
+                return redirect()->route('settings.subscription')
+                    ->with('status', 'Your subscription is now active!');
+            }
+            $this->advanceIfNeeded($user, 9);
             return redirect()->route('onboarding.step', 9)
                 ->with('status', 'Subscription activated — you\'re all set!');
         }
 
+        $errorRoute = $isSettings ? route('settings.subscription') : route('onboarding.step', 8);
+
         if (! $sessionId) {
-            return redirect()->route('onboarding.step', 8)
-                ->with('error', 'Payment session not found. Please try again.');
+            return redirect($errorRoute)->with('error', 'Payment session not found. Please try again.');
         }
 
         try {
             $stripe  = new StripeClient(config('services.stripe.secret'));
             $session = $stripe->checkout->sessions->retrieve($sessionId);
         } catch (\Exception $e) {
-            return redirect()->route('onboarding.step', 8)
-                ->with('error', 'Could not verify payment. Please contact support.');
+            return redirect($errorRoute)->with('error', 'Could not verify payment. Please contact support.');
         }
 
         if ($session->payment_status === 'paid' && (string) $session->metadata->user_id === (string) $user->id) {
@@ -170,12 +189,16 @@ class StripeCheckoutController extends Controller
                 $session->metadata->term,
                 $session->id
             );
+
+            if ($isSettings) {
+                return redirect()->route('settings.subscription')
+                    ->with('status', 'Subscription upgraded — enjoy your new plan!');
+            }
             return redirect()->route('onboarding.step', 9)
                 ->with('status', 'Subscription activated — welcome to SongwriterLink!');
         }
 
-        return redirect()->route('onboarding.step', 8)
-            ->with('error', 'Payment was not completed. Please try again.');
+        return redirect($errorRoute)->with('error', 'Payment was not completed. Please try again.');
     }
 
     // ── Webhook handler (production belt-and-braces) ──────────────────────────

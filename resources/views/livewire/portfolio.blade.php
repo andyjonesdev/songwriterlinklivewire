@@ -1,5 +1,4 @@
-<x-layouts.app title="My Portfolio">
-    <div class="mx-auto max-w-2xl space-y-6">
+<div class="mx-auto max-w-2xl space-y-6">
 
         {{-- Header --}}
         <div class="flex items-center justify-between">
@@ -188,5 +187,4 @@
                 <p class="text-xs text-zinc-400">Upload audio tracks or lyrics sheets to showcase your work.</p>
             </div>
         @endif
-    </div>
-</x-layouts.app>
+</div>

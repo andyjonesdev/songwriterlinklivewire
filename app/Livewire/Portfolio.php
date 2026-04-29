@@ -9,7 +9,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('components.layouts.app')]
+#[Layout('components.layouts.app', ['title' => 'My Portfolio'])]
 class Portfolio extends Component
 {
     use WithFileUploads;

@@ -14,6 +14,7 @@
             @php
                 // Unread message count for sidebar badge
                 $unreadCount = 0;
+                $unreadNotifCount = 0;
                 if (auth()->check()) {
                     $userId = auth()->id();
                     $unreadCount = auth()->user()->conversations()
@@ -26,6 +27,7 @@
                             return $lastRead === null || $latest->created_at->gt(\Carbon\Carbon::parse($lastRead));
                         })
                         ->count();
+                    $unreadNotifCount = auth()->user()->unreadNotifications()->count();
                 }
             @endphp
 
@@ -47,9 +49,35 @@
                             @endif
                         </div>
                     </flux:navlist.item>
-                    <flux:navlist.item icon="document-text" :href="route('briefs.index')" :current="request()->routeIs('briefs.*')" wire:navigate>
+                    <flux:navlist.item icon="bell" :href="route('notifications')" :current="request()->routeIs('notifications')" wire:navigate>
+                        <div class="flex items-center justify-between w-full">
+                            <span>{{ __('Notifications') }}</span>
+                            @if($unreadNotifCount > 0)
+                                <span class="flex h-5 min-w-5 items-center justify-center rounded-full bg-violet-600 px-1 text-[10px] font-bold text-white">
+                                    {{ $unreadNotifCount > 99 ? '99+' : $unreadNotifCount }}
+                                </span>
+                            @endif
+                        </div>
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="document-text" :href="route('briefs.index')" :current="request()->routeIs('briefs.index')" wire:navigate>
                         {{ __('Brief Board') }}
                     </flux:navlist.item>
+                    @if(auth()->user()->isPro())
+                        <flux:navlist.item icon="clipboard-document-list" :href="route('briefs.mine')" :current="request()->routeIs('briefs.mine')" wire:navigate>
+                            {{ __('My Briefs') }}
+                        </flux:navlist.item>
+                    @endif
+                    @if(auth()->user()->isProPlus())
+                        <flux:navlist.item icon="chart-bar" :href="route('analytics')" :current="request()->routeIs('analytics')" wire:navigate>
+                            {{ __('Analytics') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="document-chart-bar" :href="route('credits.index')" :current="request()->routeIs('credits.*')" wire:navigate>
+                            {{ __('Credits / CV') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="document-duplicate" :href="route('split-sheet.index')" :current="request()->routeIs('split-sheet.*')" wire:navigate>
+                            {{ __('Split Sheet') }}
+                        </flux:navlist.item>
+                    @endif
                     @if(auth()->user()->profile)
                         <flux:navlist.item icon="user-circle" :href="route('profile.show', auth()->user()->profile)" :current="request()->routeIs('profile.show')" wire:navigate>
                             {{ __('My Profile') }}
@@ -107,6 +135,7 @@
 
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.subscription')" icon="credit-card" wire:navigate>{{ __('Subscription') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -140,7 +169,9 @@
             </flux:dropdown>
         </flux:header>
 
-        {{ $slot }}
+        <flux:main>
+            {{ $slot }}
+        </flux:main>
 
         @fluxScripts
     </body>

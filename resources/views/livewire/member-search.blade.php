@@ -1,5 +1,4 @@
-<x-layouts.app title="Members">
-    <div class="space-y-6">
+<div class="space-y-6">
 
         {{-- Page header --}}
         <div class="flex items-center justify-between">
@@ -143,5 +142,4 @@
                 @endif
             </div>
         @endif
-    </div>
-</x-layouts.app>
+</div>

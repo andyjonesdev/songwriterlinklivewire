@@ -1,5 +1,4 @@
-<x-layouts.app title="Messages">
-    <div class="mx-auto max-w-2xl space-y-6">
+<div class="mx-auto max-w-2xl space-y-6">
 
         <div class="flex items-center justify-between">
             <h1 class="text-2xl font-bold text-zinc-900">Messages</h1>
@@ -63,5 +62,4 @@
                 @endforeach
             </div>
         @endif
-    </div>
-</x-layouts.app>
+</div>

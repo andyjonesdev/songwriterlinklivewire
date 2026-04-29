@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Credits CV — {{ $profile?->display_name ?? $user->name }}</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-size: 11px;
+            color: #18181b;
+            line-height: 1.5;
+            padding: 40px 48px;
+        }
+        .header {
+            border-bottom: 2px solid #7c3aed;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #18181b;
+        }
+        .header .subtitle {
+            font-size: 13px;
+            color: #7c3aed;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .meta {
+            margin-top: 8px;
+            font-size: 10px;
+            color: #71717a;
+        }
+        .bio {
+            margin-bottom: 24px;
+            font-size: 11px;
+            color: #3f3f46;
+            max-width: 560px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7c3aed;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e4e4e7;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead tr {
+            background: #f4f4f5;
+        }
+        thead th {
+            text-align: left;
+            padding: 6px 8px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #52525b;
+        }
+        tbody tr {
+            border-bottom: 1px solid #f4f4f5;
+        }
+        tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+        tbody td {
+            padding: 7px 8px;
+            vertical-align: top;
+        }
+        .credit-title {
+            font-weight: 600;
+            color: #18181b;
+        }
+        .credit-meta {
+            font-size: 10px;
+            color: #71717a;
+            margin-top: 1px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 600;
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+        .footer {
+            margin-top: 36px;
+            padding-top: 12px;
+            border-top: 1px solid #e4e4e7;
+            font-size: 9px;
+            color: #a1a1aa;
+        }
+        .no-credits {
+            font-style: italic;
+            color: #a1a1aa;
+            padding: 12px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>{{ $profile?->display_name ?? $user->name }}</h1>
+        @if($profile?->role)
+            <div class="subtitle">{{ ucfirst($profile->role) }}</div>
+        @endif
+        <div class="meta">
+            @if($profile?->location){{ $profile->location }} &nbsp;·&nbsp;@endif
+            {{ $user->email }}
+            @if($profile?->slug)
+                &nbsp;·&nbsp; songwriterlink.com/members/{{ $profile->slug }}
+            @endif
+        </div>
+    </div>
+
+    @if($profile?->bio)
+        <p class="bio">{{ $profile->bio }}</p>
+    @endif
+
+    <div class="section-title">Writing Credits</div>
+
+    @if($credits->isEmpty())
+        <p class="no-credits">No credits added yet.</p>
+    @else
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:30%">Title</th>
+                    <th style="width:20%">Role</th>
+                    <th style="width:18%">Artist / Project</th>
+                    <th style="width:8%">Year</th>
+                    <th style="width:18%">Label</th>
+                    <th style="width:6%">ISRC</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($credits as $credit)
+                    <tr>
+                        <td>
+                            <div class="credit-title">{{ $credit->title }}</div>
+                            @if($credit->description)
+                                <div class="credit-meta">{{ $credit->description }}</div>
+                            @endif
+                        </td>
+                        <td><span class="badge">{{ $credit->role }}</span></td>
+                        <td class="credit-meta">{{ $credit->artist ?? '—' }}</td>
+                        <td class="credit-meta">{{ $credit->year ?? '—' }}</td>
+                        <td class="credit-meta">{{ $credit->label ?? '—' }}</td>
+                        <td class="credit-meta" style="font-size:9px">{{ $credit->isrc ?? '—' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+
+    <div class="footer">
+        Generated by SongwriterLink &nbsp;·&nbsp; {{ now()->format('d M Y') }}
+        &nbsp;·&nbsp; songwriterlink.com
+        &nbsp;·&nbsp; ID-verified professional profile
+    </div>
+
+</body>
+</html>

@@ -5,10 +5,8 @@ namespace App\Livewire\Messages;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\VerificationLog;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.app')]
 class Thread extends Component
 {
     public int    $conversationId;
@@ -105,6 +103,9 @@ class Thread extends Component
 
         $other = $conversation->participants->firstWhere('id', '!=', auth()->id());
 
-        return view('livewire.messages.thread', compact('conversation', 'messages', 'other'));
+        $title = 'Messages — ' . ($other?->profile?->display_name ?? $other?->name ?? 'Conversation');
+
+        return view('livewire.messages.thread', compact('conversation', 'messages', 'other'))
+            ->layout('components.layouts.app', ['title' => $title]);
     }
 }

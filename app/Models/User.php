@@ -27,7 +27,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'id_verification_status',
         'stripe_identity_session_id',
         'producer_verified',
+        'producer_badge_status',
+        'producer_credit_url',
         'publisher_verified',
+        'publisher_badge_status',
+        'publisher_company_number',
+        'publisher_verified_domain',
+        'bio_ai_flagged',
         'joining_fee_paid',
         'joining_fee_paid_at',
         'status',
@@ -120,6 +126,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function promotedProfiles()
     {
         return $this->hasMany(PromotedProfile::class);
+    }
+
+    public function credits()
+    {
+        return $this->hasMany(\App\Models\Credit::class);
     }
 
     // Helpers

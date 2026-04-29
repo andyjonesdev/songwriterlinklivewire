@@ -5,7 +5,7 @@ namespace App\Livewire\Messages;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.app')]
+#[Layout('components.layouts.app', ['title' => 'Messages'])]
 class Inbox extends Component
 {
     public function render()

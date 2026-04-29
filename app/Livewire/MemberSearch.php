@@ -8,7 +8,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.app')]
+#[Layout('components.layouts.app', ['title' => 'Members'])]
 class MemberSearch extends Component
 {
     use WithPagination;

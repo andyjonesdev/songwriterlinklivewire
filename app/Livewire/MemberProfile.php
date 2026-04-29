@@ -6,10 +6,10 @@ use App\Models\Connection;
 use App\Models\Conversation;
 use App\Models\PortfolioItem;
 use App\Models\Profile;
-use Livewire\Attributes\Layout;
+use App\Notifications\ConnectionAccepted;
+use App\Notifications\NewConnectionRequest;
 use Livewire\Component;
 
-#[Layout('components.layouts.app')]
 class MemberProfile extends Component
 {
     public Profile $profile;
@@ -24,6 +24,13 @@ class MemberProfile extends Component
         // Increment view count (not counted for own profile)
         if (! auth()->check() || auth()->id() !== $profile->user_id) {
             $profile->increment('views_count');
+
+            // Daily log for analytics sparkline
+            \DB::table('profile_view_logs')->upsert(
+                ['profile_id' => $profile->id, 'viewed_on' => today()->toDateString(), 'view_count' => 1],
+                ['profile_id', 'viewed_on'],
+                ['view_count' => \DB::raw('view_count + 1')],
+            );
         }
 
         $this->refreshConnectionStatus();
@@ -84,6 +91,8 @@ class MemberProfile extends Component
                 'recipient_id' => $profileId,
                 'status'       => 'pending',
             ]);
+
+            $this->profile->user?->notify(new NewConnectionRequest(auth()->user()));
         }
 
         $this->refreshConnectionStatus();
@@ -101,6 +110,8 @@ class MemberProfile extends Component
         // Update connection counts on both profiles
         $this->profile->increment('connections_count');
         auth()->user()->profile?->increment('connections_count');
+
+        $this->profile->user?->notify(new ConnectionAccepted(auth()->user()));
 
         $this->refreshConnectionStatus();
     }
@@ -177,6 +188,7 @@ class MemberProfile extends Component
             || $this->connectionStatus === 'connected'
         );
 
-        return view('livewire.member-profile', compact('portfolioItems', 'canSeeSocialLinks'));
+        return view('livewire.member-profile', compact('portfolioItems', 'canSeeSocialLinks'))
+            ->layout('components.layouts.app', ['title' => $this->profile->display_name]);
     }
 }

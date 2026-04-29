@@ -1,5 +1,52 @@
-<x-layouts.app :title="$profile->display_name">
-    <div class="mx-auto max-w-3xl space-y-6">
+<div class="mx-auto max-w-3xl space-y-6">
+
+    @push('meta')
+        @php
+            $ogTitle       = $profile->display_name . ' — SongwriterLink';
+            $userRole      = $profile->user->role ?? null;
+            $ogDescription = $profile->bio
+                ? \Illuminate\Support\Str::limit(strip_tags($profile->bio), 160)
+                : ($userRole
+                    ? ucfirst($userRole) . ' on SongwriterLink — The verified professional network for songwriters, composers and producers.'
+                    : 'SongwriterLink — The verified professional network for songwriters, composers and producers.');
+            $ogImage = $profile->profile_photo_path
+                ? \Illuminate\Support\Facades\Storage::url($profile->profile_photo_path)
+                : null;
+
+            // Build JSON-LD in PHP to avoid @if inside <script> blocks
+            $jsonLd = [
+                '@context'    => 'https://schema.org',
+                '@type'       => 'Person',
+                'name'        => $profile->display_name,
+                'url'         => url()->current(),
+                'jobTitle'    => ucfirst($userRole ?? ''),
+                'description' => $ogDescription,
+            ];
+            if ($ogImage) {
+                $jsonLd['image'] = $ogImage;
+            }
+            if (!empty($profile->location)) {
+                $jsonLd['address'] = [
+                    '@type'           => 'PostalAddress',
+                    'addressLocality' => $profile->location,
+                ];
+            }
+        @endphp
+        <meta name="description"         content="{{ $ogDescription }}" />
+        <meta property="og:title"        content="{{ $ogTitle }}" />
+        <meta property="og:description"  content="{{ $ogDescription }}" />
+        <meta property="og:type"         content="profile" />
+        @if($ogImage)
+            <meta property="og:image"  content="{{ $ogImage }}" />
+            <meta name="twitter:card"  content="summary_large_image" />
+            <meta name="twitter:image" content="{{ $ogImage }}" />
+        @else
+            <meta name="twitter:card"  content="summary" />
+        @endif
+        <meta name="twitter:title"       content="{{ $ogTitle }}" />
+        <meta name="twitter:description" content="{{ $ogDescription }}" />
+        <script type="application/ld+json">{!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @endpush
 
         @if(session('error'))
             <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{{ session('error') }}</div>
@@ -108,6 +155,10 @@
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                                     Message
                                 </button>
+                            </div>
+                            {{-- Report --}}
+                            <div class="mt-2">
+                                <livewire:report-user :reported-user-id="$profile->user_id" :key="'report-'.$profile->user_id" />
                             </div>
                         @else
                             {{-- Own profile: edit links --}}
@@ -235,5 +286,4 @@
             </div>
         @endif
 
-    </div>
-</x-layouts.app>
+</div>
